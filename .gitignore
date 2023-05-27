@@ -3,5 +3,10 @@
 .RData
 .Ruserdata
 
+DataViz-workshop.Rproj
+
 .DS_Store
 misc/
+
+slides/
+

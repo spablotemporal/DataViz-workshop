@@ -11,7 +11,7 @@ output:
 library(kableExtra)
 ```
 
-Data visualization ...
+In this workshop you will learn teh basics of data visualization. We will be using R and the library `ggplot2` to explore different appraoches for communicating 
 
 <!-- La visualización de datos forma parte escencial de la comunicación en la ciencia. Con los avances tecnológicos en la recolección y disponibilidad de la información, las bases de datos son cada vez más complejas en cuanto a su estructura. Las herramientas tradicionales de visualización de datos estática han sido efectivas para la comunicación de resultados en la ciencia, pero presentan algunas limitaciones al presentar análisis de bases de datos con estructuras jerárquicas espacio-temporales. Herramientas que permiten la interacción con el usuario son cada vez más comunes para ser usadas para la exploración y análisis de datos. El software estadístico R ha sido adoptado por analistas de datos e investigadores en diferentes áreas del conocimiento incluyendo, salud pública y epidemiología. En este curso se discutirán algunos conceptos en estrategias para el desarrollo de aplicaciones web que pueden ser usadas para explorar y presentar resultados con bases de datos complejas. Por medio de laboratorios prácticos, los instructores guían a los participantes para desarrollar sus propias aplicaciones y las puedan desplegar en servidores web con el objetivo de comunicar los resultados de análisis de la información. -->
 
@@ -36,9 +36,7 @@ Data visualization ...
 
 # Pre-workshop materials
 
-[REGISTRO AL ZOOM]()
-
-Hay 3 tutoriales que debes completar antes de empezar el curso, asegurate que tengas claro el contenido de los tutoriales para poder aprovechar mejor el tiempo durant el curso. Para cualquier duda en la instalacion del software, favor de contactar a los organizadores para poder ayudarte. Si tienes problemas para correr el codigo o preguntas sobre el material pre-curso, tendremos una sesion en el dia 0, la cual no es obligatoria, para aclarar dudas e ir sobre el material pre-curso. La idea de la sesion del dia 0 es que los participantes ya hayan leido previamente el material y solo aclarar dudas del material pre-curso. El material lo encontraras en el menu superior bajo la pestaña de *Pre workshop* o siguiendo los siguientes links:\
+Hay 2 tutoriales que debes completar antes de empezar el curso, asegurate que tengas claro el contenido de los tutoriales para poder aprovechar mejor el tiempo durant el curso. Para cualquier duda en la instalacion del software, favor de contactar a los organizadores para poder ayudarte. Si tienes problemas para correr el codigo o preguntas sobre el material pre-curso, tendremos una sesion en el dia 0, la cual no es obligatoria, para aclarar dudas e ir sobre el material pre-curso. La idea de la sesion del dia 0 es que los participantes ya hayan leido previamente el material y solo aclarar dudas del material pre-curso. El material lo encontraras en el menu superior bajo la pestaña de *Pre workshop* o siguiendo los siguientes links:\
 - [Requisitos](0a_Intro_req.html)\
 - [Intro to R](0b_Intro_to_R.html)
 
