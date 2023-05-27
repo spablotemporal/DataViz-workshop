@@ -22,7 +22,7 @@ En este curso aprenderas los basicos sobre visualizacion de datos. Usaremos R y 
 data.frame(
   Time = c('', '9:00-9:30', '9:30-10:30', '10:30-10:50', '10:50-12:00', '12:00-13:00', '13:00-14:00', '14:00-14:20', '14:20-15:00'),
   D01 = cell_spec(
-    c('Topic', 'Introduccion', 'Visualizacion de datos con ggplot', 'Break', 'Mas opciones de customizacion', 'Lunch', 'Arreglos de figuras', 'Break', 'Mas allá de visualizaciones estáticas'), 'html',
+    c('Topic', 'Introduccion al curso', 'Visualizacion de datos con ggplot', 'Break', 'Mas opciones de customizacion', 'Lunch', 'Arreglos de figuras', 'Break', 'Mas allá de visualizaciones estáticas'), 'html',
     link = c('', '', '', 'coffeeBreak.html', '', 'Lunch.html', '', 'coffeeBreak.html', '')
   )
 ) %>%
