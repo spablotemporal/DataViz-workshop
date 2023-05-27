@@ -15,20 +15,20 @@ navbar:
       href: 'https://www.spablo-temporal.network/DataViz-workshop/'
     - text: Español
       href: 'ES/index.html'
-  - text: Pre Workshop 
-    menu:
-    - text: Requisitos
-      href: '0a_Intro_req.html'
-    - text: Intro to R
-      href: '0b_Intro_to_R.html'
-    - text: Intro to Spatial data
-      href: '0c_Spatial_intro.html'
+  # - text: Pre Workshop 
+  #   menu:
+  #   - text: Requisitos
+  #     href: '0a_Intro_req.html'
+  #   - text: Intro to R
+  #     href: '0b_Intro_to_R.html'
+  #   - text: Intro to Spatial data
+  #     href: '0c_Spatial_intro.html'
   
   - text: Contact
     menu:
-    - icon: fa-users
-      text: Instructores
-      href: Instructores.html
+    # - icon: fa-users
+    #   text: Instructores
+    #   href: Instructores.html
     - icon: fa-envelope
       text: Email
       href: mailto:jpgo@ucdavis.edu
