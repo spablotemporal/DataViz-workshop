@@ -4,7 +4,9 @@ author: ""
 output: html_document
 ---
 
+<em>
 [Switch to English ![](img/flag_us.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/)
+</em>
 
 ```{r setup, include=FALSE}
 # Set the document options for chunks
@@ -14,7 +16,7 @@ library(dplyr); library(ggplot2); library(ggpubr)
 library(kableExtra)
 ```
 
-En este curso aprenderas los basicos sobre visualizacion de datos. Usaremos R y la libreria `ggplot2` para explorar differentes aproximaciones para comunicar resultados mediante apoyos visuales.
+En este curso aprenderas los basicos sobre visualizacion de datos. Usaremos R y la libreria `ggplot2` para explorar differentes aproximaciones para comunicar resultados mediante apoyos visuales. El objetivo de este curso es que al finalizar, los participantes puedan hacer sus propias figuras como este ejemplo:
 
 <center>
 ![](img/0_figArrangement.png){width="60%"}

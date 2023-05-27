@@ -5,7 +5,9 @@ output:
     df_print: paged
 ---
 
+<em>
 [Cambiar a español ![](img/flag_mx.gif){width="25"}](ES/index.html)
+</em>
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 library(kableExtra)
