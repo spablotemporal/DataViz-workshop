@@ -1,3 +1,4 @@
+# This is for the english version
 name: "spablotemporal"  
 author: "Jose Pablo Gomez-Vazquez"  
 output_dir: "."  
@@ -6,10 +7,14 @@ output:
     self_contained: no  
     theme: flatly  
 navbar:
-  title: CADMS
+  title: Home
   left:
-  - text: Home
-    href: index.html
+  - text: Idioma 
+    menu:
+    - text: English
+      href: 'https://www.spablo-temporal.network/DataViz-workshop/'
+    - text: Español
+      href: 'ES/index.html'
   - text: Pre Workshop 
     menu:
     - text: Requisitos

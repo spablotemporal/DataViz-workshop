@@ -5,40 +5,36 @@ output:
     df_print: paged
 ---
 
-[![](img/flag_mx.gif){width="25"}Cambiar a español](ES/index.html)
+[Cambiar a español ![](img/flag_mx.gif){width="25"}](ES/index.html)
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 library(kableExtra)
 ```
 
-# Informacion general
+Data visualization ...
 
-La visualización de datos forma parte escencial de la comunicación en la ciencia. Con los avances tecnológicos en la recolección y disponibilidad de la información, las bases de datos son cada vez más complejas en cuanto a su estructura. Las herramientas tradicionales de visualización de datos estática han sido efectivas para la comunicación de resultados en la ciencia, pero presentan algunas limitaciones al presentar análisis de bases de datos con estructuras jerárquicas espacio-temporales. Herramientas que permiten la interacción con el usuario son cada vez más comunes para ser usadas para la exploración y análisis de datos. El software estadístico R ha sido adoptado por analistas de datos e investigadores en diferentes áreas del conocimiento incluyendo, salud pública y epidemiología. En este curso se discutirán algunos conceptos en estrategias para el desarrollo de aplicaciones web que pueden ser usadas para explorar y presentar resultados con bases de datos complejas. Por medio de laboratorios prácticos, los instructores guían a los participantes para desarrollar sus propias aplicaciones y las puedan desplegar en servidores web con el objetivo de comunicar los resultados de análisis de la información.
-
-------------------------------------------------------------------------
-
-# Objetivos:
-
-Entender conceptos básicos de la organización de proyectos colaborativos con github y Rstudio Familiarizarse con el desarrollo de plataformas para visualización y análisis de datos interactivas.
+<!-- La visualización de datos forma parte escencial de la comunicación en la ciencia. Con los avances tecnológicos en la recolección y disponibilidad de la información, las bases de datos son cada vez más complejas en cuanto a su estructura. Las herramientas tradicionales de visualización de datos estática han sido efectivas para la comunicación de resultados en la ciencia, pero presentan algunas limitaciones al presentar análisis de bases de datos con estructuras jerárquicas espacio-temporales. Herramientas que permiten la interacción con el usuario son cada vez más comunes para ser usadas para la exploración y análisis de datos. El software estadístico R ha sido adoptado por analistas de datos e investigadores en diferentes áreas del conocimiento incluyendo, salud pública y epidemiología. En este curso se discutirán algunos conceptos en estrategias para el desarrollo de aplicaciones web que pueden ser usadas para explorar y presentar resultados con bases de datos complejas. Por medio de laboratorios prácticos, los instructores guían a los participantes para desarrollar sus propias aplicaciones y las puedan desplegar en servidores web con el objetivo de comunicar los resultados de análisis de la información. -->
 
 ------------------------------------------------------------------------
 
-# Audiencia y materiales
+# Objectives:
 
-## Audiencia:
 
-Los participantes deberán tener un entendimiento básico de la sintaxis de R y estadística. Se ofrecerá material pre-curso y una sesión para aclarar dudas de instalación y del material pre-curso.
+------------------------------------------------------------------------
 
-## Herramientas a utilizar:
 
--   Computadora personal
+# Who is this workshop for?
+
+
+# Requisites
+
+-   Computer
 -   [R](https://cloud.r-project.org)
 -   [Rstudio](https://www.rstudio.com/products/rstudio/)
--   [Cuenta de shiny](https://www.shinyapps.io)
 
 ------------------------------------------------------------------------
 
-# Material Pre-curso
+# Pre-workshop materials
 
 [REGISTRO AL ZOOM]()
 

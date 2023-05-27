@@ -6,10 +6,14 @@ output:
     self_contained: no  
     theme: flatly  
 navbar:
-  title: CADMS
+  title: HOME
   left:
-  - text: Home
-    href: index.html
+  - text: Idioma 
+    menu:
+    - text: English
+      href: '../index.html'
+    - text: Español
+      href: 'index.html'
   - text: Pre Workshop 
     menu:
     - text: Requisitos
