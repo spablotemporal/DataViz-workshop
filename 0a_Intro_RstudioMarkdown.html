@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Intro to R studio and Markdown</title>
+
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Idioma
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://www.spablo-temporal.network/DataViz-workshop/">English</a>
+    </li>
+    <li>
+      <a href="ES/index.html">Español</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Contact
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="mailto:jpgo@ucdavis.edu">
+        <span class="fa fa-envelope"></span>
+         
+        Email
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Intro to R studio and Markdown</h1>
+
+</div>
+
+
+<p>In this first section we are not going to worry at all about coding
+or the syntax used in R, we will focus on familiarizing with the Rstudio
+interface and what kind of files we can create with it.</p>
+<p>The goal of this lab is that, by the end, you feel more comfortable
+with the following concepts:</p>
+<ul>
+<li>Project organization.</li>
+<li>The main components of the Rstudio interface.</li>
+<li>Files you can create with Rstudio.</li>
+</ul>
+<div id="the-rstudio-interface" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> The Rstudio
+interface</h1>
+<p>When we start R studio, we can see 4 sections:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Source</strong> (top left), here we have our code editor and
+other files. We will use this section to edit and view our scripts and
+other documents we will be using to interact with R.</li>
+<li><strong>Console and Terminal</strong> (bottom left), this is where
+the code is executed (<em>Console</em> will execute R code and
+<em>Terminal</em> other code for your operating system). We can directly
+write the code here, but normally we will be using the other source
+files such as .R or .Rmd to write our code which then will be send
+here.<br />
+</li>
+<li><strong>Environment, History and others</strong> (top right),
+Environment will list all the objects you create and History will have
+the code you sent to the console. There are other tabs in this section
+which we wont be using for now.</li>
+<li><strong>Files, Packages and Help</strong> (bottom right). This
+section includes a file browser, and other tabs for package management
+and help.</li>
+</ol>
+<p><img src="img/I_a.png" style="width:100%" align="center"/></p>
+</div>
+<div id="organizing-your-projects" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Organizing your
+projects</h1>
+<p>One of the most useful features of R studio is the project
+organization, if you haven, I strongly encourage you to familiarize with
+creating and using projects to organize your workflow. Projects allow to
+create a file that will contain all the information regarding your
+session (including objects, data sets and configurations) and organize
+your files in folders in your system. This is particularly useful when
+we are working with multiple topics.<br />
+When you open Rstudio for the first time it starts on an empty project.
+To create a new project, just go to the top right corner menu and select
+<em>New Project…</em></p>
+<p><img src="img/Ia_01-NewProj.png" style="width:50%" align="center"/></p>
+<p>Then will five you the option to create a new project in a new
+directory, un an existing directory or version control. For today, we
+wont be talking about version control in detail, but this is to
+integrate Rstudio with Github.</p>
+<p><img src="img/Ia_02-NewProj.png" style="width:30%" align="center"/></p>
+<p>Once you have selected the option that you want, it will show you
+multiple options for types of projects, you can select <em>New
+project</em> and continue.</p>
+<p><img src="img/Ia_03-NewProj.png" style="width:30%" align="center"/></p>
+<p>Then you just name your directory and select a location.</p>
+<p><img src="img/Ia_04-NewProj.png" style="width:30%" align="center"/></p>
+<p>Once the project is created, in the files tab you will see that
+Rstudio created the files for your project in the folder that you
+selected. The project organization depends on your personal preferences,
+but I usually like to create 3 folders (code, data and docs) to organice
+my files related with the current project.</p>
+<p><img src="img/Ia_05-NewProj.png" style="width:30%" align="center"/></p>
+</div>
+<div id="editors-in-rstudio" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Editors in Rstudio</h1>
+<div id="r-scripts.r" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> R scripts(.R)</h2>
+<p>We are going to open our first R script. In the <a
+href="https://ucdavis.box.com/s/ztydby6t65nil1oh8elhnogdjisrwgcc">shared
+folder</a> you will find an R script under <code>Code/pkgs.R</code>,
+download it to your computer and we will import it to our R project. Go
+to the files tab located in the bottom left panel and click on the
+upload button:</p>
+<p><img src="img/0_upload1.png" style="width:100.0%" /></p>
+<p>A box will pop up with a few options, click on the <em>Choose
+file</em> option and locate the script you downloaded in your
+computer.</p>
+<p><img src="img/0_upload2.png" style="width:30.0%" /></p>
+<p>Now that you uploaded the file to your project, open in and run the
+script by clicking on the <em>Source</em> button. This will install a
+few libraries we will be using during the workshop.</p>
+<p><img src="img/0_source.png" style="width:100.0%" /></p>
+<p>R scripts are the most common type of file used by the R software,
+but there are other types of files that will make easier generating
+documents.</p>
+</div>
+<div id="intro-to-markdown" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Intro to
+Markdown</h2>
+<p><img src="img/Ia_Docs.png" style="float:right;width:16.0%" /></p>
+<p>R studio can create several types of documents including: R scripts,
+text files, Markdown, among others. To create a new document you can go
+to the menu located at the upper left corner.</p>
+<p>A menu will show with all the different document types you can
+create. For now we will select the option <em>R Markdown…</em>.</p>
+<p>It might ask you to install a library if it’s not already installed,
+so just click yes if it does. This will open a window where will ask for
+a Title, author and Date. We will go to the left side menu and select
+the option from template.</p>
+<p><img src="img/Ia_RmdCreate.png" style="width:30%" align="center"/></p>
+<p>If you installed properly the libraries from the pkgs.R script in the
+previous step, you will see a template called <em>blank</em> from the
+<code>STNet</code> library. This is just an empty template I made.
+Select the template and click ok.</p>
+<p><img src="img/Ia_templates.png" style="width:30%" align="center"/></p>
+</div>
+<div id="documents-with-r-markdown-.rmd" class="section level2"
+number="3.3">
+<h2><span class="header-section-number">3.3</span> Documents with R
+Markdown (.Rmd)</h2>
+<p>We created our first document with R Markdown, and will look like
+this:</p>
+<p><img src="img/Ia_RmdDoc.png" style="width:60%" align="center"/></p>
+<p>The document has already the header and a code ‘chunk’ (we will talk
+more about this later). Add a title for the document and put your name
+in the author field. The Rmd documents use a syntax called markdown
+which we will not cover in detail, but you can find more info in <a
+href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">this
+link</a>. You can edit the document directly with the Rmd syntax, but if
+you prefer to save some time and don’t have to deal with learning
+everything from scratch, there is an option to edit the document in a
+more familiar way. To do this just change the option located in the top
+right of the document from <em>Source</em> to <em>Visual</em>. You will
+notice that a toolbar with some familiar icons appeared at the top.</p>
+<p><img src="img/Ia_RmdVisual.png" style="width:60%" align="center"/></p>
+<p>To add a new section to the document, you might want to start with a
+title. The titles can be hierarchical similar to what we are used in
+other text editors (Title, Subtitle 1, Subtitle 2, etc…). To define a
+new title we use the character <code>#</code> in front of the text, and
+the number of <code>#</code> before the text will be the hierarchy
+level. For example if we want to define a title hierarchy we write:</p>
+<pre><code># Title 1
+
+## Subtitle 1
+
+### Subtitle 2</code></pre>
+<p>Which in our visual and rendered document will look like this:</p>
+<p><img src="img/Ia_Titles.png" style="width:40%" align="center"/></p>
+<div id="navigating-the-document" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Navigating the
+document</h3>
+<p>Having defined sections in our document is nice because we can
+quickly jump between them. There are 2 ways of quickly navigating
+between sections: the <em>outline right bar</em> and the <em>bottom
+outline menu</em>. If your right outline bar is collapsed, make sure to
+click on the outline icon <img src="img/Ia_OutlineIcon.png"
+style="width:10.0%" /></p>
+<p><img src="img/Ia_Outline.png" style="width:50%" align="center"/></p>
+<p>You will notice that the bottom outline has a few extra sections
+labeled <em>Chunk</em>. A chunk refers to a piece of code in the
+document. This piece of code will execute (unless you specify the
+opposite) every time that you document renders. Each document is self
+contained which means taht all the objects and functions you use must be
+declared and loaded in order for the document to render properly (we
+will talk more about this later).</p>
+</div>
+<div id="rendering-the-document" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Rendering the
+document</h3>
+<p>Now that we have a document we are going to render it to different
+formats. To render the document you can either click on the
+<em>knit</em> icon <img src="img/Ia_KnitIcon.png"
+style="width:10.0%" />, or use the shortcut <code>ctrl+shift+k</code>.
+The default format that the document will be rendered is html, but you
+can choose different formats from the dropdown menu.</p>
+<p><img src="img/Ia_KnitMenu.png" style="width:35%" align="center"/></p>
+</div>
+</div>
+<div id="exercise-1" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> <span
+style="color: darkred;">Exercise 1</span></h2>
+<p>Add a new section to your document with a short bio about yourself
+(background and research interests), and include your favorite song
+and/or favorite food. Try the different rendering modes (pdf and word),
+save it as <em>exercise1_yourName</em> and submit the document in the
+following box OR <a
+href="https://ucdavis.app.box.com/f/821be3f5e59b4924ac20ea639246cc31">this
+link</a>.</p>
+<iframe src="https://ucdavis.app.box.com/f/821be3f5e59b4924ac20ea639246cc31" height="200" width="800">
+</iframe>
+</div>
+<div id="presentations-with-quarto" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Presentations with
+quarto</h2>
+<p>Like you saw, R studio can be used for more than just coding. R
+studio can be used as a free alternative to text editors, which allow us
+to generate different kind of documents such as reports. But wait… there
+is more things we can use R studio for, in the next section we will
+briefly introduce on how to use R studio to generate presentations,
+similar to something you could achieve with power point.</p>
+<p>Quarto is a platform for creating presentations using a very similar
+approach as R markdown. To create a quarto presentation you can use the
+same menu that you previously used to create a new document.</p>
+<p><img src="img/Ia_DocsQuarto.png" align="center" width="15%"/></p>
+<p>Your presentation will have already some text based on the default
+template and will look similar to this:</p>
+<p><img src="img/Ia_QuartoDoc.png" align="center" width="60%"/></p>
+<p>Similar to the R Markdown documents, you can render the presentation
+in multiple formats. The default format uses html, but you can also
+render to pdf and power point. If you want to render to other formats
+you can specify that when creating the document or change that in the
+YAML header:</p>
+<p>For power point:</p>
+<p><img src="img/Ia_Quartopptx.png" align="center" width="60%"/></p>
+<p>For pdf:</p>
+<p><img src="img/Ia_Quartopdf.png" align="center" width="60%"/></p>
+<p>We are not going to cover in detail how to go beyond the formatting
+of the presentations, but here are some exaples so you can see the
+scope:</p>
+<ul>
+<li><a href="https://runapp2022.talks.jamesgoldie.dev/#/james-goldie"
+class="uri">https://runapp2022.talks.jamesgoldie.dev/#/james-goldie</a></li>
+<li><a
+href="https://emilhvitfeldt.github.io/useR2022-textrecipes/#/section-8"
+class="uri">https://emilhvitfeldt.github.io/useR2022-textrecipes/#/section-8</a></li>
+</ul>
+<p><a
+href="https://github.com/mcanouil/awesome-quarto#real-life-examples"
+class="uri">https://github.com/mcanouil/awesome-quarto#real-life-examples</a></p>
+<hr />
+<p><em>This lab has been developed with contributions from: <a
+href="https://www.spablo-temporal.network">Jose Pablo
+Gomez-Vazquez</a>.<br />
+Feel free to use these training materials for your own research and
+teaching. When using the materials we would appreciate using the proper
+credits. If you would be interested in a training session, please
+contact: <a href="mailto:jpgo@ucdavis.edu"
+class="email">jpgo@ucdavis.edu</a></em></p>
+<hr />
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

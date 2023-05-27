@@ -11,7 +11,11 @@ output:
 library(kableExtra)
 ```
 
-In this workshop you will learn the basics of data visualization. We will be using R and the library `ggplot2` to explore different approaches for communicating your results trough visual aids.
+In this workshop you will learn the basics of data visualization. We will be using R and the library `ggplot2` to explore different approaches for communicating your results trough visual aids. The objective of this workshop is that by the end you will feel comfortable with making arrangements such as this:
+
+<center>
+![](img/0_figArrangement.png){width="60%"}
+</center>
 
 # Tentative schedule
 
@@ -30,58 +34,94 @@ data.frame(
   row_spec(c(4,6, 8), background = "#F6F5FA", italic = T)
 ```
 
-
-----
+------------------------------------------------------------------------
 
 # Requisites
 
-This workshop assumes that the participants have a basic familiarity with the programming language R. Pre-workshop materials are available for a crash course in R and cover the basic concepts we will use during the workshop:
-  
-  - [Intro to R]()
-  - [Basic R syntax]()
+This workshop assumes that the participants have a basic familiarity with the programming language R. *Optional* pre-workshop materials are available for a crash course in R and cover some the basic concepts we will assume you know before the workshop:
+
+-   [Intro to R](0a_Intro_RstudioMarkdown.html)
+-   [Basic R syntax](0b_RandTidyverse.html)
 
 To participate in teh workshop is necessary to have the following tools:
-  
-  - Computer
-  - posit.cloud account or Have installed R and R Studio
 
+-   Computer
+-   posit.cloud account or Have installed R and R Studio
 
 <!-- -   Introduccion a ggplot -->
+
 <!-- -   Tipos de graficos -->
+
 <!-- -   Temas y opciones customizacion -->
+
 <!-- -   Intro to ggplot -->
+
 <!--     -   Objetivo de la visualizacion de datos -->
+
 <!--     -   Inspiracion -->
+
 <!--     -   Visualizaciones abstractas? -->
+
 <!-- -   Propiedades de un grafico -->
+
 <!--     -   *Propiedades generales*, titles, axis, labels -->
+
 <!--     -   *Forma*, size vs shape -->
+
 <!--     -   *Color*, categorical vs gradients -->
+
 <!--     -   *Layouts* -->
+
 <!-- -   Tipos de graficos -->
+
 <!--     -   Distribucion -->
+
 <!--         -   Histogramas -->
+
 <!--         -   Boxplot -->
+
 <!--         -   Bubbles -->
+
 <!--         -   Mozaic -->
+
 <!--     -   Correlation -->
+
 <!--         -   Scatterplot -->
+
 <!--         -   Heatmap -->
+
 <!--     -   Ranking -->
+
 <!--         -   Barplot -->
+
 <!--         -   Radar/spider -->
+
 <!--     -   Proportion -->
+
 <!--         -   Doughnut -->
+
 <!--         -   Pie -->
+
 <!--         -   Treemap -->
+
 <!--     -   Time series -->
+
 <!--         -   Line -->
+
 <!--         -   Bars -->
+
 <!--         -   Area -->
+
 <!--     -   Relationship -->
+
 <!--         -   Network -->
+
 <!--         -   Sankey -->
+
 <!-- -   Arrangements -->
+
 <!--     -   Facets -->
+
 <!--     -   ggarrange -->
+
 <!-- -   Dynamics visuals with plotly -->
