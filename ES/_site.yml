@@ -6,9 +6,9 @@ output:
     self_contained: no  
     theme: flatly  
 navbar:
-  title: HOME
+  title: Inicio
   left:
-  - text: Idioma 
+  - text: Language 
     menu:
     - text: English
       href: '../index.html'
