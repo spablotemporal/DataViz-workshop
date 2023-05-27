@@ -32,3 +32,17 @@ data.frame(
   row_spec(1, bold = T, extra_css = "border-bottom: 1px solid") %>%
   row_spec(c(4,6, 8), background = "#F6F5FA", italic = T)
 ```
+
+----
+
+# Requisitos
+
+Este workshop asume que los participantes tienen un entendimiento basico sobre la syntaxis del lenguaje de programacion R. Materiales pre-workshop se encuentran disponibles para familiarizar a los participantes con los conceptos basicos que usaremos:
+  
+  - [Intro to R]()
+  - [Basic R syntax]()
+
+Para participar en el curso es necesario contar con las siquientes herramientas:
+  
+  - Computadora
+  - Cuenta de posit.cloud o tener instalado R y R Studio
