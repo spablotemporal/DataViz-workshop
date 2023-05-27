@@ -23,7 +23,7 @@ In this workshop you will learn the basics of data visualization. We will be usi
 
 ```{r echo=FALSE}
 data.frame(
-  Time = c('', '9:00-9:30', '9:30-10:30', '10:30-10:50', '10:50-12:00', '12:00-13:00', '13:00-14:00', '14:00-14:20', '14:20-15:00'),
+  Time = c('', '9:00-9:30', '9:30-10:30', '10:30-10:45', '10:45-12:00', '12:00-13:00', '13:00-14:00', '14:00-14:15', '14:15-15:00'),
   D01 = cell_spec(
     c('Topic', 'Introduction to the workshop', 'Data visualization with ggplot', 'Break', 'Further customization', 'Lunch', 'Figure arrangements', 'Break', 'Beyond static visualization'), 'html',
     link = c('', '', '', 'coffeeBreak.html', '', 'Lunch.html', '', 'coffeeBreak.html', '')
