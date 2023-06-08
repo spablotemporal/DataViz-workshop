@@ -1,5 +1,5 @@
 ---
-title: "Title"
+title: "Further customization"
 author: "Pablo Gomez"
 date: "`r Sys.Date()`"
 output:
@@ -12,20 +12,12 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = F, message = F)
 library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse); library(STNet)
-
-# loading the data from the package
-data('captures') # we load the data
-head(captures) # let's have a look at the data
 ```
 
-```{r include = F}
-figures <- list()
-
-tCaptures <- captures %>% 
-  count(date, wt = treated) %>% 
-  mutate(date = as.Date(date, "%m/%d/%y"), # First we will format the date
-         week = format(date, "%V"),
-         week = lubridate::floor_date(date, 'week')) # The we create a variable formatting the date as week of the year
+```{r import prev objects, include = F}
+load('misc/I/captures.RData')
+load('misc/I/figures.RData')
+load('misc/I/tCaptures.RData')
 ```
 
 
@@ -149,3 +141,12 @@ captures %>%
   geom_boxplot(aes(y = treated, fill = factor(trap_type))) +
   scale_fill_manual(values = c('red4', 'blue3', 'skyblue', 'orchid'))
 ```
+
+
+```{r Export objects, include=F}
+# For now do it mannualy
+save(captures, file = 'misc/II/captures.RData')
+save(figures, file = 'misc/II/figures.RData')
+save(tCaptures, file = 'misc/II/tCaptures.RData')
+```
+

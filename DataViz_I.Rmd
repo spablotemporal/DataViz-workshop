@@ -148,3 +148,20 @@ figures$timeseries <- tCaptures %>%
 
 figures$timeseries
 ```
+
+
+```{r export objects for next session, include=F, eval=F}
+# This one works, but all the objects are called 'o'
+# See if possible call the objects as they should
+ls() %>% 
+  lapply(., function(x){
+    o <- eval(parse(text = x))
+    save(o, file = paste0('misc/I/', x, '.RData'))
+  })
+
+# For now do it manualy
+save(captures, file = 'misc/I/captures.RData')
+save(figures, file = 'misc/I/figures.RData')
+save(tCaptures, file = 'misc/I/tCaptures.RData')
+```
+

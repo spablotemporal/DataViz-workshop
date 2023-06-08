@@ -1,5 +1,5 @@
 ---
-title: "Title"
+title: "Figure arrangements"
 author: "Pablo Gomez"
 date: "`r Sys.Date()`"
 output:
@@ -13,6 +13,17 @@ output:
 knitr::opts_chunk$set(warning = F, message = F)
 library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
 ```
+
+```{r import prev objects, include = F}
+load('misc/II/captures.RData')
+load('misc/II/figures.RData')
+load('misc/II/tCaptures.RData')
+```
+
+# Objectives:
+  
+  - Talk about figure arrangements 
+  - Make the 
 
 
 # Arranging the plots in a layout
@@ -53,4 +64,11 @@ Now that you know some tools to look for information, you will have to make your
 
 At the end we will have a discussion where you can share your figures and troubleshoot any problems you might have had.  
 
+
+```{r Export objects, include=F}
+# For now do it mannualy
+save(captures, file = 'misc/III/captures.RData')
+save(figures, file = 'misc/III/figures.RData')
+save(tCaptures, file = 'misc/III/tCaptures.RData')
+```
 

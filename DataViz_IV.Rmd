@@ -1,5 +1,5 @@
 ---
-title: "Title"
+title: "Beyond basic visualization"
 author: "Pablo Gomez"
 date: "`r Sys.Date()`"
 output:
@@ -13,6 +13,17 @@ output:
 knitr::opts_chunk$set(warning = F, message = F)
 library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
 ```
+
+```{r import prev objects, include = F}
+load('misc/III/captures.RData')
+load('misc/III/figures.RData')
+load('misc/III/tCaptures.RData')
+```
+
+# Objectives:
+
+  - Cover some basics of interactive visualization
+  - Maybe something about gifs and animations?
 
 # Interactive figures
 

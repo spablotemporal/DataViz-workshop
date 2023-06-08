@@ -11,9 +11,9 @@
 
 <meta name="author" content="Pablo Gomez" />
 
-<meta name="date" content="2023-06-04" />
+<meta name="date" content="2023-06-08" />
 
-<title>Title</title>
+<title>Figure arrangements</title>
 
 <script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -365,14 +365,65 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Title</h1>
+<h1 class="title toc-ignore">Figure arrangements</h1>
 <h4 class="author">Pablo Gomez</h4>
-<h4 class="date">2023-06-04</h4>
+<h4 class="date">2023-06-08</h4>
 
 </div>
 
 
+<div id="objectives" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Objectives:</h1>
+<ul>
+<li>Talk about figure arrangements</li>
+<li>Make the</li>
+</ul>
+</div>
+<div id="arranging-the-plots-in-a-layout" class="section level1"
+number="2">
+<h1><span class="header-section-number">2</span> Arranging the plots in
+a layout</h1>
+<p>Now that we have all the figures in a list, we can make arrangements
+with our figures. For this we use the function <code>ggarrange()</code>
+from the ggpubr library.</p>
+<pre class="r"><code>library(ggpubr) # load the library
+ggarrange(plotlist = figures)</code></pre>
+<p><img src="DataViz_III_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+</div>
+<div id="facets" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Facets</h1>
+<p>Facets are a way of stratifying the data based on variables in the
+data set, you can think about it in a similar way we have been using
+groups. To create a stratified plot we can use the function
+<code>facet_grid()</code> which will ask for a variable to go in the
+rows and another for columns:</p>
+<pre class="r"><code>figures$histogram &lt;- captures %&gt;% # The data we will use 
+  ggplot() + # set the canvas
+  geom_histogram(aes(treated), fill = &#39;red4&#39;) + # We will create a histogram of the Age
+  facet_grid(
+    rows = vars(trap_type), # We will use the Sex variable for rows
+    cols = vars(year) # We use the Result variable for Columns
+  ) +
+  theme_pubclean() # lets try another theme
 
+figures$histogram</code></pre>
+<p><img src="DataViz_III_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Now that you know some tools to look for information, you will have
+to make your figures on your own. If you want to make figures with the
+datasets we have been using you can do those, or you can use any of the
+code online to replicate them.</p>
+<ol style="list-style-type: decimal">
+<li>Go to the <a href="https://www.data-to-viz.com">Data to Viz
+website</a></li>
+<li>Identify a few figures that you would like to do (you can also do
+figures that we have previously done in the exercises)</li>
+<li>Make sure you label your figures!</li>
+<li>Experiment changing the colros, variables, themes etc…</li>
+<li>Replicate a few figures and put them in an arrangement.</li>
+</ol>
+<p>At the end we will have a discussion where you can share your figures
+and troubleshoot any problems you might have had.</p>
+</div>
 
 
 
