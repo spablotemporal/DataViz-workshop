@@ -1,0 +1,150 @@
+---
+title: "Introduction to data visualization with ggplot2"
+author: "Pablo Gomez"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = F, message = F)
+library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
+```
+
+
+```{r}
+# Load the libraries
+library(ggplot2) # for graphics
+library(dplyr) # For data manipulation
+library(STNet)
+
+# loading the data from the package
+data('captures') # we load the data
+head(captures) # let's have a look at the data
+```
+
+# Plots in R
+
+By default R already has a set of functions to create a variety of figures, but the code can get quite complex and difficult to read as we produce more detailed figures. `ggplot2` is a library that provides a set of functions for producing a variety of figures.
+
+The function `ggplot()` has to be called at the beginning of the plot definition, this function sets a blank canvas for our plot. If we call the function with no arguments we will just see the empty canvas, for example:
+
+```{r}
+ggplot()
+```
+
+Then we can add layers to our canvas based on the data we want to visualize, similarly to the pipes, we will connect the different layers of our plot with the operator `+`. 
+
+The basic components that we need to define for a plot are the following:
+  
+  - *data*, the data set we will use to generate the figure
+  - *geometry*, or type of graphic we will generate (i.e. histogram, bar, scatter, etc..)
+  - *aesthetic*, variables or arguments that will be used for the figure for example: location, color, size, etc..
+
+An example:
+
+```{r hist example}
+ggplot(data = captures) + # This is the data we will use
+  geom_histogram( # This is the geometry 
+    aes(x = treated) # The aesthetic includes only one variable representing the x axis
+  )
+```
+
+Other components of the plots can be defined to further customize our figures, and we will cover those more in detail in future sections.  
+As you noticed in the previous example, we can print the figures directly from the R console, but a way I like to organize our figures is to put them all inside a single object in R. This object can be a `list`, which is just a container for other objects.  
+
+```{r create fig list}
+# To create an empty list we can use the function list()
+figures <- list()
+```
+
+
+# Visualizing distributions
+
+## Continous variables
+
+### Histograms
+
+The most simple way to visualize the distribution of a continuous variable is using a histogram. Histograms are a special kind of bar plots where our variable is grouped in bins and showing the counts for each bin. Now that we have our container list for the plots, we can simply save it there and assign a name we want.
+
+Notice that we will combine the pipes with the ggplot syntax. you can either define the name of the data in the ggplot function or before the function and connect it with a pipe.  
+
+```{r hist}
+figures$histogram <- captures %>% # This is the data we use.
+  ggplot() + # we set the empty canvas
+  geom_histogram(aes(x = treated)) # add a layer to visualize a histogram
+
+# we can see our plot by calling the name in our container list
+figures$histogram
+```
+
+
+### Boxplots
+
+Box plots are great to show the distribution of a continuous variable. We can use it to show only one variable, or multiple variables. It is important to be very descriptive when making plots, the idea of a figure is that can explain itself. we will start to slowly introduce functions to do this and customize our figures.
+
+```{r boxplot}
+# Only one variable
+figures$box <- captures %>% 
+  ggplot() +
+  geom_boxplot(aes(y = treated))
+
+figures$box
+```
+
+
+## Barplots
+
+Bar plots are great to represent frequencies of categories. In the following example we will first count the number of treated by year, and then see it in a bar plot. 
+
+```{r barplots}
+figures$bars <- captures %>% 
+  count(year, wt = treated) %>% 
+  ggplot() +
+  geom_bar(aes(
+    x = year, # X axis
+    y = n # Y axis
+  ), stat = 'identity') # type of barplot
+
+figures$bars
+```
+
+# Visualizing relationships
+
+## Scatterplots
+
+This is one of the most popular kind of plots, it is useful to represent relationship between two continuous variables.  
+
+```{r}
+figures$scatter <- captures %>% # first we start with the name of our data.frame
+  ggplot() + # then we set the canvas
+  geom_point(aes(x = treated, y = captures)) # and we add layer for points
+
+figures$scatter
+```
+
+
+# Time series
+
+To create a time series we will need to reformat the data a little bit so R can do what we want. We will introduce a new kind of variable: `date`. The date variables are pretty much what it sounds like, is a variable that has a format with year, month and day; there are other ways to format dates in R, but this is the most common and straight forward.  
+
+```{r}
+tCaptures <- captures %>% 
+  count(date, wt = treated) %>% 
+  mutate(date = as.Date(date, "%m/%d/%y"), # First we will format the date
+         week = format(date, "%V"),
+         week = lubridate::floor_date(date, 'week')) # The we create a variable formatting the date as week of the year
+```
+
+Now that we have our variables in the correct format, we can use it as any other variable.
+
+```{r}
+figures$timeseries <- tCaptures %>% 
+  ggplot() +
+  geom_line(aes(x = week, y = n))
+
+figures$timeseries
+```

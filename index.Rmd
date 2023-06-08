@@ -45,7 +45,7 @@ This workshop assumes that the participants have a basic familiarity with the pr
 -   [Intro to R](0a_Intro_RstudioMarkdown.html)
 -   [Basic R syntax](0b_RandTidyverse.html)
 
-To participate in teh workshop is necessary to have the following tools:
+To participate in the workshop is necessary to have the following tools:
 
 -   Computer
 -   posit.cloud account or Have installed R and R Studio

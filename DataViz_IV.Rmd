@@ -1,0 +1,27 @@
+---
+title: "Title"
+author: "Pablo Gomez"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = F, message = F)
+library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
+```
+
+# Interactive figures
+
+Having static figures is the most common application of graphics in R, but R is also capable of making interactive figures that can be used in dashboards and other platforms (i.e. shiny, or quarto). There are several libraries that allow you to create interactive figures, one of the most popular ones is called `plotly`. The best part of plotly is that if you learn how to use ggplot, you can transfer your figures to interactive plotly figures pretty much seamlessly. Lets try that.  
+
+We use the function `ggplotly()` from the `plotly` library to do that:
+
+```{r}
+library(plotly) # laod the plotly library
+# Use the ggplotly function in one of the figures we previouslt created:
+ggplotly(figures$histogram)
+```
