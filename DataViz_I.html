@@ -376,7 +376,7 @@ ggplot2</h1>
 <pre class="r"><code># Load the libraries
 library(ggplot2) # for graphics
 library(dplyr) # For data manipulation
-library(STNet)
+library(STNet) # Library with the data
 
 # loading the data from the package
 data(&#39;captures&#39;) # we load the data
@@ -406,7 +406,7 @@ of the plot definition, this function sets a blank canvas for our plot.
 If we call the function with no arguments we will just see the empty
 canvas, for example:</p>
 <pre class="r"><code>ggplot()</code></pre>
-<p><img src="DataViz_I_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="DataViz_I_files/figure-html/blank%20canvas-1.png" width="672" /></p>
 <p>Then we can add layers to our canvas based on the data we want to
 visualize, similarly to the pipes, we will connect the different layers
 of our plot with the operator <code>+</code>.</p>
@@ -429,7 +429,7 @@ figure for example: location, color, size, etc..</li>
 figures, and we will cover those more in detail in future
 sections.<br />
 As you noticed in the previous example, we can print the figures
-directly from the R console, but a way I like to organize our figures is
+directly from the R console, but a way I like to organize the figures is
 to put them all inside a single object in R. This object can be a
 <code>list</code>, which is just a container for other objects.</p>
 <pre class="r"><code># To create an empty list we can use the function list()
@@ -475,8 +475,22 @@ figures$box</code></pre>
 <p><img src="DataViz_I_files/figure-html/boxplot-1.png" width="672" /></p>
 </div>
 </div>
-<div id="barplots" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Barplots</h2>
+<div id="categorical-variables" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Categorical
+variables</h2>
+</div>
+<div id="pie-charts" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Pie charts… ?</h2>
+<pre class="r"><code>captures %&gt;% count(trap_type) %&gt;% 
+  ggplot() +
+  geom_bar(aes(x = &#39;trap_type&#39;, y = n, fill = factor(trap_type)), stat = &#39;identity&#39;) +
+  coord_polar(&#39;y&#39;) +
+  theme_void()</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>Some people say the problems with pie charts is that humans are just
+abd at reading angles</p>
+<div id="barplots" class="section level3" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Barplots</h3>
 <p>Bar plots are great to represent frequencies of categories. In the
 following example we will first count the number of treated by year, and
 then see it in a bar plot.</p>
@@ -490,6 +504,25 @@ then see it in a bar plot.</p>
 
 figures$bars</code></pre>
 <p><img src="DataViz_I_files/figure-html/barplots-1.png" width="672" /></p>
+<pre class="r"><code> captures %&gt;% 
+  count(year, trap_type, wt = treated) %&gt;% 
+  ggplot() +
+  geom_bar(aes(
+    x = year, # X axis
+    y = n, # Y axis
+    fill = factor(trap_type)
+  ), stat = &#39;identity&#39;) # type of barplot</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="alternatives" class="section level3" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Alternatives:</h3>
+<pre class="r"><code>library(treemap)
+
+captures %&gt;% 
+  count(municipality, captures) %&gt;% 
+  treemap(., index = &#39;municipality&#39;, vSize = &#39;n&#39;)</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
 </div>
 </div>
 <div id="visualizing-relationships" class="section level1" number="3">
@@ -504,7 +537,7 @@ represent relationship between two continuous variables.</p>
   geom_point(aes(x = treated, y = captures)) # and we add layer for points
 
 figures$scatter</code></pre>
-<p><img src="DataViz_I_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
 </div>
 <div id="time-series" class="section level1" number="4">
@@ -527,7 +560,7 @@ as any other variable.</p>
   geom_line(aes(x = week, y = n))
 
 figures$timeseries</code></pre>
-<p><img src="DataViz_I_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 
 

@@ -11,15 +11,13 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = F, message = F)
-library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
 ```
 
-
-```{r}
+```{r load libraries and data}
 # Load the libraries
 library(ggplot2) # for graphics
 library(dplyr) # For data manipulation
-library(STNet)
+library(STNet) # Library with the data
 
 # loading the data from the package
 data('captures') # we load the data
@@ -32,7 +30,7 @@ By default R already has a set of functions to create a variety of figures, but 
 
 The function `ggplot()` has to be called at the beginning of the plot definition, this function sets a blank canvas for our plot. If we call the function with no arguments we will just see the empty canvas, for example:
 
-```{r}
+```{r blank canvas}
 ggplot()
 ```
 
@@ -54,7 +52,7 @@ ggplot(data = captures) + # This is the data we will use
 ```
 
 Other components of the plots can be defined to further customize our figures, and we will cover those more in detail in future sections.  
-As you noticed in the previous example, we can print the figures directly from the R console, but a way I like to organize our figures is to put them all inside a single object in R. This object can be a `list`, which is just a container for other objects.  
+As you noticed in the previous example, we can print the figures directly from the R console, but a way I like to organize the figures is to put them all inside a single object in R. This object can be a `list`, which is just a container for other objects.  
 
 ```{r create fig list}
 # To create an empty list we can use the function list()
@@ -81,7 +79,6 @@ figures$histogram <- captures %>% # This is the data we use.
 figures$histogram
 ```
 
-
 ### Boxplots
 
 Box plots are great to show the distribution of a continuous variable. We can use it to show only one variable, or multiple variables. It is important to be very descriptive when making plots, the idea of a figure is that can explain itself. we will start to slowly introduce functions to do this and customize our figures.
@@ -95,8 +92,22 @@ figures$box <- captures %>%
 figures$box
 ```
 
+## Categorical variables
 
-## Barplots
+## Pie charts... ?
+
+
+```{r}
+captures %>% count(trap_type) %>% 
+  ggplot() +
+  geom_bar(aes(x = 'trap_type', y = n, fill = factor(trap_type)), stat = 'identity') +
+  coord_polar('y') +
+  theme_void()
+```
+
+Some people say the problems with pie charts is that humans are just abd at reading angles 
+
+### Barplots
 
 Bar plots are great to represent frequencies of categories. In the following example we will first count the number of treated by year, and then see it in a bar plot. 
 
@@ -110,6 +121,27 @@ figures$bars <- captures %>%
   ), stat = 'identity') # type of barplot
 
 figures$bars
+```
+
+```{r}
+ captures %>% 
+  count(year, trap_type, wt = treated) %>% 
+  ggplot() +
+  geom_bar(aes(
+    x = year, # X axis
+    y = n, # Y axis
+    fill = factor(trap_type)
+  ), stat = 'identity') # type of barplot
+```
+
+### Alternatives:
+
+```{r}
+library(treemap)
+
+captures %>% 
+  count(municipality, captures) %>% 
+  treemap(., index = 'municipality', vSize = 'n')
 ```
 
 # Visualizing relationships
