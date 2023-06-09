@@ -48,7 +48,11 @@ This workshop assumes that the participants have a basic familiarity with the pr
 To participate in the workshop is necessary to have the following tools:
 
 -   Computer
--   posit.cloud account or Have installed R and R Studio
+-   posit.cloud account or have installed R and R Studio
+
+# Registration link
+
+To register the workshop please use this link: https://docs.google.com/forms/u/1/d/e/1FAIpQLSfXtdQ6ZMFr6sgZVfTRVY8M32UxJy288-P5cUSNYa6IVILMtQ/viewform
 
 <!-- -   Introduccion a ggplot -->
 

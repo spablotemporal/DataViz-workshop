@@ -53,3 +53,7 @@ Para participar en el curso es necesario contar con las siquientes herramientas:
   
   - Computadora
   - Cuenta de posit.cloud o tener instalado R y R Studio
+  
+# Registro
+
+Para registrarse al curso, use este enlace: https://docs.google.com/forms/u/1/d/e/1FAIpQLSfXtdQ6ZMFr6sgZVfTRVY8M32UxJy288-P5cUSNYa6IVILMtQ/viewform
