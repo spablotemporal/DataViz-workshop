@@ -372,11 +372,11 @@ div.tocify {
 </div>
 
 
-<div id="further-customization" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Further
-customization</h1>
-<div id="themes" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Themes</h2>
+<p>This lab continues on the work previously done for the <a
+href="DataViz_I.html">Section I</a>, make sure you have the objects
+generated in the previous section.</p>
+<div id="themes" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Themes</h1>
 <p>ggplot includes the function <code>theme()</code> to define most of
 the aspects of the figure such as the background color, the grid, axes,
 legend, among many others. There is also several predefined themes (all
@@ -391,10 +391,10 @@ figures$heatmap &lt;- figures$heatmap +
 figures$heatmap</code></pre>
 <p><img src="DataViz_II_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 </div>
-<div id="other-aesthetics" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Other aesthetics</h2>
-<div id="shape" class="section level3" number="1.2.1">
-<h3><span class="header-section-number">1.2.1</span> Shape</h3>
+<div id="other-aesthetics" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Other aesthetics</h1>
+<div id="shape" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Shape</h2>
 <p>There are other aesthetics we can define such as color, type of
 point, size, among many others. Lets try changing the point shape for
 one of the plots we previously did:</p>
@@ -410,8 +410,8 @@ one of the plots we previously did:</p>
 figures$scatter</code></pre>
 <p><img src="DataViz_II_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
-<div id="color" class="section level3" number="1.2.2">
-<h3><span class="header-section-number">1.2.2</span> Color</h3>
+<div id="color" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Color</h2>
 <p>We can add extra variables to indicate the composition (using another
 variable) of each of the levels in our figures. For example, we will add
 the variable <em>trap_type</em> to color the bars in this figure. to do
@@ -456,10 +456,11 @@ number of observations for the main category (<em>year</em>):</p>
   position = &#39;fill&#39;) # type of bar plot</code></pre>
 <p><img src="DataViz_II_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
-<div id="non-aesthetics-customization" class="section level3"
-number="1.2.3">
-<h3><span class="header-section-number">1.2.3</span> Non aesthetics
-customization</h3>
+</div>
+<div id="non-aesthetics-customization" class="section level1"
+number="3">
+<h1><span class="header-section-number">3</span> Non aesthetics
+customization</h1>
 <p>So far we have added variables inside our <code>aes()</code>
 function, but we can add some arguments outside the <code>aes()</code>
 function that we want them to be applied for ALL observations. For
@@ -482,36 +483,41 @@ shape, size, etc.. Remember that everything that goes inside the
 data and whatever goes outside are constants for all the
 observations.</p>
 </div>
-</div>
-</div>
-<div id="scales" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Scales</h1>
-<div id="continuous-values" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Continuous
-values</h2>
-<pre class="r"><code>figures$heatmap &lt;- figures$heatmap +
-  scale_fill_gradient(low = &#39;black&#39;, high = &#39;red&#39;)
-
-figures$heatmap</code></pre>
-<p><img src="DataViz_II_files/figure-html/gradient%20scales-1.png" width="672" /></p>
-</div>
-<div id="categorical-values" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Categorical
-values</h2>
+<div id="scales" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Scales</h1>
 <p>As you noticed by default R pick specific colors and shapes for the
 variables we use to map our figure, scales in <code>ggplot2</code> is a
 way to specify the shapes, colors or sizes used for the figures. There
 is a family of functions (<code>scales_*</code>) where <code>*</code>
-represents the aesthetic we want to define. For example, if we want to
-change the colors for the fill, we can use:</p>
+represents the aesthetic we want to define. Depending on the type of
+variable you want to set the scale for, you will select the
+corresponding function.</p>
+<div id="continuous-values" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Continuous
+values</h2>
+<p>For example, if we want to change the colors for the fill on a
+continuous variable we can define the colors for a gradient with the
+function <code>scale_fill_gradient()</code>.</p>
+<pre class="r"><code>figures$heatmap &lt;- figures$heatmap + # Lets us our previously defined heatmap
+  scale_fill_gradient(low = &#39;black&#39;, high = &#39;red&#39;) # we use the function to set the colors
+
+figures$heatmap</code></pre>
+<p><img src="DataViz_II_files/figure-html/gradient%20scales-1.png" width="672" /></p>
+</div>
+<div id="categorical-values" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Categorical
+values</h2>
+<p>When using categorical variables we define a specific color palette.
+For this we need to know how many categories our variable has. For
+example</p>
 <pre class="r"><code>figures$bars &lt;- figures$bars +
-  scale_fill_manual(values = c(&#39;gold2&#39;, &#39;seagreen3&#39;, &#39;red2&#39;, &#39;orchid&#39;))
+  scale_fill_manual(values = c(&#39;gold2&#39;, &#39;seagreen3&#39;, &#39;red2&#39;, &#39;orchid&#39;)) # We know our variable has 4 categories, so we define 4 colors
 
 figures$bars</code></pre>
 <p><img src="DataViz_II_files/figure-html/categorical%20scales-1.png" width="672" /></p>
 </div>
-<div id="how-to-find-colors" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> How to find
+<div id="how-to-find-colors" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> How to find
 colors?</h2>
 <p>R manages colors in three different ways: by name (i.e: ‘red’), by
 rgb value using the function <code>rgb()</code>
@@ -522,14 +528,23 @@ in R by using the function <code>colors()</code>, but you will only be
 able to see the names. Luckly someone made a tool that can help us
 exacly the colors that we want: the <em>Colour Picker</em> addin. Addins
 are tools that are available in Rstudio to facilitate tasks, lets try
-the colour picker (should be already in your addins toolbar).</p>
-<p><img src="img/1c_colPicker.gif" /></p>
-<p><strong>Exercise: </strong> Pick 4 colors you like and use them to
-create a boxplot of the distribution of number of treated by the trap
-type.</p>
+the <em>colour picker</em> (should be already in your addins
+toolbar).</p>
+<p><img src="img/I_colPicker.gif" /></p>
+<p>Other resources to find colors include:</p>
+<ul>
+<li><a
+href="https://coolors.co/334139-1e2d24-c52184-e574bc-f9b4ed">Coolors
+palette generator</a>: This website generates random color palettes and
+includes other user generated palettes</li>
+<li><a href="https://colourcontrast.cc">Colour contrast checker</a>:
+This website has a tool to check the contrast between two colors, can be
+useful when setting labels and other annotations in our figures.</li>
+</ul>
 </div>
-<div id="labels" class="section level2" number="2.4">
-<h2><span class="header-section-number">2.4</span> Labels</h2>
+</div>
+<div id="labels" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Labels</h1>
 <p>Usually we try to avoid spaces when using names for the column names,
 but for our figure labels this could be not the most straight forward
 way to communicate our analysis, we can set specific labels to make our
@@ -545,8 +560,77 @@ created contained in our figures list <code>figures$bars</code></p>
   )
 
 figures$bars</code></pre>
-<p><img src="DataViz_II_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
+<div id="beyond-basic-themes" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Beyond basic
+themes</h1>
+<p>Lets pretend that we want to flip the axis from our bar plot because
+we think will fit better our report, we can do that from the
+<code>aes()</code> function by redefining the axes, but in this case I
+will just use the function <code>coord_flip()</code> to do the same.</p>
+<pre class="r"><code>figures$bars &lt;- figures$bars + # we call the figure previously created
+  coord_flip() # We use this function to flip the x and y axis.
+
+figures$bars</code></pre>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Like you will notice, there is some overlap between the
+municipalities text and we can barely read them. We can modify the
+position of the x labels to fix this, to do this we need to modify the
+theme.</p>
+<div id="labels-1" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Labels</h2>
+<p>The <code>theme()</code> function has a bunch of arguments which you
+can see in detail in the documentation (or using the auto complete
+functionality in RStudio/posit.cloud), the argument we will need to
+define is <code>axis.text.x</code>, the argument takes a specific type
+of object used to format the text, to create this object we use the
+function <code>element_text()</code>. It will make more sense when we
+try it:</p>
+<pre class="r"><code>figures$bars &lt;- figures$bars + # we call the figure previously created
+  coord_flip() + # We use this function to flip the x and y axis.
+  theme(axis.text.x = element_text(angle = 40, size = 7))
+
+figures$bars</code></pre>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="grid" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Grid</h2>
+<p>Other things we can change in the <code>theme()</code> function
+includes the background of the figure, lets make some changes to the
+grid and the background color.</p>
+<pre class="r"><code>figures$bars &lt;- figures$bars +
+  theme(
+    panel.grid = element_line(color = &#39;grey80&#39;), # Change the color of the grid
+    panel.grid.major.x = element_blank(),# Remove the grid for the x axis
+    panel.background = element_rect(fill = &#39;mintcream&#39;) # Change the background of the figure
+  )
+
+figures$bars</code></pre>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>If you noticed, when defining the arguments, I used different
+functions for the elements used (i.e. <code>element_blank()</code>,
+<code>element_rect()</code>, <code>element_line()</code>). Depending on
+the theme element you will need to define the appropiate element to use,
+in brief:</p>
+<ul>
+<li><code>element_blank()</code> is for empty elements (i.e. when you
+want to remove it)</li>
+<li><code>element_rect()</code> is for filled geometries (i.e. the
+background of the panel or legend)</li>
+<li><code>element_line()</code> for lines such as the grid</li>
+<li><code>element_text()</code> for text elements such as the
+labels</li>
+</ul>
+</div>
+</div>
+<div id="exercise" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Exercise:</h1>
+<p>Now spend some time using the resources we talked about to modify the
+figure and be creative with the colors and the theme, maybe use the
+color scale of your favorite sports team, character of a movie, or
+something you like. Feel free to modify any of the figures that we
+previously created!</p>
 </div>
 
 

@@ -20,9 +20,9 @@ load('misc/I/figures.RData')
 load('misc/I/tCaptures.RData')
 ```
 
-# Further customization
+This lab continues on the work previously done for the [Section I](DataViz_I.html), make sure you have the objects generated in the previous section.
 
-## Themes
+# Themes
 
 ggplot includes the function `theme()` to define most of the aspects of the figure such as the background color, the grid, axes, legend, among many others. There is also several predefined themes (all start with `theme_` followed by the name of the theme) that you can use, if don't want to mess with all the arguments from the function `theme()`. For example:
 
@@ -35,9 +35,9 @@ figures$heatmap <- figures$heatmap +
 figures$heatmap
 ```
 
-## Other aesthetics
+# Other aesthetics
 
-### Shape
+## Shape
 
 There are other aesthetics we can define such as color, type of point, size, among many others. Lets try changing the point shape for one of the plots we previously did:
 
@@ -54,7 +54,7 @@ figures$scatter <- captures %>% # the data we are using
 figures$scatter
 ```
 
-### Color
+## Color
 
 We can add extra variables to indicate the composition (using another variable) of each of the levels in our figures. For example, we will add the variable *trap_type* to color the bars in this figure. to do this we add the argument `fill=factor(trap_type)` to our `aes()` function
 
@@ -99,7 +99,7 @@ captures %>%
   position = 'fill') # type of bar plot
 ```
 
-### Non aesthetics customization
+# Non aesthetics customization
 
 So far we have added variables inside our `aes()` function, but we can add some arguments outside the `aes()` function that we want them to be applied for ALL observations. For example, we can change the size and transparency of the points in our scatter plot, which can be useful to see where there is more overlap of observations:
 
@@ -119,22 +119,26 @@ You can change other components of the figure such as the color, shape, size, et
 
 # Scales
 
+As you noticed by default R pick specific colors and shapes for the variables we use to map our figure, scales in `ggplot2` is a way to specify the shapes, colors or sizes used for the figures. There is a family of functions (`scales_*`) where `*` represents the aesthetic we want to define. Depending on the type of variable you want to set the scale for, you will select the corresponding function. 
+
 ## Continuous values
 
+For example, if we want to change the colors for the fill on a continuous variable we can define the colors for a gradient with the function `scale_fill_gradient()`.
+
 ```{r gradient scales}
-figures$heatmap <- figures$heatmap +
-  scale_fill_gradient(low = 'black', high = 'red')
+figures$heatmap <- figures$heatmap + # Lets us our previously defined heatmap
+  scale_fill_gradient(low = 'black', high = 'red') # we use the function to set the colors
 
 figures$heatmap
 ```
 
 ## Categorical values
 
-As you noticed by default R pick specific colors and shapes for the variables we use to map our figure, scales in `ggplot2` is a way to specify the shapes, colors or sizes used for the figures. There is a family of functions (`scales_*`) where `*` represents the aesthetic we want to define. For example, if we want to change the colors for the fill, we can use:
+When using categorical variables we define a specific color palette. For this we need to know how many categories our variable has. For example
 
 ```{r categorical scales}
 figures$bars <- figures$bars +
-  scale_fill_manual(values = c('gold2', 'seagreen3', 'red2', 'orchid'))
+  scale_fill_manual(values = c('gold2', 'seagreen3', 'red2', 'orchid')) # We know our variable has 4 categories, so we define 4 colors
 
 figures$bars
 ```
@@ -142,21 +146,16 @@ figures$bars
 
 ## How to find colors?
 
-R manages colors in three different ways: by name (i.e: 'red'), by rgb value using the function `rgb()` (i.e. `rgb(1, 0, 0)`), or using [hexadecimal code](https://marketing.istockphoto.com/blog/hex-colors-guide/) (i.e. "#F00000"). You can get a full list of the named colors in R by using the function `colors()`, but you will only be able to see the names. Luckly someone made a tool that can help us exacly the colors that we want: the *Colour Picker* addin. Addins are tools that are available in Rstudio to facilitate tasks, lets try the colour picker (should be already in your addins toolbar).
+R manages colors in three different ways: by name (i.e: 'red'), by rgb value using the function `rgb()` (i.e. `rgb(1, 0, 0)`), or using [hexadecimal code](https://marketing.istockphoto.com/blog/hex-colors-guide/) (i.e. "#F00000"). You can get a full list of the named colors in R by using the function `colors()`, but you will only be able to see the names. Luckly someone made a tool that can help us exacly the colors that we want: the *Colour Picker* addin. Addins are tools that are available in Rstudio to facilitate tasks, lets try the *colour picker* (should be already in your addins toolbar).
 
-![](img/1c_colPicker.gif)
+![](img/I_colPicker.gif)
 
-**Exercise: ** Pick 4 colors you like and use them to create a boxplot of the distribution of number of treated by the trap type.
+Other resources to find colors include:
+  
+  - [Coolors palette generator](https://coolors.co/334139-1e2d24-c52184-e574bc-f9b4ed): This website generates random color palettes and includes other user generated palettes 
+  - [Colour contrast checker](https://colourcontrast.cc): This website has a tool to check the contrast between two colors, can be useful when setting labels and other annotations in our figures.
 
-```{r include = F}
-captures %>% 
-  ggplot() +
-  geom_boxplot(aes(y = treated, fill = factor(trap_type))) +
-  scale_fill_manual(values = c('red4', 'blue3', 'skyblue', 'orchid'))
-```
-
-
-## Labels
+# Labels
 
 Usually we try to avoid spaces when using names for the column names, but for our figure labels this could be not the most straight forward way to communicate our analysis, we can set specific labels to make our plots more readable and self explanatory. Let's improve bar plot figure a bit more to make it clearer, we can use the figure we previously created contained in our figures list `figures$bars`
 
@@ -170,6 +169,64 @@ figures$bars <- figures$bars + # we call the figure previously created
   )
 
 figures$bars
+```
+
+# Beyond basic themes
+
+Lets pretend that we want to flip the axis from our bar plot because we think will fit better our report, we can do that from the `aes()` function by redefining the axes, but in this case I will just use the function `coord_flip()` to do the same. 
+
+```{r}
+figures$bars <- figures$bars + # we call the figure previously created
+  coord_flip() # We use this function to flip the x and y axis.
+
+figures$bars
+```
+
+Like you will notice, there is some overlap between the municipalities text and we can barely read them. We can modify the position of the x labels to fix this, to do this we need to modify the theme.
+
+## Labels
+
+The `theme()` function has a bunch of arguments which you can see in detail in the documentation (or using the auto complete functionality in RStudio/posit.cloud), the argument we will need to define is `axis.text.x`, the argument takes a specific type of object used to format the text, to create this object we use the function `element_text()`. It will make more sense when we try it:
+
+```{r}
+figures$bars <- figures$bars + # we call the figure previously created
+  coord_flip() + # We use this function to flip the x and y axis.
+  theme(axis.text.x = element_text(angle = 40, size = 7))
+
+figures$bars
+```
+
+## Grid
+
+Other things we can change in the `theme()` function includes the background of the figure, lets make some changes to the grid and the background color.
+
+```{r}
+figures$bars <- figures$bars +
+  theme(
+    panel.grid = element_line(color = 'grey80'), # Change the color of the grid
+    panel.grid.major.x = element_blank(),# Remove the grid for the x axis
+    panel.background = element_rect(fill = 'mintcream') # Change the background of the figure
+  )
+
+figures$bars
+```
+
+If you noticed, when defining the arguments, I used different functions for the elements used (i.e. `element_blank()`, `element_rect()`, `element_line()`). Depending on the theme element you will need to define the appropiate element to use, in brief:
+  
+  - `element_blank()` is for empty elements (i.e. when you want to remove it)
+  - `element_rect()` is for filled geometries (i.e. the background of the panel or legend)
+  - `element_line()` for lines such as the grid
+  - `element_text()` for text elements such as the labels
+
+# Exercise: 
+
+Now spend some time using the resources we talked about to modify the figure and be creative with the colors and the theme, maybe use the color scale of your favorite sports team, character of a movie, or something you like. Feel free to modify any of the figures that we previously created!
+
+```{r include = F}
+captures %>% 
+  ggplot() +
+  geom_boxplot(aes(y = treated, fill = factor(trap_type))) +
+  scale_fill_manual(values = c('red4', 'blue3', 'skyblue', 'orchid'))
 ```
 
 
