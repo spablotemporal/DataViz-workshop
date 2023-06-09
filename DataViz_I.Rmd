@@ -34,13 +34,13 @@ The function `ggplot()` has to be called at the beginning of the plot definition
 ggplot()
 ```
 
-Then we can add layers to our canvas based on the data we want to visualize, similarly to the pipes, we will connect the different layers of our plot with the operator `+`. 
+Then we can add layers to our canvas based on the data we want to visualize, similarly to the pipes, we will connect the different layers of our plot with the operator `+`.
 
 The basic components that we need to define for a plot are the following:
-  
-  - *data*, the data set we will use to generate the figure
-  - *geometry*, or type of graphic we will generate (i.e. histogram, bar, scatter, etc..)
-  - *aesthetic*, variables or arguments that will be used for the figure for example: location, color, size, etc..
+
+-   *data*, the data set we will use to generate the figure
+-   *geometry*, or type of graphic we will generate (i.e. histogram, bar, scatter, etc..)
+-   *aesthetic*, variables or arguments that will be used for the figure for example: location, color, size, etc..
 
 An example:
 
@@ -51,14 +51,13 @@ ggplot(data = captures) + # This is the data we will use
   )
 ```
 
-Other components of the plots can be defined to further customize our figures, and we will cover those more in detail in future sections.  
-As you noticed in the previous example, we can print the figures directly from the R console, but a way I like to organize the figures is to put them all inside a single object in R. This object can be a `list`, which is just a container for other objects.  
+Other components of the plots can be defined to further customize our figures, and we will cover those more in detail in future sections.\
+As you noticed in the previous example, we can print the figures directly from the R console, but a way I like to organize the figures is to put them all inside a single object in R. This object can be a `list`, which is just a container for other objects.
 
 ```{r create fig list}
 # To create an empty list we can use the function list()
 figures <- list()
 ```
-
 
 # Visualizing distributions
 
@@ -68,7 +67,7 @@ figures <- list()
 
 The most simple way to visualize the distribution of a continuous variable is using a histogram. Histograms are a special kind of bar plots where our variable is grouped in bins and showing the counts for each bin. Now that we have our container list for the plots, we can simply save it there and assign a name we want.
 
-Notice that we will combine the pipes with the ggplot syntax. you can either define the name of the data in the ggplot function or before the function and connect it with a pipe.  
+Notice that we will combine the pipes with the ggplot syntax. you can either define the name of the data in the ggplot function or before the function and connect it with a pipe.
 
 ```{r hist}
 figures$histogram <- captures %>% # This is the data we use.
@@ -96,45 +95,23 @@ figures$box
 
 ## Pie charts... ?
 
+Pie charts are not very straight forward in ggplot, there is NO geom_pie functions. To do this, you can essentially do a bar chart with some specifications and then use the function `coord_polar()` which will convert the coordinates from the figure.
 
-```{r}
-captures %>% count(trap_type) %>% 
+```{r pie chart with ggplot}
+captures %>% count(municipality) %>% 
   ggplot() +
-  geom_bar(aes(x = 'trap_type', y = n, fill = factor(trap_type)), stat = 'identity') +
+  geom_bar(aes(x = 'municipality', y = n, fill = municipality), stat = 'identity') +
   coord_polar('y') +
   theme_void()
 ```
 
-Some people say the problems with pie charts is that humans are just abd at reading angles 
+You might be wondering why there is no geom_pie in ggplot ... Despite pie charts being one of the most common figures in media for categorical data, pie charts have been criticized as difficult to interpret when looking a distributions, particularly when the distribution of the variable is closely homogeneous. You can evaluate that yourself in the following figure:
 
-### Barplots
+![Comparing the same data using two different visualization approaches. From <https://en.wikipedia.org/wiki/File:Piecharts.svg>](img/I_PieCharts.png){width="70%"}
 
-Bar plots are great to represent frequencies of categories. In the following example we will first count the number of treated by year, and then see it in a bar plot. 
+Some alternatives to pie charts include: mosaic and bars charts.
 
-```{r barplots}
-figures$bars <- captures %>% 
-  count(year, wt = treated) %>% 
-  ggplot() +
-  geom_bar(aes(
-    x = year, # X axis
-    y = n # Y axis
-  ), stat = 'identity') # type of barplot
-
-figures$bars
-```
-
-```{r}
- captures %>% 
-  count(year, trap_type, wt = treated) %>% 
-  ggplot() +
-  geom_bar(aes(
-    x = year, # X axis
-    y = n, # Y axis
-    fill = factor(trap_type)
-  ), stat = 'identity') # type of barplot
-```
-
-### Alternatives:
+## Mosaic 
 
 ```{r}
 library(treemap)
@@ -144,11 +121,67 @@ captures %>%
   treemap(., index = 'municipality', vSize = 'n')
 ```
 
+
+## Barplots
+
+Bar plots are great to represent frequencies of categories. In the following example we will first count the number of treated by year, and then see it in a bar plot.
+
+```{r barplots}
+figures$bars <- captures %>% 
+  count(municipality, wt = treated) %>% 
+  ggplot() +
+  geom_bar(aes(
+    x = n, # X axis
+    y = municipality # Y axis
+  ), stat = 'identity') # type of barplot
+
+figures$bars
+```
+
+Another advantage of bar plots is that we can add extra variables to indicate the composition (using another variable) of each of the levels. For example, we will add the variable *trap_type* to color the bars:
+
+```{r}
+captures %>% 
+  count(municipality, trap_type, wt = treated) %>% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # X axis
+    x = n, # Y axis
+    fill = factor(trap_type)
+  ), stat = 'identity') # type of barplot
+```
+
+```{r}
+captures %>% 
+  count(municipality, trap_type, wt = treated) %>% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # X axis
+    x = n, # Y axis
+    fill = factor(trap_type)
+  ), stat = 'identity', position = 'dodge') # type of barplot
+```
+
+
+This can also be done by looking as a proportion by adding the argument `position = 'fill` to the `geom_bar()` function, notice that this removes the sense of number of observations for the main category (*year*):
+
+```{r}
+captures %>% 
+  count(municipality, trap_type, wt = treated) %>% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # X axis
+    x = n, # Y axis
+    fill = factor(trap_type)
+  ), stat = 'identity',
+  position = 'fill') # type of bar plot
+```
+
 # Visualizing relationships
 
 ## Scatterplots
 
-This is one of the most popular kind of plots, it is useful to represent relationship between two continuous variables.  
+This is one of the most popular kind of plots, it is useful to represent relationship between two continuous variables.
 
 ```{r}
 figures$scatter <- captures %>% # first we start with the name of our data.frame
@@ -158,10 +191,9 @@ figures$scatter <- captures %>% # first we start with the name of our data.frame
 figures$scatter
 ```
 
-
 # Time series
 
-To create a time series we will need to reformat the data a little bit so R can do what we want. We will introduce a new kind of variable: `date`. The date variables are pretty much what it sounds like, is a variable that has a format with year, month and day; there are other ways to format dates in R, but this is the most common and straight forward.  
+To create a time series we will need to reformat the data a little bit so R can do what we want. We will introduce a new kind of variable: `date`. The date variables are pretty much what it sounds like, is a variable that has a format with year, month and day; there are other ways to format dates in R, but this is the most common and straight forward.
 
 ```{r}
 tCaptures <- captures %>% 
@@ -181,7 +213,6 @@ figures$timeseries <- tCaptures %>%
 figures$timeseries
 ```
 
-
 ```{r export objects for next session, include=F, eval=F}
 # This one works, but all the objects are called 'o'
 # See if possible call the objects as they should
@@ -196,4 +227,3 @@ save(captures, file = 'misc/I/captures.RData')
 save(figures, file = 'misc/I/figures.RData')
 save(tCaptures, file = 'misc/I/tCaptures.RData')
 ```
-

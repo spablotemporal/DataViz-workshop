@@ -20,8 +20,6 @@ load('misc/I/figures.RData')
 load('misc/I/tCaptures.RData')
 ```
 
-
-
 # Further customization
 
 ## Labels

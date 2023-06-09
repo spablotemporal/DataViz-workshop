@@ -11,7 +11,7 @@
 
 <meta name="author" content="Pablo Gomez" />
 
-<meta name="date" content="2023-06-08" />
+<meta name="date" content="2023-06-09" />
 
 <title>Introduction to data visualization with ggplot2</title>
 
@@ -368,7 +368,7 @@ div.tocify {
 <h1 class="title toc-ignore">Introduction to data visualization with
 ggplot2</h1>
 <h4 class="author">Pablo Gomez</h4>
-<h4 class="date">2023-06-08</h4>
+<h4 class="date">2023-06-09</h4>
 
 </div>
 
@@ -481,48 +481,91 @@ variables</h2>
 </div>
 <div id="pie-charts" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> Pie charts… ?</h2>
-<pre class="r"><code>captures %&gt;% count(trap_type) %&gt;% 
+<p>Pie charts are not very straight forward in ggplot, there is NO
+geom_pie functions. To do this, you can essentially do a bar chart with
+some specifications and then use the function <code>coord_polar()</code>
+which will convert the coordinates from the figure.</p>
+<pre class="r"><code>captures %&gt;% count(municipality) %&gt;% 
   ggplot() +
-  geom_bar(aes(x = &#39;trap_type&#39;, y = n, fill = factor(trap_type)), stat = &#39;identity&#39;) +
+  geom_bar(aes(x = &#39;municipality&#39;, y = n, fill = municipality), stat = &#39;identity&#39;) +
   coord_polar(&#39;y&#39;) +
   theme_void()</code></pre>
-<p><img src="DataViz_I_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<p>Some people say the problems with pie charts is that humans are just
-abd at reading angles</p>
-<div id="barplots" class="section level3" number="2.3.1">
-<h3><span class="header-section-number">2.3.1</span> Barplots</h3>
-<p>Bar plots are great to represent frequencies of categories. In the
-following example we will first count the number of treated by year, and
-then see it in a bar plot.</p>
-<pre class="r"><code>figures$bars &lt;- captures %&gt;% 
-  count(year, wt = treated) %&gt;% 
-  ggplot() +
-  geom_bar(aes(
-    x = year, # X axis
-    y = n # Y axis
-  ), stat = &#39;identity&#39;) # type of barplot
-
-figures$bars</code></pre>
-<p><img src="DataViz_I_files/figure-html/barplots-1.png" width="672" /></p>
-<pre class="r"><code> captures %&gt;% 
-  count(year, trap_type, wt = treated) %&gt;% 
-  ggplot() +
-  geom_bar(aes(
-    x = year, # X axis
-    y = n, # Y axis
-    fill = factor(trap_type)
-  ), stat = &#39;identity&#39;) # type of barplot</code></pre>
-<p><img src="DataViz_I_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="DataViz_I_files/figure-html/pie%20chart%20with%20ggplot-1.png" width="672" /></p>
+<p>You might be wondering why there is no geom_pie in ggplot … Despite
+pie charts being one of the most common figures in media for categorical
+data, pie charts have been criticized as difficult to interpret when
+looking a distributions, particularly when the distribution of the
+variable is closely homogeneous. You can evaluate that yourself in the
+following figure:</p>
+<div class="figure">
+<img src="img/I_PieCharts.png" style="width:70.0%" alt="" />
+<p class="caption">Comparing the same data using two different
+visualization approaches. From <a
+href="https://en.wikipedia.org/wiki/File:Piecharts.svg"
+class="uri">https://en.wikipedia.org/wiki/File:Piecharts.svg</a></p>
 </div>
-<div id="alternatives" class="section level3" number="2.3.2">
-<h3><span class="header-section-number">2.3.2</span> Alternatives:</h3>
+<p>Some alternatives to pie charts include: mosaic and bars charts.</p>
+</div>
+<div id="mosaic" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Mosaic</h2>
 <pre class="r"><code>library(treemap)
 
 captures %&gt;% 
   count(municipality, captures) %&gt;% 
   treemap(., index = &#39;municipality&#39;, vSize = &#39;n&#39;)</code></pre>
-<p><img src="DataViz_I_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 </div>
+<div id="barplots" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Barplots</h2>
+<p>Bar plots are great to represent frequencies of categories. In the
+following example we will first count the number of treated by year, and
+then see it in a bar plot.</p>
+<pre class="r"><code>figures$bars &lt;- captures %&gt;% 
+  count(municipality, wt = treated) %&gt;% 
+  ggplot() +
+  geom_bar(aes(
+    x = n, # X axis
+    y = municipality # Y axis
+  ), stat = &#39;identity&#39;) # type of barplot
+
+figures$bars</code></pre>
+<p><img src="DataViz_I_files/figure-html/barplots-1.png" width="672" /></p>
+<p>Another advantage of bar plots is that we can add extra variables to
+indicate the composition (using another variable) of each of the levels.
+For example, we will add the variable <em>trap_type</em> to color the
+bars:</p>
+<pre class="r"><code>captures %&gt;% 
+  count(municipality, trap_type, wt = treated) %&gt;% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # X axis
+    x = n, # Y axis
+    fill = factor(trap_type)
+  ), stat = &#39;identity&#39;) # type of barplot</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>captures %&gt;% 
+  count(municipality, trap_type, wt = treated) %&gt;% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # X axis
+    x = n, # Y axis
+    fill = factor(trap_type)
+  ), stat = &#39;identity&#39;, position = &#39;dodge&#39;) # type of barplot</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>This can also be done by looking as a proportion by adding the
+argument <code>position = 'fill</code> to the <code>geom_bar()</code>
+function, notice that this removes the sense of number of observations
+for the main category (<em>year</em>):</p>
+<pre class="r"><code>captures %&gt;% 
+  count(municipality, trap_type, wt = treated) %&gt;% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # X axis
+    x = n, # Y axis
+    fill = factor(trap_type)
+  ), stat = &#39;identity&#39;,
+  position = &#39;fill&#39;) # type of bar plot</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
 </div>
 <div id="visualizing-relationships" class="section level1" number="3">
@@ -537,7 +580,7 @@ represent relationship between two continuous variables.</p>
   geom_point(aes(x = treated, y = captures)) # and we add layer for points
 
 figures$scatter</code></pre>
-<p><img src="DataViz_I_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 </div>
 <div id="time-series" class="section level1" number="4">
@@ -560,7 +603,7 @@ as any other variable.</p>
   geom_line(aes(x = week, y = n))
 
 figures$timeseries</code></pre>
-<p><img src="DataViz_I_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 
 
