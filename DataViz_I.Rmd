@@ -174,8 +174,8 @@ figures$heatmap <- captures %>% # The data we are using
   count(municipality, trap_type) %>% # We count the data by municipality and trap type
   ggplot() +
   geom_tile(aes(
-    x = factor(trap_type), # x axis
     y = municipality, # y axis
+    x = factor(trap_type), # x axis
     fill = n # The fill for each cell
   ))
 

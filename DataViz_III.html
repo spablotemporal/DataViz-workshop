@@ -376,7 +376,7 @@ div.tocify {
 <h1><span class="header-section-number">1</span> Objectives:</h1>
 <ul>
 <li>Talk about figure arrangements</li>
-<li>Make the</li>
+<li>Make the data visualization exercise.</li>
 </ul>
 </div>
 <div id="arranging-the-plots-in-a-layout" class="section level1"
@@ -385,10 +385,51 @@ number="2">
 a layout</h1>
 <p>Now that we have all the figures in a list, we can make arrangements
 with our figures. For this we use the function <code>ggarrange()</code>
-from the ggpubr library.</p>
+from the <code>ggpubr</code> library. The <code>ggarrange()</code> takes
+multiple arguments, but the main one is the figures we want to arrange.
+We can specify the figures in two ways, defining a list with all our
+figures, or if we want specific figures we can define the figures one by
+one. For example:</p>
 <pre class="r"><code>library(ggpubr) # load the library
 ggarrange(plotlist = figures)</code></pre>
+<p><img src="DataViz_III_files/figure-html/ggpubr-1.png" width="672" /></p>
+<p>This might not be the best arrangement for the figures, since its too
+much information, so we can arrange it in several ‘pages’. The way
+<code>ggarrange()</code> organizes the figure is in a n x n grid. If not
+specified, it will try to arrange the all the figures in a single grid,
+but we can use the arguments <code>ncol</code> and <code>nrow</code> to
+limit the number of elements per cell in our grid. For example:</p>
+<pre class="r"><code>ggarrange(plotlist = figures, ncol = 2, nrow = 1)</code></pre>
+<pre><code>## $`1`</code></pre>
+<p><img src="DataViz_III_files/figure-html/limit%20elements-1.png" width="672" /></p>
+<pre><code>## 
+## $`2`</code></pre>
+<p><img src="DataViz_III_files/figure-html/limit%20elements-2.png" width="672" /></p>
+<pre><code>## 
+## $`3`</code></pre>
+<p><img src="DataViz_III_files/figure-html/limit%20elements-3.png" width="672" /></p>
+<pre><code>## 
+## attr(,&quot;class&quot;)
+## [1] &quot;list&quot;      &quot;ggarrange&quot;</code></pre>
+<p>If we want to select specific figures, we will need to either delete
+them from the list, or just add them one by one. We can also add labels
+to later reference in our figure caption, for example:</p>
+<pre class="r"><code>toppanel &lt;- ggarrange(
+  figures$bars, figures$box, # These are our figures
+  labels = c(&#39;a.&#39;, &#39;b.&#39;) # The labels
+) 
+
+toppanel</code></pre>
 <p><img src="DataViz_III_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>We can also make arrangements with arrangements, for example:</p>
+<pre class="r"><code>p1 &lt;- ggarrange(toppanel, figures$timeseries, ncol = 1, heights = c(2, 1), labels = c(&#39;&#39;,&#39;c&#39;)) # Add another figure at the bottom
+
+p1</code></pre>
+<p><img src="DataViz_III_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Finaly we can add a general title for the arrangement</p>
+<pre class="r"><code>p1 %&gt;% 
+  annotate_figure(top = text_grob(&#39;Summary of the findings&#39;, face = &#39;bold&#39;, size = 20))</code></pre>
+<p><img src="DataViz_III_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
 <div id="facets" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Facets</h1>
@@ -407,7 +448,7 @@ rows and another for columns:</p>
   theme_pubclean() # lets try another theme
 
 figures$histogram</code></pre>
-<p><img src="DataViz_III_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="DataViz_III_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>Now that you know some tools to look for information, you will have
 to make your figures on your own. If you want to make figures with the
 datasets we have been using you can do those, or you can use any of the
