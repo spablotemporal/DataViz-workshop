@@ -508,12 +508,27 @@ class="uri">https://en.wikipedia.org/wiki/File:Piecharts.svg</a></p>
 </div>
 <div id="mosaic" class="section level2" number="2.4">
 <h2><span class="header-section-number">2.4</span> Mosaic</h2>
-<pre class="r"><code>library(treemap)
+<p>The main drawback of mosaic plots is that there is not a specific
+function from the <code>ggplot2</code> library to make this plot, which
+means that does not integrates as well with some of the functions we
+will be using in this workshop. We can use another library
+(<code>treemap</code>) to generate this figure. We use the function
+<code>treemap()</code> from the same library:</p>
+<pre class="r"><code>library(treemap) # load the library
 
-captures %&gt;% 
-  count(municipality, captures) %&gt;% 
-  treemap(., index = &#39;municipality&#39;, vSize = &#39;n&#39;)</code></pre>
+captures %&gt;% # this is our data
+  count(municipality, captures) %&gt;% # we count the number of captures
+  treemap(
+    ., # This is our data
+    index = &#39;municipality&#39;, # The index variable
+    vSize = &#39;n&#39; # Variable that indicates the frequency per category
+  )</code></pre>
 <p><img src="DataViz_I_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>Treemaps (or mosaic) can include multiple hierarchies</p>
+<pre class="r"><code>captures %&gt;% 
+  count(municipality, location, captures) %&gt;% 
+  treemap(., index = c(&#39;municipality&#39;, &#39;location&#39;), vSize = &#39;n&#39;)</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
 <div id="barplots" class="section level2" number="2.5">
 <h2><span class="header-section-number">2.5</span> Barplots</h2>
@@ -521,7 +536,7 @@ captures %&gt;%
 following example we will first count the number of treated by year, and
 then see it in a bar plot.</p>
 <pre class="r"><code>figures$bars &lt;- captures %&gt;% 
-  count(municipality, wt = treated) %&gt;% 
+  count(municipality) %&gt;% 
   ggplot() +
   geom_bar(aes(
     x = n, # X axis
@@ -530,42 +545,6 @@ then see it in a bar plot.</p>
 
 figures$bars</code></pre>
 <p><img src="DataViz_I_files/figure-html/barplots-1.png" width="672" /></p>
-<p>Another advantage of bar plots is that we can add extra variables to
-indicate the composition (using another variable) of each of the levels.
-For example, we will add the variable <em>trap_type</em> to color the
-bars:</p>
-<pre class="r"><code>captures %&gt;% 
-  count(municipality, trap_type, wt = treated) %&gt;% 
-  ggplot() +
-  geom_bar(aes(
-    y = municipality, # X axis
-    x = n, # Y axis
-    fill = factor(trap_type)
-  ), stat = &#39;identity&#39;) # type of barplot</code></pre>
-<p><img src="DataViz_I_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<pre class="r"><code>captures %&gt;% 
-  count(municipality, trap_type, wt = treated) %&gt;% 
-  ggplot() +
-  geom_bar(aes(
-    y = municipality, # X axis
-    x = n, # Y axis
-    fill = factor(trap_type)
-  ), stat = &#39;identity&#39;, position = &#39;dodge&#39;) # type of barplot</code></pre>
-<p><img src="DataViz_I_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>This can also be done by looking as a proportion by adding the
-argument <code>position = 'fill</code> to the <code>geom_bar()</code>
-function, notice that this removes the sense of number of observations
-for the main category (<em>year</em>):</p>
-<pre class="r"><code>captures %&gt;% 
-  count(municipality, trap_type, wt = treated) %&gt;% 
-  ggplot() +
-  geom_bar(aes(
-    y = municipality, # X axis
-    x = n, # Y axis
-    fill = factor(trap_type)
-  ), stat = &#39;identity&#39;,
-  position = &#39;fill&#39;) # type of bar plot</code></pre>
-<p><img src="DataViz_I_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
 </div>
 <div id="visualizing-relationships" class="section level1" number="3">
@@ -580,6 +559,32 @@ represent relationship between two continuous variables.</p>
   geom_point(aes(x = treated, y = captures)) # and we add layer for points
 
 figures$scatter</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<div id="heatmaps" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Heatmaps</h2>
+<p>Heatmaps represent the frequency (or other values) for a combination
+of variables in a matrix. For example, we can visualize the frequency of
+captures by trap type for each of the municipalities in our data:</p>
+<pre class="r"><code>captures %&gt;% # The data we are using
+  count(municipality, trap_type) %&gt;% # We count the data by municipality and trap type
+  ggplot() +
+  geom_tile(aes(
+    x = factor(trap_type), # x axis
+    y = municipality, # y axis
+    fill = n # The fill for each cell
+  ))</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="boxplots-again.." class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Boxplots
+(again..)</h2>
+<pre class="r"><code># Only one variable
+figures$box &lt;- captures %&gt;% 
+  ggplot() +
+  geom_boxplot(aes(x = treated, y = municipality))
+
+figures$box</code></pre>
 <p><img src="DataViz_I_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 </div>
@@ -592,15 +597,14 @@ like, is a variable that has a format with year, month and day; there
 are other ways to format dates in R, but this is the most common and
 straight forward.</p>
 <pre class="r"><code>tCaptures &lt;- captures %&gt;% 
-  count(date, wt = treated) %&gt;% 
-  mutate(date = as.Date(date, &quot;%m/%d/%y&quot;), # First we will format the date
-         week = format(date, &quot;%V&quot;),
-         week = lubridate::floor_date(date, &#39;week&#39;)) # The we create a variable formatting the date as week of the year</code></pre>
+  mutate(date = as.Date(date, &quot;%d/%m/%y&quot;), # First we will format the date
+         month = lubridate::floor_date(date, &#39;month&#39;)) %&gt;%  # The we create a variable formatting the date as month of the year
+  count(month) # Count the number of observations by month</code></pre>
 <p>Now that we have our variables in the correct format, we can use it
 as any other variable.</p>
 <pre class="r"><code>figures$timeseries &lt;- tCaptures %&gt;% 
   ggplot() +
-  geom_line(aes(x = week, y = n))
+  geom_line(aes(x = month, y = n))
 
 figures$timeseries</code></pre>
 <p><img src="DataViz_I_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>

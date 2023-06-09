@@ -11,7 +11,7 @@
 
 <meta name="author" content="Pablo Gomez" />
 
-<meta name="date" content="2023-06-08" />
+<meta name="date" content="2023-06-09" />
 
 <title>Further customization</title>
 
@@ -367,7 +367,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Further customization</h1>
 <h4 class="author">Pablo Gomez</h4>
-<h4 class="date">2023-06-08</h4>
+<h4 class="date">2023-06-09</h4>
 
 </div>
 
@@ -375,28 +375,8 @@ div.tocify {
 <div id="further-customization" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Further
 customization</h1>
-<div id="labels" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Labels</h2>
-<p>Usually we try to avoid spaces when using names for the column names,
-but for our plots this could be not the most straight forward way to
-communicate our analysis, we can set specific labels to make our plots
-more readable and self explanatory. Let’s improve bar plot figure a bit
-more to make it clearer:</p>
-<pre class="r"><code>figures$bars &lt;- captures %&gt;% 
-  count(year, wt = treated) %&gt;% 
-  ggplot() +
-  geom_bar(aes(x = year, y = n), stat = &#39;identity&#39;) + # type of barplot
-  labs(# We will use the function labs to generate our labels
-    title = &#39;Number of treated by year&#39;,
-    x = &#39;Year&#39;,
-    y = &#39;Number of treated&#39;
-  )
-
-figures$bars</code></pre>
-<p><img src="DataViz_II_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-</div>
-<div id="themes" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Themes</h2>
+<div id="themes" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Themes</h2>
 <p>ggplot includes the function <code>theme()</code> to define most of
 the aspects of the figure such as the background color, the grid, axes,
 legend, among many others. There is also several predefined themes (all
@@ -404,19 +384,17 @@ start with <code>theme_</code> followed by the name of the theme) that
 you can use, if don’t want to mess with all the arguments from the
 function <code>theme()</code>. For example:</p>
 <pre class="r"><code># all the predefined themes start with theme_
-figures$timeseries &lt;- tCaptures %&gt;% 
-  ggplot() +
-  geom_line(aes(x = week, y = n)) +
-  labs(title = &#39;Treated by week&#39;, x = &#39;Week&#39;, y = &#39;Number of treated&#39;) +
-  theme_minimal() # We will use the theme minimal
+figures$heatmap &lt;- figures$heatmap +
+  theme_classic2() + # We will use the theme minimal
+  coord_equal() # we will set the coordinates to equal to improve the aspect ratio
 
-figures$timeseries</code></pre>
-<p><img src="DataViz_II_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+figures$heatmap</code></pre>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 </div>
-<div id="other-aesthetics" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> Other aesthetics</h2>
-<div id="shape" class="section level3" number="1.3.1">
-<h3><span class="header-section-number">1.3.1</span> Shape</h3>
+<div id="other-aesthetics" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Other aesthetics</h2>
+<div id="shape" class="section level3" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Shape</h3>
 <p>There are other aesthetics we can define such as color, type of
 point, size, among many others. Lets try changing the point shape for
 one of the plots we previously did:</p>
@@ -427,65 +405,114 @@ one of the plots we previously did:</p>
     y = treated, # Y axis
     shape = factor(trap_type) # point shape
   )) +
-  labs(title = &#39;Captures and treatments by year&#39;, x = &#39;Captures&#39;, y = &#39;Treated&#39;, shape = &#39;Trap type&#39;) +
   theme_classic() # now lets try the theme &#39;classic&#39;
 
 figures$scatter</code></pre>
-<p><img src="DataViz_II_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
-<div id="color" class="section level3" number="1.3.2">
-<h3><span class="header-section-number">1.3.2</span> Color</h3>
-<p>In the next example we will use the trap type to color our
-boxplot:</p>
+<div id="color" class="section level3" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> Color</h3>
+<p>We can add extra variables to indicate the composition (using another
+variable) of each of the levels in our figures. For example, we will add
+the variable <em>trap_type</em> to color the bars in this figure. to do
+this we add the argument <code>fill=factor(trap_type)</code> to our
+<code>aes()</code> function</p>
+<pre class="r"><code>figures$bars &lt;- captures %&gt;% 
+  count(municipality, trap_type) %&gt;% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # X axis
+    x = n, # Y axis
+    fill = factor(trap_type) # Variable used for fill
+  ), stat = &#39;identity&#39;) # type of bar plot
+
+figures$bars</code></pre>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>There are different strategies to visualize this, another example
+would be to breakdown the composition in individual bars like in the
+following figure, this can be useful to compare the within group
+composition:</p>
 <pre class="r"><code>captures %&gt;% 
-  ggplot() + # set the canvas
-  geom_boxplot(aes(y = treated, fill = factor(trap_type))) # we add a boxplot layer</code></pre>
-<p><img src="DataViz_II_files/figure-html/fill-1.png" width="672" /></p>
-<p>We can also use the variable to color other parts of the plot such as
-the border:</p>
+  count(municipality, trap_type) %&gt;% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # X axis
+    x = n, # Y axis
+    fill = factor(trap_type)
+  ), stat = &#39;identity&#39;, position = &#39;dodge&#39;) # type of barplot</code></pre>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Another option is looking the composition as a proportion by adding
+the argument <code>position = 'fill</code> to the
+<code>geom_bar()</code> function, notice that this removes the sense of
+number of observations for the main category (<em>year</em>):</p>
 <pre class="r"><code>captures %&gt;% 
-  ggplot() + # set the canvas
-  geom_boxplot(aes(y = treated, col = factor(trap_type))) # we add a boxplot layer</code></pre>
-<p><img src="DataViz_II_files/figure-html/col-1.png" width="672" /></p>
+  count(municipality, trap_type) %&gt;% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # X axis
+    x = n, # Y axis
+    fill = factor(trap_type)
+  ), stat = &#39;identity&#39;,
+  position = &#39;fill&#39;) # type of bar plot</code></pre>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 <div id="non-aesthetics-customization" class="section level3"
-number="1.3.3">
-<h3><span class="header-section-number">1.3.3</span> Non aesthetics
+number="1.2.3">
+<h3><span class="header-section-number">1.2.3</span> Non aesthetics
 customization</h3>
 <p>So far we have added variables inside our <code>aes()</code>
 function, but we can add some arguments outside the <code>aes()</code>
-function that we want them to be applied for all observations. For
-example, we can change the outline of the boxplot to be the same for the
-two groups, but the fill color different per group:</p>
-<pre class="r"><code>captures %&gt;% 
-  ggplot() + # set the canvas
-  geom_boxplot(
-    aes(y = treated, fill = factor(trap_type)), # This is the normal aesthetics we define
-    col = &#39;red&#39; # all aesthetics we define here will be applied to all th ebservations
-  ) # we add a boxplot layer</code></pre>
-<p><img src="DataViz_II_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-</div>
-</div>
-<div id="colors" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Colors</h2>
-<p>To define specific colors for our figure, we can use the function
-<code>scale_*_manual</code> where the * represents the aesthetic we want
-to represent. If we want to use the color for the fill, we would
-use:</p>
-<pre class="r"><code>figures$box &lt;- captures %&gt;% 
-  ggplot() +
-  geom_boxplot(aes(y = treated, fill = factor(trap_type))) +
-  scale_fill_manual(values = c(&#39;salmon&#39;, &#39;lightgreen&#39;, &#39;skyblue&#39;, &#39;orchid&#39;)) +
-  labs(fill = &#39;trap type&#39;) +
-  # theme_linedraw() +
-  theme(panel.grid = element_line(colour = &#39;grey98&#39;), 
-        panel.grid.major.x = element_blank(), 
-        panel.grid.minor.x = element_blank(), 
-        panel.background = element_rect(fill = &#39;grey94&#39;), 
-        axis.text.x = element_blank(), axis.ticks.x = element_blank())
+function that we want them to be applied for ALL observations. For
+example, we can change the size and transparency of the points in our
+scatter plot, which can be useful to see where there is more overlap of
+observations:</p>
+<pre class="r"><code>figures$scatter &lt;- captures %&gt;% # the data we are using
+  ggplot() + # we set the canvas
+  geom_point(
+    aes(x = captures, y = treated, shape = factor(trap_type)), # aesthetics
+    size = 2.5,
+    alpha = 0.2 # alpha will define the transparency of the points
+  )
 
-figures$box</code></pre>
-<p><img src="DataViz_II_files/figure-html/colors-1.png" width="672" /></p>
+figures$scatter</code></pre>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>You can change other components of the figure such as the color,
+shape, size, etc.. Remember that everything that goes inside the
+<code>aes()</code> function will be dependent on the variables from the
+data and whatever goes outside are constants for all the
+observations.</p>
+</div>
+</div>
+</div>
+<div id="scales" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Scales</h1>
+<div id="continuous-values" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Continuous
+values</h2>
+<pre class="r"><code>figures$heatmap &lt;- figures$heatmap +
+  scale_fill_gradient(low = &#39;black&#39;, high = &#39;red&#39;)
+
+figures$heatmap</code></pre>
+<p><img src="DataViz_II_files/figure-html/gradient%20scales-1.png" width="672" /></p>
+</div>
+<div id="categorical-values" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Categorical
+values</h2>
+<p>As you noticed by default R pick specific colors and shapes for the
+variables we use to map our figure, scales in <code>ggplot2</code> is a
+way to specify the shapes, colors or sizes used for the figures. There
+is a family of functions (<code>scales_*</code>) where <code>*</code>
+represents the aesthetic we want to define. For example, if we want to
+change the colors for the fill, we can use:</p>
+<pre class="r"><code>figures$bars &lt;- figures$bars +
+  scale_fill_manual(values = c(&#39;gold2&#39;, &#39;seagreen3&#39;, &#39;red2&#39;, &#39;orchid&#39;))
+
+figures$bars</code></pre>
+<p><img src="DataViz_II_files/figure-html/categorical%20scales-1.png" width="672" /></p>
+</div>
+<div id="how-to-find-colors" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> How to find
+colors?</h2>
 <p>R manages colors in three different ways: by name (i.e: ‘red’), by
 rgb value using the function <code>rgb()</code>
 (i.e. <code>rgb(1, 0, 0)</code>), or using <a
@@ -500,6 +527,25 @@ the colour picker (should be already in your addins toolbar).</p>
 <p><strong>Exercise: </strong> Pick 4 colors you like and use them to
 create a boxplot of the distribution of number of treated by the trap
 type.</p>
+</div>
+<div id="labels" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Labels</h2>
+<p>Usually we try to avoid spaces when using names for the column names,
+but for our figure labels this could be not the most straight forward
+way to communicate our analysis, we can set specific labels to make our
+plots more readable and self explanatory. Let’s improve bar plot figure
+a bit more to make it clearer, we can use the figure we previously
+created contained in our figures list <code>figures$bars</code></p>
+<pre class="r"><code>figures$bars &lt;- figures$bars + # we call the figure previously created
+  labs(# We will use the function labs to generate our labels
+    title = &#39;Number of observations by Municipality&#39;, # The title we will give to our figure
+    x = &#39;Number of observations&#39;, # The label for x axis
+    y = &#39;Municipality&#39;, # label for y axis
+    fill = &#39;Trap type&#39;
+  )
+
+figures$bars</code></pre>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 </div>
 

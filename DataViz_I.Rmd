@@ -113,14 +113,27 @@ Some alternatives to pie charts include: mosaic and bars charts.
 
 ## Mosaic 
 
-```{r}
-library(treemap)
+The main drawback of mosaic plots is that there is not a specific function from the `ggplot2` library to make this plot, which means that does not integrates as well with some of the functions we will be using in this workshop. We can use another library (`treemap`) to generate this figure. We use the function `treemap()` from the same library:
 
-captures %>% 
-  count(municipality, captures) %>% 
-  treemap(., index = 'municipality', vSize = 'n')
+```{r}
+library(treemap) # load the library
+
+captures %>% # this is our data
+  count(municipality, captures) %>% # we count the number of captures
+  treemap(
+    ., # This is our data
+    index = 'municipality', # The index variable
+    vSize = 'n' # Variable that indicates the frequency per category
+  )
 ```
 
+Treemaps (or mosaic) can include multiple hierarchies 
+
+```{r}
+captures %>% 
+  count(municipality, location, captures) %>% 
+  treemap(., index = c('municipality', 'location'), vSize = 'n')
+```
 
 ## Barplots
 
@@ -128,7 +141,7 @@ Bar plots are great to represent frequencies of categories. In the following exa
 
 ```{r barplots}
 figures$bars <- captures %>% 
-  count(municipality, wt = treated) %>% 
+  count(municipality) %>% 
   ggplot() +
   geom_bar(aes(
     x = n, # X axis
@@ -136,45 +149,6 @@ figures$bars <- captures %>%
   ), stat = 'identity') # type of barplot
 
 figures$bars
-```
-
-Another advantage of bar plots is that we can add extra variables to indicate the composition (using another variable) of each of the levels. For example, we will add the variable *trap_type* to color the bars:
-
-```{r}
-captures %>% 
-  count(municipality, trap_type, wt = treated) %>% 
-  ggplot() +
-  geom_bar(aes(
-    y = municipality, # X axis
-    x = n, # Y axis
-    fill = factor(trap_type)
-  ), stat = 'identity') # type of barplot
-```
-
-```{r}
-captures %>% 
-  count(municipality, trap_type, wt = treated) %>% 
-  ggplot() +
-  geom_bar(aes(
-    y = municipality, # X axis
-    x = n, # Y axis
-    fill = factor(trap_type)
-  ), stat = 'identity', position = 'dodge') # type of barplot
-```
-
-
-This can also be done by looking as a proportion by adding the argument `position = 'fill` to the `geom_bar()` function, notice that this removes the sense of number of observations for the main category (*year*):
-
-```{r}
-captures %>% 
-  count(municipality, trap_type, wt = treated) %>% 
-  ggplot() +
-  geom_bar(aes(
-    y = municipality, # X axis
-    x = n, # Y axis
-    fill = factor(trap_type)
-  ), stat = 'identity',
-  position = 'fill') # type of bar plot
 ```
 
 # Visualizing relationships
@@ -191,16 +165,43 @@ figures$scatter <- captures %>% # first we start with the name of our data.frame
 figures$scatter
 ```
 
+## Heatmaps
+
+Heatmaps represent the frequency (or other values) for a combination of variables in a matrix. For example, we can visualize the frequency of captures by trap type for each of the municipalities in our data:
+
+```{r}
+figures$heatmap <- captures %>% # The data we are using
+  count(municipality, trap_type) %>% # We count the data by municipality and trap type
+  ggplot() +
+  geom_tile(aes(
+    x = factor(trap_type), # x axis
+    y = municipality, # y axis
+    fill = n # The fill for each cell
+  ))
+
+figures$heatmap
+```
+
+## Boxplots (again..)
+
+```{r}
+# Only one variable
+figures$box <- captures %>% 
+  ggplot() +
+  geom_boxplot(aes(x = treated, y = municipality))
+
+figures$box
+```
+
 # Time series
 
 To create a time series we will need to reformat the data a little bit so R can do what we want. We will introduce a new kind of variable: `date`. The date variables are pretty much what it sounds like, is a variable that has a format with year, month and day; there are other ways to format dates in R, but this is the most common and straight forward.
 
 ```{r}
 tCaptures <- captures %>% 
-  count(date, wt = treated) %>% 
-  mutate(date = as.Date(date, "%m/%d/%y"), # First we will format the date
-         week = format(date, "%V"),
-         week = lubridate::floor_date(date, 'week')) # The we create a variable formatting the date as week of the year
+  mutate(date = as.Date(date, "%d/%m/%y"), # First we will format the date
+         month = lubridate::floor_date(date, 'month')) %>%  # The we create a variable formatting the date as month of the year
+  count(month) # Count the number of observations by month
 ```
 
 Now that we have our variables in the correct format, we can use it as any other variable.
@@ -208,7 +209,7 @@ Now that we have our variables in the correct format, we can use it as any other
 ```{r}
 figures$timeseries <- tCaptures %>% 
   ggplot() +
-  geom_line(aes(x = week, y = n))
+  geom_line(aes(x = month, y = n))
 
 figures$timeseries
 ```
