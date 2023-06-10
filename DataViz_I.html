@@ -545,6 +545,49 @@ then see it in a bar plot.</p>
 
 figures$bars</code></pre>
 <p><img src="DataViz_I_files/figure-html/barplots-1.png" width="672" /></p>
+<p>We can add extra variables to indicate the composition (using another
+variable) of each of the levels in our figures. For example, we will add
+the variable <em>trap_type</em> to color the bars in this figure. To do
+this we add the argument <code>fill=factor(trap_type)</code> to our
+<code>aes()</code> function</p>
+<pre class="r"><code>figures$bars &lt;- captures %&gt;% 
+  count(municipality, trap_type) %&gt;% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # X axis
+    x = n, # Y axis
+    fill = factor(trap_type) # Variable used for fill
+  ), stat = &#39;identity&#39;) # type of bar plot
+
+figures$bars</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>There are different strategies to visualize this, another example
+would be to breakdown the composition in individual bars like in the
+following figure, this can be useful to compare the within group
+composition:</p>
+<pre class="r"><code>captures %&gt;% 
+  count(municipality, trap_type) %&gt;% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # X axis
+    x = n, # Y axis
+    fill = factor(trap_type)
+  ), stat = &#39;identity&#39;, position = &#39;dodge&#39;) # type of bar plot</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Another option is looking the composition as a proportion by adding
+the argument <code>position = 'fill</code> to the
+<code>geom_bar()</code> function, notice that this removes the sense of
+number of observations for the main category (<em>year</em>):</p>
+<pre class="r"><code>captures %&gt;% 
+  count(municipality, trap_type) %&gt;% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # X axis
+    x = n, # Y axis
+    fill = factor(trap_type)
+  ), stat = &#39;identity&#39;,
+  position = &#39;fill&#39;) # type of bar plot</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 </div>
 <div id="visualizing-relationships" class="section level1" number="3">
@@ -559,22 +602,24 @@ represent relationship between two continuous variables.</p>
   geom_point(aes(x = treated, y = captures)) # and we add layer for points
 
 figures$scatter</code></pre>
-<p><img src="DataViz_I_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 <div id="heatmaps" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Heatmaps</h2>
 <p>Heatmaps represent the frequency (or other values) for a combination
 of variables in a matrix. For example, we can visualize the frequency of
 captures by trap type for each of the municipalities in our data:</p>
-<pre class="r"><code>captures %&gt;% # The data we are using
+<pre class="r"><code>figures$heatmap &lt;- captures %&gt;% # The data we are using
   count(municipality, trap_type) %&gt;% # We count the data by municipality and trap type
   ggplot() +
   geom_tile(aes(
-    x = factor(trap_type), # x axis
     y = municipality, # y axis
+    x = factor(trap_type), # x axis
     fill = n # The fill for each cell
-  ))</code></pre>
-<p><img src="DataViz_I_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+  ))
+
+figures$heatmap</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 <div id="boxplots-again.." class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> Boxplots
@@ -585,7 +630,7 @@ figures$box &lt;- captures %&gt;%
   geom_boxplot(aes(x = treated, y = municipality))
 
 figures$box</code></pre>
-<p><img src="DataViz_I_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 </div>
 <div id="time-series" class="section level1" number="4">
@@ -607,7 +652,7 @@ as any other variable.</p>
   geom_line(aes(x = month, y = n))
 
 figures$timeseries</code></pre>
-<p><img src="DataViz_I_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
 
 

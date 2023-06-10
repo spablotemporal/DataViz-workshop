@@ -412,49 +412,17 @@ figures$scatter</code></pre>
 </div>
 <div id="color" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Color</h2>
-<p>We can add extra variables to indicate the composition (using another
-variable) of each of the levels in our figures. For example, we will add
-the variable <em>trap_type</em> to color the bars in this figure. to do
-this we add the argument <code>fill=factor(trap_type)</code> to our
-<code>aes()</code> function</p>
-<pre class="r"><code>figures$bars &lt;- captures %&gt;% 
-  count(municipality, trap_type) %&gt;% 
-  ggplot() +
-  geom_bar(aes(
-    y = municipality, # X axis
-    x = n, # Y axis
-    fill = factor(trap_type) # Variable used for fill
-  ), stat = &#39;identity&#39;) # type of bar plot
+<pre class="r"><code>tCaptures &lt;- captures %&gt;% 
+  mutate(date = as.Date(date, &quot;%d/%m/%y&quot;), # First we will format the date
+         year = lubridate::floor_date(date, &#39;year&#39;)) %&gt;%  # The we create a variable formatting the date as month of the year
+  count(year, trap_type) # Count the number of observations by month
 
-figures$bars</code></pre>
+figures$timeseries &lt;- tCaptures %&gt;% 
+  ggplot() +
+  geom_line(aes(x = year, y = n, col = factor(trap_type))) 
+
+figures$timeseries</code></pre>
 <p><img src="DataViz_II_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>There are different strategies to visualize this, another example
-would be to breakdown the composition in individual bars like in the
-following figure, this can be useful to compare the within group
-composition:</p>
-<pre class="r"><code>captures %&gt;% 
-  count(municipality, trap_type) %&gt;% 
-  ggplot() +
-  geom_bar(aes(
-    y = municipality, # X axis
-    x = n, # Y axis
-    fill = factor(trap_type)
-  ), stat = &#39;identity&#39;, position = &#39;dodge&#39;) # type of barplot</code></pre>
-<p><img src="DataViz_II_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>Another option is looking the composition as a proportion by adding
-the argument <code>position = 'fill</code> to the
-<code>geom_bar()</code> function, notice that this removes the sense of
-number of observations for the main category (<em>year</em>):</p>
-<pre class="r"><code>captures %&gt;% 
-  count(municipality, trap_type) %&gt;% 
-  ggplot() +
-  geom_bar(aes(
-    y = municipality, # X axis
-    x = n, # Y axis
-    fill = factor(trap_type)
-  ), stat = &#39;identity&#39;,
-  position = &#39;fill&#39;) # type of bar plot</code></pre>
-<p><img src="DataViz_II_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 </div>
 <div id="non-aesthetics-customization" class="section level1"
@@ -476,7 +444,7 @@ observations:</p>
   )
 
 figures$scatter</code></pre>
-<p><img src="DataViz_II_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>You can change other components of the figure such as the color,
 shape, size, etc.. Remember that everything that goes inside the
 <code>aes()</code> function will be dependent on the variables from the
@@ -560,7 +528,19 @@ created contained in our figures list <code>figures$bars</code></p>
   )
 
 figures$bars</code></pre>
-<p><img src="DataViz_II_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div id="in-figure-labels" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> In figure labels</h2>
+<pre class="r"><code>library(ggrepel)
+
+lab &lt;- tCaptures %&gt;% 
+  group_by(trap_type) %&gt;% 
+  filter(year == min(year))
+
+figures$timeseries +
+  geom_label_repel(data = lab, aes(x = year, y = n, label = paste(&#39;Trap \n type: &#39;, trap_type), fill = factor(trap_type)), alpha = 0.6, size = 3)</code></pre>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
 </div>
 <div id="beyond-basic-themes" class="section level1" number="6">
 <h1><span class="header-section-number">6</span> Beyond basic
@@ -573,7 +553,7 @@ will just use the function <code>coord_flip()</code> to do the same.</p>
   coord_flip() # We use this function to flip the x and y axis.
 
 figures$bars</code></pre>
-<p><img src="DataViz_II_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>Like you will notice, there is some overlap between the
 municipalities text and we can barely read them. We can modify the
 position of the x labels to fix this, to do this we need to modify the
@@ -592,7 +572,7 @@ try it:</p>
   theme(axis.text.x = element_text(angle = 40, size = 7))
 
 figures$bars</code></pre>
-<p><img src="DataViz_II_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 <div id="grid" class="section level2" number="6.2">
 <h2><span class="header-section-number">6.2</span> Grid</h2>
@@ -607,7 +587,7 @@ grid and the background color.</p>
   )
 
 figures$bars</code></pre>
-<p><img src="DataViz_II_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>If you noticed, when defining the arguments, I used different
 functions for the elements used (i.e. <code>element_blank()</code>,
 <code>element_rect()</code>, <code>element_line()</code>). Depending on

@@ -20,11 +20,10 @@ load('misc/II/figures.RData')
 load('misc/II/tCaptures.RData')
 ```
 
-# Objectives:
-  
-  - Talk about figure arrangements 
-  - Make the data visualization exercise.
+<!-- # Objectives: -->
 
+<!--   - Talk about figure arrangements  -->
+<!--   - Make the data visualization exercise. -->
 
 # Arranging the plots in a layout
 
@@ -52,8 +51,6 @@ toppanel <- ggarrange(
 toppanel
 ```
 
-
-
 We can also make arrangements with arrangements, for example:
 
 ```{r}
@@ -62,13 +59,14 @@ p1 <- ggarrange(toppanel, figures$timeseries, ncol = 1, heights = c(2, 1), label
 p1
 ```
 
-Finaly we can add a general title for the arrangement
+Finally we can add a general title for the arrangement:
 
 ```{r}
 p1 %>% 
   annotate_figure(top = text_grob('Summary of the findings', face = 'bold', size = 20))
 ```
 
+Notice that the specification of the text uses the function `text_grob()` which is a similar to the way we specify text for the themes in ggplot.
 
 
 # Facets
@@ -76,32 +74,38 @@ p1 %>%
 Facets are a way of stratifying the data based on variables in the data set, you can think about it in a similar way we have been using groups. To create a stratified plot we can use the function `facet_grid()` which will ask for a variable to go in the rows and another for columns:
 
 ```{r}
+figures$timeseries +
+  facet_grid(rows = vars(trap_type))
+```
+
+
+```{r}
 figures$histogram <- captures %>% # The data we will use 
   ggplot() + # set the canvas
   geom_histogram(aes(treated), fill = 'red4') + # We will create a histogram of the Age
   facet_grid(
     rows = vars(trap_type), # We will use the Sex variable for rows
-    cols = vars(year) # We use the Result variable for Columns
-  ) +
-  theme_pubclean() # lets try another theme
+    cols = vars(municipality) # We use the Result variable for Columns
+  )
 
 figures$histogram
 ```
 
+# Exercise
 
 Now that you know some tools to look for information, you will have to make your figures on your own. If you want to make figures with the datasets we have been using you can do those, or you can use any of the code online to replicate them.  
 
 1. Go to the [Data to Viz website](https://www.data-to-viz.com)
 2. Identify a few figures that you would like to do (you can also do figures that we have previously done in the exercises)
 3. Make sure you label your figures!
-4. Experiment changing the colros, variables, themes etc...
+4. Experiment changing the colors, variables, themes etc...
 5. Replicate a few figures and put them in an arrangement.
 
 At the end we will have a discussion where you can share your figures and troubleshoot any problems you might have had.  
 
 
 ```{r Export objects, include=F}
-# For now do it mannualy
+# For now do it manually
 save(captures, file = 'misc/III/captures.RData')
 save(figures, file = 'misc/III/figures.RData')
 save(tCaptures, file = 'misc/III/tCaptures.RData')

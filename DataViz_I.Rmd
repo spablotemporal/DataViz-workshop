@@ -151,6 +151,49 @@ figures$bars <- captures %>%
 figures$bars
 ```
 
+We can add extra variables to indicate the composition (using another variable) of each of the levels in our figures. For example, we will add the variable *trap_type* to color the bars in this figure. To do this we add the argument `fill=factor(trap_type)` to our `aes()` function
+
+```{r}
+figures$bars <- captures %>% 
+  count(municipality, trap_type) %>% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # X axis
+    x = n, # Y axis
+    fill = factor(trap_type) # Variable used for fill
+  ), stat = 'identity') # type of bar plot
+
+figures$bars
+```
+
+There are different strategies to visualize this, another example would be to breakdown the composition in individual bars like in the following figure, this can be useful to compare the within group composition:
+
+```{r}
+captures %>% 
+  count(municipality, trap_type) %>% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # X axis
+    x = n, # Y axis
+    fill = factor(trap_type)
+  ), stat = 'identity', position = 'dodge') # type of bar plot
+```
+
+
+Another option is looking the composition as a proportion by adding the argument `position = 'fill` to the `geom_bar()` function, notice that this removes the sense of number of observations for the main category (*year*):
+
+```{r}
+captures %>% 
+  count(municipality, trap_type) %>% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # X axis
+    x = n, # Y axis
+    fill = factor(trap_type)
+  ), stat = 'identity',
+  position = 'fill') # type of bar plot
+```
+
 # Visualizing relationships
 
 ## Scatterplots
@@ -217,11 +260,11 @@ figures$timeseries
 ```{r export objects for next session, include=F, eval=F}
 # This one works, but all the objects are called 'o'
 # See if possible call the objects as they should
-ls() %>% 
-  lapply(., function(x){
-    o <- eval(parse(text = x))
-    save(o, file = paste0('misc/I/', x, '.RData'))
-  })
+# ls() %>% 
+#   lapply(., function(x){
+#     o <- eval(parse(text = x))
+#     save(o, file = paste0('misc/I/', x, '.RData'))
+#   })
 
 # For now do it manualy
 save(captures, file = 'misc/I/captures.RData')

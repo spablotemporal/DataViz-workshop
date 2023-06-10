@@ -56,47 +56,17 @@ figures$scatter
 
 ## Color
 
-We can add extra variables to indicate the composition (using another variable) of each of the levels in our figures. For example, we will add the variable *trap_type* to color the bars in this figure. to do this we add the argument `fill=factor(trap_type)` to our `aes()` function
-
 ```{r}
-figures$bars <- captures %>% 
-  count(municipality, trap_type) %>% 
+tCaptures <- captures %>% 
+  mutate(date = as.Date(date, "%d/%m/%y"), # First we will format the date
+         year = lubridate::floor_date(date, 'year')) %>%  # The we create a variable formatting the date as month of the year
+  count(year, trap_type) # Count the number of observations by month
+
+figures$timeseries <- tCaptures %>% 
   ggplot() +
-  geom_bar(aes(
-    y = municipality, # X axis
-    x = n, # Y axis
-    fill = factor(trap_type) # Variable used for fill
-  ), stat = 'identity') # type of bar plot
+  geom_line(aes(x = year, y = n, col = factor(trap_type))) 
 
-figures$bars
-```
-
-There are different strategies to visualize this, another example would be to breakdown the composition in individual bars like in the following figure, this can be useful to compare the within group composition:
-
-```{r}
-captures %>% 
-  count(municipality, trap_type) %>% 
-  ggplot() +
-  geom_bar(aes(
-    y = municipality, # X axis
-    x = n, # Y axis
-    fill = factor(trap_type)
-  ), stat = 'identity', position = 'dodge') # type of barplot
-```
-
-
-Another option is looking the composition as a proportion by adding the argument `position = 'fill` to the `geom_bar()` function, notice that this removes the sense of number of observations for the main category (*year*):
-
-```{r}
-captures %>% 
-  count(municipality, trap_type) %>% 
-  ggplot() +
-  geom_bar(aes(
-    y = municipality, # X axis
-    x = n, # Y axis
-    fill = factor(trap_type)
-  ), stat = 'identity',
-  position = 'fill') # type of bar plot
+figures$timeseries
 ```
 
 # Non aesthetics customization
@@ -170,6 +140,20 @@ figures$bars <- figures$bars + # we call the figure previously created
 
 figures$bars
 ```
+
+## In figure labels
+
+```{r}
+library(ggrepel)
+
+lab <- tCaptures %>% 
+  group_by(trap_type) %>% 
+  filter(year == min(year))
+
+figures$timeseries +
+  geom_label_repel(data = lab, aes(x = year, y = n, label = paste('Trap \n type: ', trap_type), fill = factor(trap_type)), alpha = 0.6, size = 3)
+```
+
 
 # Beyond basic themes
 
