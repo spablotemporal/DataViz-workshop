@@ -64,7 +64,8 @@ tCaptures <- captures %>%
 
 figures$timeseries <- tCaptures %>% 
   ggplot() +
-  geom_line(aes(x = year, y = n, col = factor(trap_type))) 
+  geom_line(aes(x = year, y = n, col = factor(trap_type))) +
+  theme_minimal()
 
 figures$timeseries
 ```
@@ -107,8 +108,12 @@ figures$heatmap
 When using categorical variables we define a specific color palette. For this we need to know how many categories our variable has. For example
 
 ```{r categorical scales}
+# Define a oclor palette
+colpal <- c('gold2', 'seagreen3', 'red2', 'orchid')
+
+# Make the figure
 figures$bars <- figures$bars +
-  scale_fill_manual(values = c('gold2', 'seagreen3', 'red2', 'orchid')) # We know our variable has 4 categories, so we define 4 colors
+  scale_fill_manual(values = colpal) # We know our variable has 4 categories, so we define 4 colors
 
 figures$bars
 ```
@@ -150,8 +155,12 @@ lab <- tCaptures %>%
   group_by(trap_type) %>% 
   filter(year == min(year))
 
-figures$timeseries +
-  geom_label_repel(data = lab, aes(x = year, y = n, label = paste('Trap \n type: ', trap_type), fill = factor(trap_type)), alpha = 0.6, size = 3)
+figures$timeseries <- figures$timeseries +
+  geom_label_repel(data = lab, aes(x = year, y = n, label = paste('Trap type: ', trap_type), fill = factor(trap_type)), alpha = 0.6, size = 3) +
+  scale_color_manual(values = colpal) +
+  theme(legend.position = 'none')
+
+figures$timeseries
 ```
 
 
@@ -215,7 +224,7 @@ captures %>%
 
 
 ```{r Export objects, include=F}
-# For now do it mannualy
+# For now do it manually
 save(captures, file = 'misc/II/captures.RData')
 save(figures, file = 'misc/II/figures.RData')
 save(tCaptures, file = 'misc/II/tCaptures.RData')

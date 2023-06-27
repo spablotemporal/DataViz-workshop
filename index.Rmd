@@ -19,6 +19,24 @@ In this workshop you will learn the basics of data visualization. We will be usi
 ![](img/0_figArrangement.png){width="60%"}
 </center>
 
+# Requisites
+
+This workshop assumes that the participants have a basic familiarity with the programming language R. *Optional* pre-workshop materials are available for a crash course in R and cover some the basic concepts we will assume you know before the workshop:
+
+-   [Intro to R](0a_Intro_RstudioMarkdown.html)
+-   [Basic R syntax](0b_RandTidyverse.html)
+
+To participate in the workshop is necessary to have the following tools:
+
+-   Computer
+-   posit.cloud account or have installed R and R Studio
+
+# Registration link
+
+To register the workshop please use this link: https://docs.google.com/forms/u/1/d/e/1FAIpQLSfXtdQ6ZMFr6sgZVfTRVY8M32UxJy288-P5cUSNYa6IVILMtQ/viewform
+
+------------
+
 # Tentative schedule
 
 ```{r echo=FALSE}
@@ -37,22 +55,6 @@ data.frame(
 ```
 
 ------------------------------------------------------------------------
-
-# Requisites
-
-This workshop assumes that the participants have a basic familiarity with the programming language R. *Optional* pre-workshop materials are available for a crash course in R and cover some the basic concepts we will assume you know before the workshop:
-
--   [Intro to R](0a_Intro_RstudioMarkdown.html)
--   [Basic R syntax](0b_RandTidyverse.html)
-
-To participate in the workshop is necessary to have the following tools:
-
--   Computer
--   posit.cloud account or have installed R and R Studio
-
-# Registration link
-
-To register the workshop please use this link: https://docs.google.com/forms/u/1/d/e/1FAIpQLSfXtdQ6ZMFr6sgZVfTRVY8M32UxJy288-P5cUSNYa6IVILMtQ/viewform
 
 <!-- -   Introduccion a ggplot -->
 

@@ -419,7 +419,8 @@ figures$scatter</code></pre>
 
 figures$timeseries &lt;- tCaptures %&gt;% 
   ggplot() +
-  geom_line(aes(x = year, y = n, col = factor(trap_type))) 
+  geom_line(aes(x = year, y = n, col = factor(trap_type))) +
+  theme_minimal()
 
 figures$timeseries</code></pre>
 <p><img src="DataViz_II_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
@@ -478,8 +479,12 @@ values</h2>
 <p>When using categorical variables we define a specific color palette.
 For this we need to know how many categories our variable has. For
 example</p>
-<pre class="r"><code>figures$bars &lt;- figures$bars +
-  scale_fill_manual(values = c(&#39;gold2&#39;, &#39;seagreen3&#39;, &#39;red2&#39;, &#39;orchid&#39;)) # We know our variable has 4 categories, so we define 4 colors
+<pre class="r"><code># Define a oclor palette
+colpal &lt;- c(&#39;gold2&#39;, &#39;seagreen3&#39;, &#39;red2&#39;, &#39;orchid&#39;)
+
+# Make the figure
+figures$bars &lt;- figures$bars +
+  scale_fill_manual(values = colpal) # We know our variable has 4 categories, so we define 4 colors
 
 figures$bars</code></pre>
 <p><img src="DataViz_II_files/figure-html/categorical%20scales-1.png" width="672" /></p>
@@ -538,7 +543,8 @@ lab &lt;- tCaptures %&gt;%
   filter(year == min(year))
 
 figures$timeseries +
-  geom_label_repel(data = lab, aes(x = year, y = n, label = paste(&#39;Trap \n type: &#39;, trap_type), fill = factor(trap_type)), alpha = 0.6, size = 3)</code></pre>
+  geom_label_repel(data = lab, aes(x = year, y = n, label = paste(&#39;Trap \n type: &#39;, trap_type), fill = factor(trap_type)), alpha = 0.6, size = 3) +
+  scale_color_manual(values = colpal)</code></pre>
 <p><img src="DataViz_II_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 </div>
