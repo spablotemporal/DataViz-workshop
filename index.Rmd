@@ -6,7 +6,7 @@ output:
 ---
 
 <em>
-[Cambiar a español ![](img/flag_mx.gif){width="25"}](ES/index.html)
+[Cambiar a español ![](img/flag_mx.gif){width="25"}](ES/index.html) | [Mudar para Portugues  ![](img/flag_br.gif){width="25"}](PT/index.html)
 </em>
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}

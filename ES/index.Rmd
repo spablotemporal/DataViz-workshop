@@ -5,7 +5,7 @@ output: html_document
 ---
 
 <em>
-[Switch to English ![](img/flag_us.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/)
+[Switch to English ![](img/flag_us.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/) | [Mudar para Portugues  ![](img/flag_br.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/)
 </em>
 
 ```{r setup, include=FALSE}
