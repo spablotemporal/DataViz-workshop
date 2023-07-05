@@ -1,5 +1,5 @@
 ---
-title: "Intro to R studio and Markdown"
+title: "Introduccion a R studio y Markdown"
 output:
   html_document:
     toc: true
@@ -12,26 +12,31 @@ knitr::opts_chunk$set(warning = F, message = F)
 library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
 ```
 
-In this first section we are not going to worry at all about coding or the syntax used in R, we will focus on familiarizing with the Rstudio interface and what kind of files we can create with it.
+<em>
+[Switch to English ![](img/flag_us.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/) | [Mudar para Portugues  ![](img/flag_br.gif){width="25"}](PT/index.html)
+</em>
 
-The goal of this lab is that, by the end, you feel more comfortable with the following concepts:
+En esta primera seccion no vamos a usar nada de codigo o la sintaxis usada en R, nos enfocaremos en familiarizarnos con la interfaz de R studio y los tipos de archivos que podemos crear.  
+El objetivo de este ejercicio es que, es que al terminar, estemos familiarizados con los siguientes conceptos:  
+  
+  - Organizacion de proyecto.
+  - Los componentes principales de la interfáz.
+  - Archivos que podemos crear en R studio.
 
--   Project organization.
--   The main components of the Rstudio interface.
--   Files you can create with Rstudio.
+# La interfaz de R studio
 
-# The Rstudio interface
+Al empezar R studio, vamos a poder ver 4 secciones:
 
-When we start R studio, we can see 4 sections:
-
-1.  **Source** (top left), here we have our code editor and other files. We will use this section to edit and view our scripts and other documents we will be using to interact with R.
-2.  **Console and Terminal** (bottom left), this is where the code is executed (*Console* will execute R code and *Terminal* other code for your operating system). We can directly write the code here, but normally we will be using the other source files such as .R or .Rmd to write our code which then will be send here.\
-3.  **Environment, History and others** (top right), Environment will list all the objects you create and History will have the code you sent to the console. There are other tabs in this section which we wont be using for now.
-4.  **Files, Packages and Help** (bottom right). This section includes a file browser, and other tabs for package management and help.
+1.  **Source** (arriba izquierda), Aqui tendermos nuestro edutore de codigo y otros archivos que trabajemos. Usaremos esta seccion para editar y ver nuestros scripts, y algunos otros documentos que usaremos para interctuar con R.
+2.  **Consola y Terminal** (abajo izquierda), Aqui es donde el codigo sera ejecutado. La *Consola* ejecutara el codigo de R, la *Terminal* otro codigo para interactuar directamente con tu sistema operativo. Podemos escribir el codigo directamente en esta seccion, pero normalmente usaremos otros archivos como .R o .Rmd para escribir el codigo y posteriormente enviarlo a la consola. 
+3.  **Environment, History y otros** (arriba derecha), El *environment* nos muestra una lista de todos los objectos que hemos creado durante la sesion, mientras que el historial (*history*) nos muestra el codigo que hemos enviado a la consola. Existen otras pestañas en esta seccion, pero no las usaremos por ahora.
+4.  **Files, Packages and Help** (abajo derecha). Esta seccion incluye un explorador de archivos *Files*, y otras pestañas para administrar los paquetes.
 
 <img src="img/I_a.png" style="width:100%" align="center"/>
 
-# Organizing your projects
+# Organizacion del proyecto. 
+
+Una de los principales ventajas de R studio es que nos permite organizar nuestros proyectos. Si aun no lo has hecho, te recomiendo que te familiarices con el uso de proyectos en R studio para organizar tu flujo de trabajo. Los proyectos son archivos que contienen la informacion de tu sesion de R actual, incluyendo objetos, conjuntos de datos y configuraciones. 
 
 One of the most useful features of R studio is the project organization, if you haven, I strongly encourage you to familiarize with creating and using projects to organize your workflow. Projects allow to create a file that will contain all the information regarding your session (including objects, data sets and configurations) and organize your files in folders in your system. This is particularly useful when we are working with multiple topics.\
 When you open Rstudio for the first time it starts on an empty project. To create a new project, just go to the top right corner menu and select *New Project...*

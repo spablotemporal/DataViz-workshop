@@ -13,6 +13,10 @@ library(dplyr); library(ggplot2); library(ggpubr)
 #library(Pabloverse)
 ```
 
+<em>
+[Switch to English ![](img/flag_us.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/) | [Cambiar a español  ![](img/flag_mx.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/ES/index.html)
+</em>
+
 Nesta primeira seção nós não vamos nos preocupar com a programação e a sintaxe utilizadas no R. Nós vamos focar em nos familiarizar com a interface do Rstudio e com os tipos de arquivos que podemos criar nela.
 
 O objetivo dessa prática é que você se sinta mais confortável com os seguintes conceitos:

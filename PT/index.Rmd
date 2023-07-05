@@ -27,7 +27,7 @@ En este curso aprenderas los basicos sobre visualizacion de datos. Usaremos R y 
 
 Este workshop asume que los participantes tienen un entendimiento basico sobre la syntaxis del lenguaje de programacion R. Materiales pre-workshop *opcionales* se encuentran disponibles para familiarizar a los participantes con los conceptos basicos que asumiremos los participantes estan familiarizados al empezar el workshop.
   
-  - [Intro to R](https://www.spablo-temporal.network/DataViz-workshop/0a_Intro_RstudioMarkdown.html)
+  - [Intro ao R](0a_Intro_RstudioMarkdown.html)
   - [Basic R syntax](https://www.spablo-temporal.network/DataViz-workshop/0b_RandTidyverse.html)
 
 Para participar en el curso es necesario contar con las siquientes herramientas:
