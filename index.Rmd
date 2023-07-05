@@ -6,7 +6,7 @@ output:
 ---
 
 <em>
-[Cambiar a español ![](img/flag_mx.gif){width="25"}](ES/index.html) | [Mudar para Portugues  ![](img/flag_br.gif){width="25"}](PT/index.html)
+[Cambiar a español ![](img/flag_mx.gif){width="25"}](ES/index.html) | [Mudar para Português  ![](img/flag_br.gif){width="25"}](PT/index.html)
 </em>
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
@@ -47,7 +47,7 @@ data.frame(
     link = c('', '', '', 'coffeeBreak.html', '', 'Lunch.html', '', '')
   )
 ) %>%
-  kbl("html", escape = FALSE, col.names = c('', 'June 10, 2023')) %>%
+  kbl("html", escape = FALSE, col.names = c('', 'July 6, 2023')) %>%
   kable_paper(full_width = T, lightable_options = c('hover')) %>%
   column_spec(1, bold = T, border_right = T) %>%
   row_spec(1, bold = T, extra_css = "border-bottom: 1px solid") %>%
