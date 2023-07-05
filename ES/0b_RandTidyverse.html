@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Pablo Gomez" />
+
+
+<title>Introduccion a la sintaxis de R</title>
+
+<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Inicio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Language
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://www.spablo-temporal.network/DataViz-workshop/index.html">English</a>
+    </li>
+    <li>
+      <a href="index.html">Español</a>
+    </li>
+    <li>
+      <a href="https://www.spablo-temporal.network/DataViz-workshop/PT/index.html">Portuguese</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Contacto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="mailto:jpgo@ucdavis.edu">
+        <span class="fa fa-envelope"></span>
+         
+        Email
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Introduccion a la sintaxis de R</h1>
+<h4 class="author">Pablo Gomez</h4>
+
+</div>
+
+
+<div id="sintaxis-en-r" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Sintaxis en R</h1>
+<p>R es como una calculadora, podemos realizar diferentes operaciones
+matematicas. Por ejemplo:</p>
+<pre class="r"><code>2 + 2</code></pre>
+<pre><code>## [1] 4</code></pre>
+<p>R es un lenguaje de programacion orientado a objetos. Esto significa
+que guardamos nuestra informacion en contenedores que llamamos
+objetos.<br />
+En R podemos obtener el mismo resultado usando diferentes
+aproximaciones. Por ejemplo, para crear un objeto podemos escribir el
+nombre del objeto y asignar un valor usando los operadores
+<code>=</code> o <code>&lt;-</code>. Podemos usar los objetos que
+creemos para realizar operaciones con otros objetos compatibles:</p>
+<pre class="r"><code>x = 2 # creamos un objeto con el operador = 
+y &lt;- 2 # creamos un objeto con el operador &lt;- 
+x + y # Hacemos operacions con los objetos</code></pre>
+<pre><code>## [1] 4</code></pre>
+<div id="vectores-en-r" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Vectores en R</h2>
+<p>Podemos guardar mas de un valor en un objeto usando vectores. Los
+vectores en R son una secuencia de valores, para crear un nuevo vector
+podemos combinar múltiples valores con la función <code>c()</code>. Por
+ejemplo, vamos a crear una secuencia de números del 5 al 10 usando 2
+aproximaciones diferentes, y después le preguntaremos a R si los objetos
+son iguales. <strong>tip:</strong> usando el atajo <code>alt + -</code>
+automáticamente agregara el operador <code>&lt;-</code>. La decision
+sobre el operador para asignar objetos es cuestión personal, a mi en lo
+personal se me facilita usar el operador <code>&lt;-</code> para asignar
+objetos ya que el operador <code>=</code> se usa también para otras
+cosas como veremos mas adelante, pero siéntete libre de usar el que se
+te haga mas intuitivo.</p>
+<pre class="r"><code>x &lt;- c(5, 6, 7, 8, 9, 10) # Creamos una secuencia de números del 5 al 10
+y = 5:10 # Creamos la misma secuencia, pero de manera diferente
+x == y # Le preguntamos a R si son iguales</code></pre>
+<pre><code>## [1] TRUE TRUE TRUE TRUE TRUE TRUE</code></pre>
+<p>Observa que en el ejemplo anterior usamos el operador
+<code>==</code>, esta es una manera de decirle a R que queremos
+comparar, y no asignar, dos valores (o objetos). Recuerda que al usar un
+solo <code>=</code> asignaremos el valor de la derecha al de la
+izquierda.</p>
+<div id="indexing" class="section level3" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> Indexing</h3>
+<p>Cuando tenemos un vector, podemos pedirle a R que nos de valores
+especificos en base a su posicion usando el operador <code>[ ]</code> y
+especificando dentro el numero deseado. Por ejemplo:</p>
+<pre class="r"><code>x[3] # Aqui le pedimos el 3er valor del vector</code></pre>
+<pre><code>## [1] 7</code></pre>
+<pre class="r"><code>x[3] * y[5] # Aqui multiplicamos el 3er valor por el 5to valor de nuestros vectores x y y</code></pre>
+<pre><code>## [1] 63</code></pre>
+</div>
+</div>
+<div id="funciones" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Funciones</h2>
+<p>R has a lot of base functions, but we can define new functions. When
+using R studio, the key <em>Tab</em> will help us to auto complete, this
+can help us a lot when we don’t remember the exact name of the functions
+available. The best part of programming with R is that it has a very
+active community. Since its open source, anyone can create functions and
+compile them in a package (or library). we can download these packages
+and access new functions.<br />
+Functions in R require arguments, which we can see in the function
+documentation or if we press the key <em>Tab</em> when we are inside the
+function.</p>
+<pre class="r"><code># To get the sum of a vector of numbers inside an object we use sum()
+sum(x)</code></pre>
+<pre><code>## [1] 45</code></pre>
+<p>We can put functions inside function, for example, to get <span
+class="math inline">\(\sqrt{\sum_1^n x}\)</span> the square root of a
+sum of the numbers in x we can use:</p>
+<pre class="r"><code>sqrt(sum(x))</code></pre>
+<pre><code>## [1] 6.708204</code></pre>
+<p>Making functions in R is not as complicated as it sounds and can be
+very useful when we need to do repetitive work. To define a function we
+need to include the arguments that we want for the function and what are
+we doing with those arguments. For example, the following function has
+only one argument which is a name (string) and just pastes some text
+before and after:</p>
+<pre class="r"><code>F1 &lt;- function(name){
+  paste(&quot;Hola&quot;, name, &quot;! welcome to the R world (: !&quot;) # paste the name with some text
+}
+
+# Testing the function (Put your name)
+F1(name = &quot;Pablo&quot;)</code></pre>
+<pre><code>## [1] &quot;Hola Pablo ! welcome to the R world (: !&quot;</code></pre>
+<p>Besides storing numbers in the objects in R, we can store text,
+matrices, tables, spatial objects, images, and other types of objects.
+Next we will import our own data and do some manipulation in R.</p>
+<p><strong>Exercise:</strong> Create a function that performs the <span
+class="math inline">\(\sqrt{\sum_1^n x}\)</span> operation you did
+previously with the code <code>sqrt(sum(x))</code></p>
+</div>
+<div id="types-of-variables" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Types of
+variables</h2>
+<p>There are different types of variables in R, so far we have used the
+numeric and string types. If yo want to know what kind of variable is a
+given object, you can use the function <code>class()</code>. Lets try
+it.</p>
+<pre class="r"><code>class(x)</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<p><strong>Exercise: </strong> What kind of variable is the output from
+the first function you defined <code>F1()</code>?</p>
+<p>The most commonly used types of variables include:</p>
+<ul>
+<li><em>numeric</em> This are continuous numeric variables WITH any
+decimal values. For example: KG of product imported, probability of an
+event happening.</li>
+<li><em>integer</em> These variables are whole numbers WITHOUT decimal
+values. For example: Number of animals, number of shipments, etc..</li>
+<li><em>character</em> Alphanumeric variables. For example: name of a
+region, name of a disease, farm ID.</li>
+<li><em>factor</em> Alphanumeric variable with specific categories or
+levels. For example: type of product imported, type of farm, etc…</li>
+</ul>
+</div>
+<div id="introducing-the-pipes" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> Introducing the
+pipes</h2>
+<p>The library <code>dplyr</code> has several functions that can help to
+clean, create new variables, and modify our data in other ways.</p>
+<pre class="r"><code># if we dont have installed the library we will need to install it using:
+# install.packages(&quot;dplyr&quot;)
+# we load the library:
+library(dplyr)</code></pre>
+<p><code>dplyr</code> introduces a new operator called <em>pipes</em>
+(<code>%&gt;%</code>), which can connect several functions to an object.
+This is an alternative to write several functions in a single “line of
+code” in a more organized way. For example, if we want to execute a
+function <code>F1()</code> followed by another function
+<code>F2()</code> for the object <code>x</code>:</p>
+<p><code>F2(F1(x))</code> is equivalent to
+<code>x %&gt;% F1() %&gt;% F2()</code></p>
+<p>As you can notice, to read the code <code>F2(F1(x))</code> we have to
+go from the inside to the outside to see the order of execution of the
+functions, but when we read <code>x %&gt;% F1() %&gt;% F2()</code> we
+read from left to right, which is the same way we normally would read
+any text in western language.</p>
+<p><strong>Suggestion:</strong> we can use the keys <em>Ctrl</em> +
+<em>shift</em> + <em>m</em> to insert the <code>%&gt;%</code>
+operator.</p>
+<pre class="r"><code># We previously used this code to calculate the square root of the sum of x
+sqrt(sum(x))</code></pre>
+<pre><code>## [1] 6.708204</code></pre>
+<p>Using the pipes we can do the same more organized, by writing the
+order of execution from left to right.</p>
+<pre class="r"><code>x %&gt;% # First we call the data
+  sum() %&gt;% # Sum all the values
+  sqrt() # Compute the square root</code></pre>
+<pre><code>## [1] 6.708204</code></pre>
+<p>You will notice that the outputs are exactly the same. Feel free to
+use whatever syntax you prefer, but for this course we will use mostly
+the pipes and writing the code from left to right.</p>
+</div>
+</div>
+<div id="data-manipulation" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Data manipulation</h1>
+<p>R can import data in different formats. The most common are excel
+files (<em>.csv</em>, <em>.xls</em> y <em>.xlsx</em>), text files
+<em>.txt</em> and spatial data <em>.shp</em>, which we will talk about
+more in detail later.<br />
+To read <em>.xls</em>, <em>.xlsx</em> and <em>.shp</em> files we will
+need to install some libraries. To install a new library you need to be
+connected to the internet and use the function
+<code>install.packages()</code> to install the library. Once it has been
+installed, you can load the library using the function
+<code>library()</code>.</p>
+<p>Download the excel file from this <a
+href="https://ucdavis.app.box.com/folder/174771408063?s=cltv7bcwblxw5v90z5l56ognt9dprehv">link</a>.
+It’s not necessary to have a Box account.</p>
+<p><em>Suggestion:</em> Sometimes when we want to use only one function
+from a library, we can just write the name of the library followed by
+the operator <code>::</code> and the name of the function, for example:
+<code>package::function()</code>. This way we won’t have to load the
+whole library.</p>
+<pre class="r"><code># If we don&#39;t have the library installed, we use:
+# install.packages(&quot;readxl&quot;)
+
+# Import the excel file
+PRRS &lt;- readxl::read_xlsx(&quot;../Data/PRRS.xlsx&quot;)</code></pre>
+<p>The most popular format for tables in R are called
+<code>data.frame</code>, when we import the data from a <em>.csv</em> o
+<em>.xlsx</em>. We can examine what kind of object it is using the
+function <code>class()</code>:</p>
+<pre class="r"><code># Ask the class of a given object
+class(PRRS)</code></pre>
+<pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+<p>It is possible that objects can have more than 1 class. In the
+previous example, you can notice that the <code>PRRS</code> object has 3
+different types of class.</p>
+<p>In the following section we will cover some basics of data
+manipulation, this includes create, modify and summarise variables in
+our data.</p>
+<div id="reducing-our-data" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Reducing our
+data</h2>
+<p>Sometimes we want to select specific columns and rows on our data to
+reduce the dimensionality, for this we can use the functions:</p>
+<ul>
+<li><code>select()</code> to select specific <em>columns</em></li>
+<li><code>slice()</code> to select specific <em>rows</em> based on
+position</li>
+<li><code>filter()</code> to select specific <em>rows</em> based on a
+condition</li>
+</ul>
+<div id="selecting-specific-columns" class="section level3"
+number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Selecting specific
+columns</h3>
+<pre class="r"><code>PRRS %&gt;%  # the name of our data
+  select(Result, farm_type) # we want to select only the columns Result and farm_type</code></pre>
+<pre><code>## # A tibble: 1,353 × 2
+##    Result farm_type
+##    &lt;chr&gt;  &lt;chr&gt;    
+##  1 No     sow farm 
+##  2 No     sow farm 
+##  3 No     sow farm 
+##  4 Yes    sow farm 
+##  5 Yes    sow farm 
+##  6 Yes    sow farm 
+##  7 Yes    sow farm 
+##  8 Yes    sow farm 
+##  9 Yes    sow farm 
+## 10 Yes    sow farm 
+## # ℹ 1,343 more rows</code></pre>
+<p>We can also specify which columns we DON’T want to show in our
+data:</p>
+<pre class="r"><code>PRRS %&gt;% 
+  select(-Age, -id) # with a &#39;-&#39; before the name we will exclude the column from the data</code></pre>
+<pre><code>## # A tibble: 1,353 × 6
+##    Result Sex   OtherSpecies name                    farm_type County       
+##    &lt;chr&gt;  &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;                   &lt;chr&gt;     &lt;chr&gt;        
+##  1 No     H                0 Armstrong Research Farm sow farm  Pottawattamie
+##  2 No     H                0 Armstrong Research Farm sow farm  Pottawattamie
+##  3 No     H                0 Armstrong Research Farm sow farm  Pottawattamie
+##  4 Yes    H                0 Armstrong Research Farm sow farm  Pottawattamie
+##  5 Yes    H                0 Armstrong Research Farm sow farm  Pottawattamie
+##  6 Yes    H                0 Armstrong Research Farm sow farm  Pottawattamie
+##  7 Yes    M                0 Armstrong Research Farm sow farm  Pottawattamie
+##  8 Yes    M                0 Armstrong Research Farm sow farm  Pottawattamie
+##  9 Yes    M                0 Armstrong Research Farm sow farm  Pottawattamie
+## 10 Yes    H                0 Armstrong Research Farm sow farm  Pottawattamie
+## # ℹ 1,343 more rows</code></pre>
+</div>
+<div id="filtering-specific-rows" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Filtering specific
+rows</h3>
+<p>Filtering columns works based on boolean logic, so we can specify a
+condition and R will show only the rows that satisfy that condition. For
+example, lets filter only the observations from boar studs:</p>
+<pre class="r"><code>PRRS %&gt;% 
+  filter(farm_type == &#39;boar stud&#39;) # we will use the equals to operator for this</code></pre>
+<pre><code>## # A tibble: 19 × 8
+##    Result Sex     Age OtherSpecies    id name                   farm_type County
+##    &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                  &lt;chr&gt;     &lt;chr&gt; 
+##  1 No     H        48            0    32 Farm Sweet Farm at Ro… boar stud Shelby
+##  2 No     H        60            0    32 Farm Sweet Farm at Ro… boar stud Shelby
+##  3 Yes    H        60            0    32 Farm Sweet Farm at Ro… boar stud Shelby
+##  4 Yes    H        15            0    32 Farm Sweet Farm at Ro… boar stud Shelby
+##  5 No     H        68            0    32 Farm Sweet Farm at Ro… boar stud Shelby
+##  6 No     M         6            0    32 Farm Sweet Farm at Ro… boar stud Shelby
+##  7 No     H        75            0    32 Farm Sweet Farm at Ro… boar stud Shelby
+##  8 No     H         6            0    32 Farm Sweet Farm at Ro… boar stud Shelby
+##  9 No     H       110            0    32 Farm Sweet Farm at Ro… boar stud Shelby
+## 10 No     H        36            0    32 Farm Sweet Farm at Ro… boar stud Shelby
+## 11 No     M        12            0    32 Farm Sweet Farm at Ro… boar stud Shelby
+## 12 No     H        62            0    32 Farm Sweet Farm at Ro… boar stud Shelby
+## 13 No     H        48            0    32 Farm Sweet Farm at Ro… boar stud Shelby
+## 14 No     H        62            0    32 Farm Sweet Farm at Ro… boar stud Shelby
+## 15 No     H        95            0    32 Farm Sweet Farm at Ro… boar stud Shelby
+## 16 Yes    M        24            0    32 Farm Sweet Farm at Ro… boar stud Shelby
+## 17 Yes    H        38            0    32 Farm Sweet Farm at Ro… boar stud Shelby
+## 18 No     H        38            0    32 Farm Sweet Farm at Ro… boar stud Shelby
+## 19 No     M        24            0    32 Farm Sweet Farm at Ro… boar stud Shelby</code></pre>
+</div>
+</div>
+<div id="creating-or-modifying-variables" class="section level2"
+number="2.2">
+<h2><span class="header-section-number">2.2</span> Creating or modifying
+variables</h2>
+<p>To create a new variable we can use the function
+<code>mutate()</code>. For example, lets create a new variable that will
+tell us if the farm type is a sow farm or not. For this we use the
+variable <code>farm_type</code> which already contains information for
+different farm types</p>
+<pre class="r"><code># Creating a new variable
+PRRS %&gt;% # name of the data set
+  mutate( # mutate is the function we sue to create new variables
+    SowFarm = ifelse(farm_type == &#39;sow farm&#39;, 1, 0) # we will create a binary variable where 1 = sow farm, 0 = Any other farm type
+  ) </code></pre>
+<pre><code>## # A tibble: 1,353 × 9
+##    Result Sex     Age OtherSpecies    id name           farm_type County SowFarm
+##    &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt;
+##  1 No     H        18            0    23 Armstrong Res… sow farm  Potta…       1
+##  2 No     H        60            0    23 Armstrong Res… sow farm  Potta…       1
+##  3 No     H        60            0    23 Armstrong Res… sow farm  Potta…       1
+##  4 Yes    H        36            0    23 Armstrong Res… sow farm  Potta…       1
+##  5 Yes    H        50            0    23 Armstrong Res… sow farm  Potta…       1
+##  6 Yes    H        16            0    23 Armstrong Res… sow farm  Potta…       1
+##  7 Yes    M        15            0    23 Armstrong Res… sow farm  Potta…       1
+##  8 Yes    M        22            0    23 Armstrong Res… sow farm  Potta…       1
+##  9 Yes    M        30            0    23 Armstrong Res… sow farm  Potta…       1
+## 10 Yes    H        14            0    23 Armstrong Res… sow farm  Potta…       1
+## # ℹ 1,343 more rows</code></pre>
+<p>Notice that in the previous code chunk, we did not assigned it to an
+object, which means that R is just going to print it and dont save it.
+To save it, remember that we use the assign operator <code>&lt;-</code>
+or <code>=</code>.<br />
+To modify an existing variable we can use the same function
+<code>mutate()</code>, and specify what we want to replace the existing
+variable with. For example, in the next chunk of code, we will modify
+the variable <em>Sex</em>. The original variable has H for Female and M
+for Male, so let’s change it to something that makes more sense:</p>
+<pre class="r"><code># Now we will assign the new object to itself overwriting it.
+PRRS &lt;- PRRS %&gt;%  # this is the data set we will use
+  mutate( # we use the mutate function to create new variables
+    Sex = recode( # The function recode, can be used similar to replace in excel
+      Sex, # we will overwrite the variable Sex using the same name
+      H = &#39;Female&#39;,
+      M = &#39;Male&#39;
+    )
+  )</code></pre>
+<p>Be careful when overwriting objects in R there is no undo for this.
+It is important that your code is ordered and replicable in case you
+make any mistake, so you can easily reach to your progress before the
+mistake.</p>
+</div>
+<div id="grouping-and-summarizing-tables" class="section level2"
+number="2.3">
+<h2><span class="header-section-number">2.3</span> Grouping and
+summarizing tables</h2>
+<p>Often times we want to calculate summary statistics from our data, we
+can group by a specific variable (or even multiple variables) to examine
+if there are differences between groups.</p>
+<p>The most basic way of doing this is with the function
+<code>count()</code> which will only tell us the number of rows for each
+group:</p>
+<pre class="r"><code># We can count how many observations for each of a variable name
+PRRS %&gt;% 
+  count(Result)</code></pre>
+<pre><code>## # A tibble: 2 × 2
+##   Result     n
+##   &lt;chr&gt;  &lt;int&gt;
+## 1 No       986
+## 2 Yes      367</code></pre>
+<p>The previous table show us that were 986 observations with test
+result negative and 367 with test result positive. We can add multiple
+variables to count. Now we will count by <em>Result</em> and
+<em>Sex</em>:</p>
+<pre class="r"><code># We can count based on multiple variables
+PRRS %&gt;% 
+  count(Result, Sex)</code></pre>
+<pre><code>## # A tibble: 4 × 3
+##   Result Sex        n
+##   &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt;
+## 1 No     Female   737
+## 2 No     Male     249
+## 3 Yes    Female   229
+## 4 Yes    Male     138</code></pre>
+<p>We can also calculate other statistics by group. For example lets
+calculate the mean and standard deviation of the age by Result and
+Sex:</p>
+<pre class="r"><code>PRRS %&gt;%
+  group_by(Result, Sex) %&gt;% # The groups used for the data
+  summarise( # the function summarise calculates statistics by the defined groups
+    meanAge = mean(Age), # Calculate the mean age
+    sdAge = sd(Age) # Calculate the standard deviation
+  )</code></pre>
+<pre><code>## # A tibble: 4 × 4
+## # Groups:   Result [2]
+##   Result Sex    meanAge sdAge
+##   &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;
+## 1 No     Female    39.7  24.8
+## 2 No     Male      22.4  16.7
+## 3 Yes    Female    23.6  19.8
+## 4 Yes    Male      15.1  10.3</code></pre>
+<pre class="r"><code># PRRS %&gt;% 
+  # count(Sex, wt = Result)</code></pre>
+</div>
+<div id="joining-data-sets" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Joining data
+sets</h2>
+<p>Sometimes we have different data sets that have variables in common
+and we want to integrate them into a single data set for further
+analysis. In this example we have the data sets <em>node_attrib.csv</em>
+and <em>network.csv</em></p>
+<pre class="r"><code># First we import the data -----------
+# Importing the farm dataset 
+nodes &lt;- read.csv(&quot;../Data/node_attrib.csv&quot;)
+# Importing the movement dataset
+mov &lt;- read.csv(&quot;../Data/network.csv&quot;)</code></pre>
+<p>The data <code>mov</code> has information of place of origin
+(<em>id_orig</em>) and destination (<em>id_dest</em>) of animal
+shipments. First we will calculate the total number of pigs moved for
+each of the incoming and outgoing movements. To do this we will use the
+function <code>count()</code></p>
+<pre class="r"><code># Get the number of outgoing and incoming shipments 
+Out &lt;- mov %&gt;% # First we call the data
+  count(id_orig, wt = pigs.moved) %&gt;% # then we count the number of movements
+  rename(id = id_orig, outgoing = n) # Rename the variables</code></pre>
+<p>You will notice that we added the argument
+<code>wt = pigs.moved</code>, <em>pigs.moved</em> is a variable that
+tell us the number of pigs shipped. The argument <code>wt</code> in the
+function <code>count()</code> allow us to add a weight to the counts. We
+also used the function <code>rename()</code> which pretty much does what
+it sounds like, it renames variables in the data.</p>
+<p>Now we will join the data with the farm information contained in the
+<em>nodes</em> object, to do this we use the <code>left_join()</code>
+function:</p>
+<pre class="r"><code># Joining the two tables
+# First we join with the outgoing
+farms &lt;- nodes %&gt;% # This is the main object we will join with
+  left_join(Out, by =&quot;id&quot;) # we need to specify the variable name we are joining by</code></pre>
+<p><strong>Exercise: </strong> Now create a object that is the same as
+the <code>Out</code> we just created, but instead of counting the
+outgoing animals, counts the incoming animals. For this you can use the
+column <em>id_dest</em>. Then join the new object you created with the
+farms data. Name the variable that has the number of pigs moved
+<em>incoming</em></p>
+<pre class="r"><code># Get the number of outgoing and incoming shipments 
+In &lt;- mov %&gt;% # First we call the data
+  count(id_dest, wt = pigs.moved) %&gt;% # then we count the number of movements
+  rename(id = id_dest, incoming = n) # Rename the variable
+
+## Then we join with the incoming
+farms &lt;- farms %&gt;%
+  left_join(In, by = &quot;id&quot;)</code></pre>
+<p>The first rows of your data should look like these:</p>
+<pre class="r"><code>head(farms)</code></pre>
+<pre><code>##   id                            name      lat      long farm_type outgoing
+## 1  1           Iowa Select Farms Inc 42.50489 -93.26323  sow farm     3528
+## 2  2 Stanley Martins Fleckvieh Farms 43.08261 -91.56682  sow farm       NA
+## 3  3            Centrum Valley Farms 42.66331 -93.63630   nursery     1087
+## 4  4     Hilltop Farms fresh produce 41.71651 -93.90491  sow farm     1606
+## 5  5                   Hog Slat Inc. 42.25929 -91.15566       GDU     3440
+## 6  6       Safari Iowa Hunting Farms 41.56854 -92.02317       GDU     1073
+##   incoming
+## 1     1466
+## 2     3382
+## 3       NA
+## 4     3684
+## 5     1467
+## 6     4491</code></pre>
+<p>Notice that we have some outgoing and incoming rows with NA values.
+Sometimes NAs can interfer with some functions such as sum, in the next
+example we will summarise the data and egt the ones with the highest
+number of incoming movements:</p>
+<pre class="r"><code>farms %&gt;% # This is our joined data
+  group_by(id) %&gt;% # We will group it by id
+  summarise( # we will perform some summary statistics
+    incoming = sum(incoming, na.rm = T) # notice that we add the argument na.rm = T
+  ) %&gt;%
+  arrange(desc(incoming)) %&gt;% # now we will order by incoming
+  head(5) # we use the head() function to get the first 5 observations</code></pre>
+<pre><code>## # A tibble: 5 × 2
+##      id incoming
+##   &lt;int&gt;    &lt;int&gt;
+## 1    17    79948
+## 2     8    19184
+## 3    14    12334
+## 4     7    11034
+## 5    15     4648</code></pre>
+<!-- ## Wide and Long formats -->
+<!-- # Loops in R -->
+</div>
+</div>
+<div id="exporting-the-data" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Exporting the data</h1>
+<p>Once that you have processed the data, often times you want to export
+it so the next time dont have to run all the code. YOu can export to
+multiple formats, but the most common is to a comma delimited file
+(CSV), which can be read in excel.</p>
+<pre class="r"><code>write.csv(farms, &#39;Data/farms.csv&#39;, row.names = F)</code></pre>
+<hr />
+<p><em>This lab has been developed with contributions from: <a
+href="https://www.spablo-temporal.network">Jose Pablo
+Gomez-Vazquez</a>.<br />
+Feel free to use these training materials for your own research and
+teaching. When using the materials we would appreciate using the proper
+credits. If you would be interested in a training session, please
+contact: <a href="mailto:jpgo@ucdavis.edu"
+class="email">jpgo@ucdavis.edu</a></em></p>
+<hr />
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 ---
-title: "R basics"
+title: "Introduccion a la sintaxis de R"
 author: "Pablo Gomez"
 output:
   html_document:
@@ -13,46 +13,47 @@ knitr::opts_chunk$set(warning = F, message = F)
 library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
 ```
 
-# R syntax
+# Sintaxis en R
 
-R is like a calculator, we can make mathematical operations, for example:
+R es como una calculadora, podemos realizar diferentes operaciones matematicas. Por ejemplo:
 
 ```{r basic operations}
 2 + 2
 ```
 
-R is a object-oriented programming language, this means that we create objects that contain information. In R you can achieve the same results using different approaches, for example, to create an object we just type a name for the object and assign it a value using the operators `=` or `<-`. We can make operations with objects of the same type, for example:
+R es un lenguaje de programacion orientado a objetos. Esto significa que guardamos nuestra informacion en contenedores que llamamos objetos.  
+En R podemos obtener el mismo resultado usando diferentes aproximaciones. Por ejemplo, para crear un objeto podemos escribir el nombre del objeto y asignar un valor usando los operadores `=` o `<-`. Podemos usar los objetos que creemos para realizar operaciones con otros objetos compatibles:
 
 ```{r storing values}
-x = 2 # create a new object with the = operator
-y <- 2 # create a new object with the <- operator
-x + y # make a operation with the objects
+x = 2 # creamos un objeto con el operador = 
+y <- 2 # creamos un objeto con el operador <- 
+x + y # Hacemos operacions con los objetos
 ```
 
-## Vectors in R
+## Vectores en R
 
-You can store more than one value using vectors, to create a vector of numbers we use `c()`.
-For example, we will store a sequence of numbers from 5 to 10 using 2 different approaches and then ask R if the objects are the same.  
-**tip:** using the keys "alt" + "-" will automatically add the operator `<-`. Choosing which assign operator to use is a matter of preference, I personally think that is easier reading code with the operator `<-`, but a lot of people uses `=`.  
+Podemos guardar mas de un valor en un objeto usando vectores. Los vectores en R son una secuencia de valores, para crear un nuevo vector podemos combinar múltiples valores con la función `c()`. 
+Por ejemplo, vamos a crear una secuencia de números del 5 al 10 usando 2 aproximaciones diferentes, y después le preguntaremos a R si los objetos son iguales. 
+**tip:** usando el atajo `alt + -` automáticamente agregara el operador `<-`. La decision sobre el operador para asignar objetos es cuestión personal, a mi en lo personal se me facilita usar el operador `<-` para asignar objetos ya que el operador `=` se usa también para otras cosas como veremos mas adelante, pero siéntete libre de usar el que se te haga mas intuitivo.
 
 ```{r vectors}
-x <- c(5, 6, 7, 8, 9, 10) # create a sequence form 5 to 10
-y = 5:10 # create the same sequence but with a different approach
-x == y # ask R if the objects have the same information
+x <- c(5, 6, 7, 8, 9, 10) # Creamos una secuencia de números del 5 al 10
+y = 5:10 # Creamos la misma secuencia, pero de manera diferente
+x == y # Le preguntamos a R si son iguales
 ```
 
-Notice that in the previous example we compared two objects using `==`, this is the way we tell R that we want to COMPARE and not to assign (remember that to assign you use only one `=` symbol).  
+Observa que en el ejemplo anterior usamos el operador `==`, esta es una manera de decirle a R que queremos comparar, y no asignar, dos valores (o objetos). Recuerda que al usar un solo `=` asignaremos el valor de la derecha al de la izquierda.
 
-When we have a vector, we can ask R specific values inside an object by using the operator `[ ]` and specifying which ones we want.
+### Indexing
+
+Cuando tenemos un vector, podemos pedirle a R que nos de valores especificos en base a su posicion usando el operador `[ ]` y especificando dentro el numero deseado. Por ejemplo:
 
 ```{r vector operations}
-# Here we ask the 3rd value from our sequence
-x[3]
-# Now we multiply the 3rd value of the x sequence times the 5th value of the y sequence
-x[3] * y[5]
+x[3] # Aqui le pedimos el 3er valor del vector
+x[3] * y[5] # Aqui multiplicamos el 3er valor por el 5to valor de nuestros vectores x y y
 ```
 
-## Functions
+## Funciones
 
 R has a lot of base functions, but we can define new functions. When using R studio, the key *Tab* will help us to auto complete, this can help us a lot when we don't remember the exact name of the functions available.
 The best part of programming with R is that it has a very active community. Since its open source, anyone can create functions and compile them in a package (or library). we can download these packages and access new functions.  
@@ -163,7 +164,7 @@ Download the excel file from this [link](https://ucdavis.app.box.com/folder/1747
 # install.packages("readxl")
 
 # Import the excel file
-PRRS <- readxl::read_xlsx("Data/PRRS.xlsx")
+PRRS <- readxl::read_xlsx("../Data/PRRS.xlsx")
 ```
 
 The most popular format for tables in R are called `data.frame`, when we import the data from a *.csv* o *.xlsx*. We can examine what kind of object it is using the function `class()`:  
@@ -280,9 +281,9 @@ Sometimes we have different data sets that have variables in common and we want 
 ```{r}
 # First we import the data -----------
 # Importing the farm dataset 
-nodes <- read.csv("Data/node_attrib.csv")
+nodes <- read.csv("../Data/node_attrib.csv")
 # Importing the movement dataset
-mov <- read.csv("Data/network.csv")
+mov <- read.csv("../Data/network.csv")
 ```
 
 The data `mov` has information of place of origin (*id_orig*) and destination (*id_dest*) of animal shipments. First we will calculate the total number of pigs moved for each of the incoming and outgoing movements. To do this we will use the function `count()`
@@ -344,7 +345,7 @@ farms %>% # This is our joined data
 
 Once that you have processed the data, often times you want to export it so the next time dont have to run all the code. YOu can export to multiple formats, but the most common is to a comma delimited file (CSV), which can be read in excel.
 
-```{r}
+```{r eval = F}
 write.csv(farms, 'Data/farms.csv', row.names = F)
 ```
 

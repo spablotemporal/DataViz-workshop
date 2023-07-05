@@ -376,14 +376,14 @@ href="https://www.spablo-temporal.network/DataViz-workshop/0a_Intro_RstudioMarkd
 to English <img src="img/flag_us.gif" width="25" /></a> | <a
 href="https://www.spablo-temporal.network/DataViz-workshop/PT/0a_Intro_RstudioMarkdown.html">Mudar
 para Portugues <img src="img/flag_br.gif" width="25" /></a> </em></p>
-<p>En esta primera seccion no vamos a usar nada de codigo o la sintaxis
+<p>En esta primera seccion no vamos a usar nada de código o la sintaxis
 usada en R, nos enfocaremos en familiarizarnos con la interfaz de R
 studio y los tipos de archivos que podemos crear.<br />
 El objetivo de este ejercicio es que, es que al terminar, estemos
 familiarizados con los siguientes conceptos:</p>
 <ul>
-<li>Organizacion de proyecto.</li>
-<li>Los componentes principales de la interfáz.</li>
+<li>Organización de proyecto.</li>
+<li>Los componentes principales de la interfaz.</li>
 <li>Archivos que podemos crear en R studio.</li>
 </ul>
 <div id="la-interfaz-de-r-studio" class="section level1" number="1">
@@ -391,24 +391,24 @@ familiarizados con los siguientes conceptos:</p>
 studio</h1>
 <p>Al empezar R studio, vamos a poder ver 4 secciones:</p>
 <ol style="list-style-type: decimal">
-<li><strong>Source</strong> (arriba izquierda), Aqui tendermos nuestro
-editor de codigo y otros archivos que trabajemos. Usaremos esta seccion
+<li><strong>Source</strong> (arriba izquierda), Aquí tendremos nuestro
+editor de código y otros archivos que trabajemos. Usaremos esta sección
 para editar y ver nuestros scripts, y algunos otros documentos que
-usaremos para interctuar con R.</li>
-<li><strong>Consola y Terminal</strong> (abajo izquierda), Aqui es donde
-el codigo sera ejecutado. La <em>Consola</em> ejecutara el codigo de R,
-la <em>Terminal</em> otro codigo para interactuar directamente con tu
-sistema operativo. Podemos escribir el codigo directamente en esta
-seccion, pero normalmente usaremos otros archivos como .R o .Rmd para
-escribir el codigo y posteriormente enviarlo a la consola.</li>
+usaremos para interactuar con R.</li>
+<li><strong>Consola y Terminal</strong> (abajo izquierda), Aquí es donde
+el código sera ejecutado. La <em>Consola</em> ejecutara el código de R,
+la <em>Terminal</em> otro código para interactuar directamente con tu
+sistema operativo. Podemos escribir el código directamente en esta
+sección, pero normalmente usaremos otros archivos como .R o .Rmd para
+escribir el código y posteriormente enviarlo a la consola.</li>
 <li><strong>Environment, History y otros</strong> (arriba derecha), El
 <em>environment</em> nos muestra una lista de todos los objectos que
-hemos creado durante la sesion, mientras que el historial
-(<em>history</em>) nos muestra el codigo que hemos enviado a la consola.
-Existen otras pestañas en esta seccion, pero no las usaremos por
+hemos creado durante la sesión, mientras que el historial
+(<em>history</em>) nos muestra el código que hemos enviado a la consola.
+Existen otras pestañas en esta sección, pero no las usaremos por
 ahora.</li>
 <li><strong>Files, Packages and Help</strong> (abajo derecha). Esta
-seccion incluye un explorador de archivos <em>Files</em>, y otras
+sección incluye un explorador de archivos <em>Files</em>, y otras
 pestañas para administrar los paquetes.</li>
 </ol>
 <p><img src="img/I_a.png" style="width:100%" align="center"/></p>
@@ -420,193 +420,169 @@ proyecto.</h1>
 organizar nuestros proyectos. Si aun no lo has hecho, te recomiendo que
 te familiarices con el uso de proyectos en R studio para organizar tu
 flujo de trabajo. Los proyectos son archivos que contienen la
-informacion de tu sesion de R actual, incluyendo objetos, conjuntos de
-datos y configuraciones.</p>
-<p>One of the most useful features of R studio is the project
-organization, if you haven, I strongly encourage you to familiarize with
-creating and using projects to organize your workflow. Projects allow to
-create a file that will contain all the information regarding your
-session (including objects, data sets and configurations) and organize
-your files in folders in your system. This is particularly useful when
-we are working with multiple topics.<br />
-When you open Rstudio for the first time it starts on an empty project.
-To create a new project, just go to the top right corner menu and select
+información de tu sesión de R actual, incluyendo objetos, conjuntos de
+datos y configuraciones, así como los archivos y directorios
+asociados.<br />
+Al empezar R studio por primera vez, veras un proyecto vacío. Para crear
+un nuevo provecto, ve al menú de la parte superior derecha y selecciona
 <em>New Project…</em></p>
 <p><img src="img/Ia_01-NewProj.png" style="width:50%" align="center"/></p>
-<p>Then will five you the option to create a new project in a new
-directory, un an existing directory or version control. For today, we
-wont be talking about version control in detail, but this is to
-integrate Rstudio with Github.</p>
+<p>Después, te dará la opción de crear un nuevo proyecto en un
+directorio nuevo, un directorio existente, o por medio de control de
+versión. Para hoy, no hablaremos de control de versión, pero es una
+manera muy útil de integrar <a href="https://github.com">Github</a> con
+R studio.</p>
 <p><img src="img/Ia_02-NewProj.png" style="width:30%" align="center"/></p>
-<p>Once you have selected the option that you want, it will show you
-multiple options for types of projects, you can select <em>New
-project</em> and continue.</p>
+<p>Una vez seleccionada la opcion deseada, te mostrara múltiples
+opciones para diferentes tipos de proyectos. De estas opciones,
+selecciona <em>New project</em> y haz click en continuar.</p>
 <p><img src="img/Ia_03-NewProj.png" style="width:30%" align="center"/></p>
-<p>Then you just name your directory and select a location.</p>
+<p>Ahora nombra tu directorio y selecciona una ubicacion en tu
+ordenador.</p>
 <p><img src="img/Ia_04-NewProj.png" style="width:30%" align="center"/></p>
-<p>Once the project is created, in the files tab you will see that
-Rstudio created the files for your project in the folder that you
-selected. The project organization depends on your personal preferences,
-but I usually like to create 3 folders (code, data and docs) to organice
-my files related with the current project.</p>
+<p>Una vez que hayas creado tu proyecto, veras que automáticamente se
+crearon archivos asociados para tu proyecto en el folder seleccionado.
+La organización del proyecto depende en tus preferencias personales,
+pero para darte un ejemplo, yo suelo crear 3 directorios (code, data y
+docs) para organizar mis archivos asociados al proyecto actual.</p>
 <p><img src="img/Ia_05-NewProj.png" style="width:30%" align="center"/></p>
 </div>
-<div id="editors-in-rstudio" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Editors in Rstudio</h1>
-<div id="r-scripts.r" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> R scripts(.R)</h2>
-<p>We are going to open our first R script. In the <a
-href="https://ucdavis.box.com/s/ztydby6t65nil1oh8elhnogdjisrwgcc">shared
-folder</a> you will find an R script under <code>Code/pkgs.R</code>,
-download it to your computer and we will import it to our R project. Go
-to the files tab located in the bottom left panel and click on the
-upload button:</p>
+<div id="editores-en-r-studio" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Editores en R
+studio</h1>
+<div id="r-scripts-.r" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> R scripts (.R)</h2>
+<p>Ahora vamos a abrir nuestro primer script de R. En el <a
+href="https://ucdavis.box.com/s/y1p2brjqxkkwr01krz3lrgb3q3yxa7a0">folder
+compartido</a> encontraras un script de R en el directorio
+<code>Code/pkgs.R</code>, descarga el archivo e impártalo a tu proyecto
+de R. Para esto, ve al panel de archivos y selecciona la opción de
+<em>upload</em>.</p>
 <p><img src="img/0_upload1.png" style="width:100.0%" /></p>
-<p>A box will pop up with a few options, click on the <em>Choose
-file</em> option and locate the script you downloaded in your
-computer.</p>
+<p>Una ventana aparecerá con algunas opciones, selecciona la opción
+<em>Choose file</em> y localiza el archivo descargado en tu
+computadora.</p>
 <p><img src="img/0_upload2.png" style="width:30.0%" /></p>
-<p>Now that you uploaded the file to your project, open in and run the
-script by clicking on the <em>Source</em> button. This will install a
-few libraries we will be using during the workshop.</p>
+<p>Ahora que ya hemos descargado el archivo, ábrelo y corre el scrip
+haciendo click en el botón de <em>Source</em>. Este script instalara
+algunos de los paquetes que usaremos en el workshop.</p>
 <p><img src="img/0_source.png" style="width:100.0%" /></p>
-<p>R scripts are the most common type of file used by the R software,
-but there are other types of files that will make easier generating
-documents.</p>
+<p>Los <em>R scripts</em> son los tipos de archivos mas comúnmente
+usados para programar en R. Existen otros tipos de archivos que nos
+facilitaran crear documentos de una manera mas amigable.</p>
 </div>
-<div id="intro-to-markdown" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Intro to
+<div id="introduccion-a-markdown" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Introduccion a
 Markdown</h2>
 <p><img src="img/Ia_Docs.png" style="float:right;width:16.0%" /></p>
-<p>R studio can create several types of documents including: R scripts,
-text files, Markdown, among others. To create a new document you can go
-to the menu located at the upper left corner.</p>
-<p>A menu will show with all the different document types you can
-create. For now we will select the option <em>R Markdown…</em>.</p>
-<p>It might ask you to install a library if it’s not already installed,
-so just click yes if it does. This will open a window where will ask for
-a Title, author and Date. We will go to the left side menu and select
-the option from template.</p>
+<p>En R studio podemos editar diferentes tipos de documentos,
+incluyendo: scripts de R (.R), Markdown (.md y .Rmd), scripts de python
+(.py), entre otros. Para crear un documento nuevo, podemos ir al menú
+ubicado en la esquina superior izquierda. Este menú nos mostrara varios
+tipos de documentos que podemos crear en R studio, para hoy,
+seleccionaremos la opción <em>R Markdown…</em>. Los documentos markdown
+son documentos editables que pueden incluir secciones de codigo y de
+texto, y pueden ser renderizados a diferentes formatos como html, word o
+pdf, ya hablaremos mas adelante de esto en detalle. Esto es muy util
+para generar reportes que integren de manera mas directa nuestro trabajo
+con el código y la documentacion.</p>
+<p>Si es la primera vez que usas markdown, te pedirá que instales
+algunas librerías (todo desde R). Una vez instaladas, te mostrara una
+ventana con varias opciones para crear tu documento. Nosotros usaremos
+una plantilla (template), para eso ve al menú izquierdo y selecciona la
+opción que dice <em>from template</em>.</p>
 <p><img src="img/Ia_RmdCreate.png" style="width:30%" align="center"/></p>
-<p>If you installed properly the libraries from the pkgs.R script in the
-previous step, you will see a template called <em>blank</em> from the
-<code>STNet</code> library. This is just an empty template I made.
-Select the template and click ok.</p>
+<p>Si instalaste adecuadamente los paquetes de la sección anterior
+mediante el archivo pkgs.R, veras una plantilla llamada <em>blank</em>
+de la librería <code>STNet</code>. Esta es una plantilla para iniciar un
+documento vacío, puedes seleccionar esta platilla y dar click en ok.</p>
 <p><img src="img/Ia_templates.png" style="width:30%" align="center"/></p>
 </div>
-<div id="documents-with-r-markdown-.rmd" class="section level2"
+<div id="documentos-con-r-markdown-.rmd" class="section level2"
 number="3.3">
-<h2><span class="header-section-number">3.3</span> Documents with R
+<h2><span class="header-section-number">3.3</span> Documentos con R
 Markdown (.Rmd)</h2>
-<p>We created our first document with R Markdown, and will look like
-this:</p>
+<p>En la sección anterior hemos creado nuestro primer documento con R
+Markdown, y deberás de ver algo similar:</p>
 <p><img src="img/Ia_RmdDoc.png" style="width:60%" align="center"/></p>
-<p>The document has already the header and a code ‘chunk’ (we will talk
-more about this later). Add a title for the document and put your name
-in the author field. The Rmd documents use a syntax called markdown
-which we will not cover in detail, but you can find more info in <a
-href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">this
-link</a>. You can edit the document directly with the Rmd syntax, but if
-you prefer to save some time and don’t have to deal with learning
-everything from scratch, there is an option to edit the document in a
-more familiar way. To do this just change the option located in the top
-right of the document from <em>Source</em> to <em>Visual</em>. You will
-notice that a toolbar with some familiar icons appeared at the top.</p>
+<p>Este documento contiene un encabezado y un ‘chunk’ de código (ya
+hablaremos sobre esto después). Agrega un titulo en el documento, e
+introduce tu nombre en el espacio para el autor. El documento Rmd usa
+una sintaxis llamada <em>Markdown</em>, la cual no cubriremos a detalle
+por ahora, pero puedes encontrar mas información en el <a
+href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">este
+link</a>. Puedes editar tu documento con la sintaxis de markdown, pero
+existe también una manera de editar el documento de una manera mas
+intuitiva y amigable. Para cambiar al editor visual, solo haz click en
+la opción superior izquierda del documento que creaste, cambiándolo de
+<em>Source</em> a <em>Visual</em>. Veras que aparece una barra de
+herramientas muy parecida a la que encuentras en otros editores de
+texto.</p>
 <p><img src="img/Ia_RmdVisual.png" style="width:60%" align="center"/></p>
-<p>To add a new section to the document, you might want to start with a
-title. The titles can be hierarchical similar to what we are used in
-other text editors (Title, Subtitle 1, Subtitle 2, etc…). To define a
-new title we use the character <code>#</code> in front of the text, and
-the number of <code>#</code> before the text will be the hierarchy
-level. For example if we want to define a title hierarchy we write:</p>
+<p>Podemos agregar nuevas secciones del documento, para esto podemos
+empezar con un subtitulo. Los títulos tienen una estructura jerárquica
+similar a la que encontramos en otros editores de texto (p. ej. titulo,
+subtitulo 1, subtitulo2, etc..). Para definir un nuevo titulo usamos el
+carácter <code>#</code> al iniciar la linea de texto. El numero de
+<code>#</code> indicara el nivel de jerarquía, siendo 1 la mas
+importante, y números subsecuentes de <code>#</code> representan el
+nivel. Por ejemplo, si escribimos esto:</p>
 <pre><code># Title 1
 
 ## Subtitle 1
 
 ### Subtitle 2</code></pre>
-<p>Which in our visual and rendered document will look like this:</p>
+<p>En nuestro editor visual y el documento rendereado, veremos algo
+así:</p>
 <p><img src="img/Ia_Titles.png" style="width:40%" align="center"/></p>
-<div id="navigating-the-document" class="section level3" number="3.3.1">
-<h3><span class="header-section-number">3.3.1</span> Navigating the
-document</h3>
-<p>Having defined sections in our document is nice because we can
-quickly jump between them. There are 2 ways of quickly navigating
-between sections: the <em>outline right bar</em> and the <em>bottom
-outline menu</em>. If your right outline bar is collapsed, make sure to
-click on the outline icon <img src="img/Ia_OutlineIcon.png"
+<div id="navegando-el-documento" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Navegando el
+documento</h3>
+<p>Agregar secciones definidas en nuestro documento nos servirá para
+poder encontrar mas facilmente la informacion y brincar entre secciones.
+Existen dos maneras de navegar entre las secciones de nuestro documento:
+la barra de <em>outline</em> derecha, y el menu inferior de
+<em>outline</em>. Si tu barra de <em>outline</em> derecha esta
+colapsada, solo haz click en el icono <img src="img/Ia_OutlineIcon.png"
 style="width:10.0%" /></p>
 <p><img src="img/Ia_Outline.png" style="width:50%" align="center"/></p>
-<p>You will notice that the bottom outline has a few extra sections
-labeled <em>Chunk</em>. A chunk refers to a piece of code in the
-document. This piece of code will execute (unless you specify the
-opposite) every time that you document renders. Each document is self
-contained which means taht all the objects and functions you use must be
-declared and loaded in order for the document to render properly (we
-will talk more about this later).</p>
+<p>Si examinas la <em>outline</em> inferior, veras que existen algunas
+secciones adicionales llamadas <em>chunks</em>. Un <em>chunk</em> se
+refiere a una sección de codigo en nuestro documento. Esta sección de
+codigo se ejecutara cada vez que renderizemos el documento (a menos que
+se especifique lo contrario). Cada documento es independiente de lo que
+hagamos en la sesión, asi que todos los objetos, funciones y librerías
+que se usen en el documento deben ser declarados para renderizar el
+documento correctamente.</p>
 </div>
-<div id="rendering-the-document" class="section level3" number="3.3.2">
-<h3><span class="header-section-number">3.3.2</span> Rendering the
-document</h3>
-<p>Now that we have a document we are going to render it to different
-formats. To render the document you can either click on the
-<em>knit</em> icon <img src="img/Ia_KnitIcon.png"
-style="width:10.0%" />, or use the shortcut <code>ctrl+shift+k</code>.
-The default format that the document will be rendered is html, but you
-can choose different formats from the dropdown menu.</p>
+<div id="renderizando-el-documento." class="section level3"
+number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Renderizando el
+documento.</h3>
+<p>El proceso de renderizado consiste en generar un archivo en otro
+formato (html, pdf, word, etc…). Ahora que tenemos nuestro documento Rmd
+abierto, vamos a probar algunas opciones de renderizado. Para renderizar
+el documento, puedes hacer click en el icono <em>knit</em> <img
+src="img/Ia_KnitIcon.png" style="width:10.0%" /> que se encuentra en la
+barra superior del documento, o usar el atajo <code>ctrl+shift+k</code>.
+EL formato por default de renderizado es html, pero puedes escoger
+diferentes formatos usando el menu dropdown.</p>
 <p><img src="img/Ia_KnitMenu.png" style="width:35%" align="center"/></p>
 </div>
 </div>
-<div id="exercise-1" class="section level2" number="3.4">
+<div id="ejercicio-1" class="section level2" number="3.4">
 <h2><span class="header-section-number">3.4</span> <span
-style="color: darkred;">Exercise 1</span></h2>
-<p>Add a new section to your document with a short bio about yourself
-(background and research interests), and include your favorite song
-and/or favorite food. Try the different rendering modes (pdf and word),
-save it as <em>exercise1_yourName</em> and submit the document in the
-following box OR <a
-href="https://ucdavis.app.box.com/f/821be3f5e59b4924ac20ea639246cc31">this
+style="color: darkred;">Ejercicio 1</span></h2>
+<p>Agrega una nueva sección en tu documento escribiendo una biografía
+corta (área de investigación, intereses, actual trabajo). Si tienes
+recomendaciones de alguna canción que no puedas dejar de escuchar, o tu
+comida favorita siéntete libre de incluirlas en una seccion!. Prueba los
+diferentes modes de renderizacion (pdf y word), guardalo como
+<em>exercise1_yourName</em> y subelo en la siguiente seccion o <a
+href="https://ucdavis.app.box.com/f/821be3f5e59b4924ac20ea639246cc31">este
 link</a>.</p>
 <iframe src="https://ucdavis.app.box.com/f/821be3f5e59b4924ac20ea639246cc31" height="200" width="800">
 </iframe>
-</div>
-<div id="presentations-with-quarto" class="section level2" number="3.5">
-<h2><span class="header-section-number">3.5</span> Presentations with
-quarto</h2>
-<p>Like you saw, R studio can be used for more than just coding. R
-studio can be used as a free alternative to text editors, which allow us
-to generate different kind of documents such as reports. But wait… there
-is more things we can use R studio for, in the next section we will
-briefly introduce on how to use R studio to generate presentations,
-similar to something you could achieve with power point.</p>
-<p>Quarto is a platform for creating presentations using a very similar
-approach as R markdown. To create a quarto presentation you can use the
-same menu that you previously used to create a new document.</p>
-<p><img src="img/Ia_DocsQuarto.png" align="center" width="15%"/></p>
-<p>Your presentation will have already some text based on the default
-template and will look similar to this:</p>
-<p><img src="img/Ia_QuartoDoc.png" align="center" width="60%"/></p>
-<p>Similar to the R Markdown documents, you can render the presentation
-in multiple formats. The default format uses html, but you can also
-render to pdf and power point. If you want to render to other formats
-you can specify that when creating the document or change that in the
-YAML header:</p>
-<p>For power point:</p>
-<p><img src="img/Ia_Quartopptx.png" align="center" width="60%"/></p>
-<p>For pdf:</p>
-<p><img src="img/Ia_Quartopdf.png" align="center" width="60%"/></p>
-<p>We are not going to cover in detail how to go beyond the formatting
-of the presentations, but here are some exaples so you can see the
-scope:</p>
-<ul>
-<li><a href="https://runapp2022.talks.jamesgoldie.dev/#/james-goldie"
-class="uri">https://runapp2022.talks.jamesgoldie.dev/#/james-goldie</a></li>
-<li><a
-href="https://emilhvitfeldt.github.io/useR2022-textrecipes/#/section-8"
-class="uri">https://emilhvitfeldt.github.io/useR2022-textrecipes/#/section-8</a></li>
-</ul>
-<p><a
-href="https://github.com/mcanouil/awesome-quarto#real-life-examples"
-class="uri">https://github.com/mcanouil/awesome-quarto#real-life-examples</a></p>
 <hr />
 <p><em>This lab has been developed with contributions from: <a
 href="https://www.spablo-temporal.network">Jose Pablo
