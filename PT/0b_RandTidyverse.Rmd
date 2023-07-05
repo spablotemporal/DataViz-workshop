@@ -1,5 +1,5 @@
 ---
-title: "R basics"
+title: "Sintaxe básica do R"
 author: "Pablo Gomez"
 output:
   html_document:
@@ -10,352 +10,352 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = F, message = F)
-library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
+library(dplyr); library(ggplot2); library(ggpubr)
+#library(Pabloverse)
 ```
 
-# R syntax
+# Sintaxe do R
 
-R is like a calculator, we can make mathematical operations, for example:
+O R é como uma calculadora, podemos fazer operações matemáticas, por exemplo:
 
-```{r basic operations}
+```{r operações básicas}
 2 + 2
 ```
 
-R is a object-oriented programming language, this means that we create objects that contain information. In R you can achieve the same results using different approaches, for example, to create an object we just type a name for the object and assign it a value using the operators `=` or `<-`. We can make operations with objects of the same type, for example:
+O R é uma linguagem de programação orientada a objetos, o que significa que criamos objetos que contêm informações. No R, você pode obter os mesmos resultados usando abordagens diferentes. Por exemplo, para criar um objeto, basta digitar um nome para o objeto e atribuir um valor a ele usando os operadores `=` ou `<-`. Podemos fazer operações com objetos do mesmo tipo, por exemplo:
 
 ```{r storing values}
-x = 2 # create a new object with the = operator
-y <- 2 # create a new object with the <- operator
-x + y # make a operation with the objects
+x = 2 # cria um novo objeto com o operador =
+y <- 2 # cria um novo objeto com o operador <-
+x + y # faz uma operação com os objetos
 ```
 
-## Vectors in R
+## Vetores no R
 
-You can store more than one value using vectors, to create a vector of numbers we use `c()`.
-For example, we will store a sequence of numbers from 5 to 10 using 2 different approaches and then ask R if the objects are the same.  
-**tip:** using the keys "alt" + "-" will automatically add the operator `<-`. Choosing which assign operator to use is a matter of preference, I personally think that is easier reading code with the operator `<-`, but a lot of people uses `=`.  
+Você pode armazenar mais de um valor usando vetores. Para criar um vetor de números, usamos `c()`. Por exemplo, vamos armazenar uma sequência de números de 5 a 10 usando duas abordagens diferentes e depois perguntar ao R se os objetos são iguais.
+**Dica**: usar as teclas "alt" + "-" adicionará automaticamente o operador `<-`. A escolha do operador de atribuição é uma questão de preferência. Pessoalmente, acho mais fácil ler o código com o operador `<-`, mas muitas pessoas usam `=`.
 
 ```{r vectors}
-x <- c(5, 6, 7, 8, 9, 10) # create a sequence form 5 to 10
-y = 5:10 # create the same sequence but with a different approach
-x == y # ask R if the objects have the same information
+x <- c(5, 6, 7, 8, 9, 10) # criar uma sequência de 5 a 10
+y = 5:10 # criar a mesma sequência, mas com uma abordagem diferente
+x == y # perguntar ao R se os objetos têm as mesmas informações
+
 ```
 
-Notice that in the previous example we compared two objects using `==`, this is the way we tell R that we want to COMPARE and not to assign (remember that to assign you use only one `=` symbol).  
+Observe que no exemplo anterior comparamos dois objetos usando `==`. Dessa forma, informamos ao R que queremos COMPARAR e não atribuir (lembre-se de que para atribuir você usa apenas um símbolo `=`).
 
-When we have a vector, we can ask R specific values inside an object by using the operator `[ ]` and specifying which ones we want.
+Quando temos um vetor, podemos solicitar ao R valores específicos dentro de um objeto usando o operador `[ ]` e especificando quais valores queremos.
 
 ```{r vector operations}
-# Here we ask the 3rd value from our sequence
+# Aqui pedimos o terceiro valor da nossa sequência
 x[3]
-# Now we multiply the 3rd value of the x sequence times the 5th value of the y sequence
+# Agora multiplicamos o terceiro valor da sequência x pelo quinto valor da sequência y
 x[3] * y[5]
+
 ```
 
-## Functions
+## Funções
 
-R has a lot of base functions, but we can define new functions. When using R studio, the key *Tab* will help us to auto complete, this can help us a lot when we don't remember the exact name of the functions available.
-The best part of programming with R is that it has a very active community. Since its open source, anyone can create functions and compile them in a package (or library). we can download these packages and access new functions.  
-Functions in R require arguments, which we can see in the function documentation or if we press the key *Tab* when we are inside the function.  
+O R possui muitas funções básicas, mas também podemos definir novas funções. Ao usar o R Studio, a tecla *Tab* nos ajuda a auto completar, o que pode ser muito útil quando não lembramos o nome exato das funções disponíveis.
+A melhor parte da programação em R é que ele possui uma comunidade muito ativa. Como é de código aberto, qualquer pessoa pode criar funções e compilá-las em um pacote (ou *library*, biblioteca). Podemos baixar esses pacotes e acessar novas funções.
+Funções em R requerem argumentos, que podem ser vistos na documentação da função ou pressionando a tecla *Tab* quando estamos dentro da função.
 
 ```{r functions}
-# To get the sum of a vector of numbers inside an object we use sum()
+# Para obter a soma de um vetor de números em um objeto, usamos a função sum()
 sum(x)
 ```
 
-We can put functions inside function, for example, to get $\sqrt{\sum_1^n x}$ the square root of a sum of the numbers in x we can use:
+Podemos colocar funções dentro de funções, por exemplo, para obter $\sqrt{\sum_1^n x}$ a raiz quadrada da soma dos números em x, podemos usar:
 
 ```{r nested functions}
 sqrt(sum(x))
 ```
 
-Making functions in R is not as complicated as it sounds and can be very useful when we need to do repetitive work. To define a function we need to include the arguments that we want for the function and what are we doing with those arguments. For example, the following function has only one argument which is a name (string) and just pastes some text before and after:
+Criar funções em R não é tão complicado quanto parece e pode ser muito útil quando precisamos realizar trabalhos repetitivos. Para definir uma função, precisamos incluir os argumentos desejados e o que faremos com esses argumentos. Por exemplo, a seguinte função tem apenas um argumento que é um nome (string) e apenas concatena um texto antes e depois:
 
 ```{r creating a function}
 F1 <- function(name){
-  paste("Hola", name, "! welcome to the R world (: !") # paste the name with some text
+  paste("Olá", name, "! bem-vindo ao mundo do R (: !") # concatena o nome com um texto
 }
 
-# Testing the function (Put your name)
+# Testando a função (Coloque seu nome)
 F1(name = "Pablo")
 ```
 
-Besides storing numbers in the objects in R, we can store text, matrices, tables, spatial objects, images, and other types of objects. Next we will import our own data and do some manipulation in R.
+Além de armazenar números nos objetos em R, também podemos armazenar texto, matrizes, tabelas, objetos espaciais, imagens e outros tipos de objetos. A seguir, iremos importar nossos próprios dados e realizar algumas manipulações no R.
 
-**Exercise:** Create a function that performs the $\sqrt{\sum_1^n x}$ operation you did previously with the code `sqrt(sum(x))`
+**Exercício**: Crie uma função que execute a operação $\sqrt{\sum_1^n x}$ que você fez anteriormente com o código `sqrt(sum(x))`.
 
 ```{r Excercise 1, eval=FALSE, include=FALSE}
-# Define the function
+# Definindo a função
 F2 <- function(x){
   sqrt(sum(x))
 }
 
-# Test the function
+# Testando a função
 F2(x)
 ```
 
-## Types of variables
+## Tipos de variáveis
 
-There are different types of variables in R, so far we have used the numeric and string types. If yo want to know what kind of variable is a given object, you can use the function `class()`. Lets try it.
+Existem diferentes tipos de variáveis no R. Até agora usamos os tipos numérico e string. Se você quiser saber qual é o tipo de variável de um determinado objeto, você pode usar a função `class()`. Vamos experimentar.
 
-```{r variables I}
+```{r variables_I}
 class(x)
 ```
 
-**Exercise: ** What kind of variable is the output from the first function you defined `F1()`?
+**Exercício**: Qual é o tipo de variável do resultado da primeira função que você definiu `F1()`?
 
 ```{r exercise vars, eval=FALSE, include=FALSE}
 class(F1(name = 'Pablo'))
 ```
 
-The most commonly used types of variables include:
+Os tipos de variáveis mais comumente usados incluem:
 
-  - *numeric* This are continuous numeric variables WITH any decimal values. For example: KG of product imported, probability of an event happening.
-  - *integer* These variables are whole numbers WITHOUT decimal values. For example: Number of animals, number of shipments, etc..
-  - *character* Alphanumeric variables. For example: name of a region, name of a disease, farm ID.
-  - *factor* Alphanumeric variable with specific categories or levels. For example: type of product imported, type of farm, etc...
+  - *numeric* São variáveis numéricas contínuas COM valores decimais. Por exemplo: Kg de produto importado, probabilidade de um evento ocorrer.
+  - *integer* Essas variáveis são números inteiros SEM valores decimais. Por exemplo: Número de animais, número de remessas, etc.
+  - *character* Variáveis alfanuméricas. Por exemplo: nome de uma região, nome de uma doença, ID da fazenda.
+  - *factor* Variável alfanumérica com categorias ou níveis específicos. Por exemplo: tipo de produto importado, tipo de fazenda, etc.
 
-## Introducing the pipes
+## Introdução aos *pipes*
 
-The library `dplyr` has several functions that can help to clean, create new variables, and modify our data in other ways.  
+A biblioteca `dplyr` possui várias funções que podem ajudar a limpar, criar novas variáveis e modificar nossos dados de outras maneiras.
 
 ```{r message = F}
-# if we dont have installed the library we will need to install it using:
+# se não tivermos a biblioteca instalada, precisaremos instalá-la usando:
 # install.packages("dplyr")
-# we load the library:
+# carregamos a biblioteca:
 library(dplyr)
 ```
 
-`dplyr` introduces a new operator called *pipes* (`%>%`), which can connect several functions to an object. This is an alternative to write several functions in a single "line of code" in a more organized way. For example, if we want to execute a function `F1()` followed by another function `F2()` for the object `x`:  
+O `dplyr` introduz um novo operador chamado *pipes* (`%>%`), que pode conectar várias funções a um objeto. Isso é uma alternativa para escrever várias funções em uma única "linha de código" de maneira mais organizada. Por exemplo, se quisermos executar a função `F1()` seguida por outra função `F2()` para o objeto x:
 
-`F2(F1(x))` is equivalent to `x %>% F1() %>% F2()`    
+`F2(F1(x))` é equivalente a `x %>% F1() %>% F2()`    
 
-As you can notice, to read the code `F2(F1(x))` we have to go from the inside to the outside to see the order of execution of the functions, but when we read `x %>% F1() %>% F2()` we read from left to right, which is the same way we normally would read any text in western language.    
+Como você pode perceber, para ler o código `F2(F1(x))`, temos que ir de dentro para fora para ver a ordem de execução das funções, mas quando lemos `x %>% F1() %>% F2()`, lemos da esquerda para a direita, da mesma forma como normalmente leríamos qualquer texto em uma língua ocidental.
 
-**Suggestion:** we can use the keys *Ctrl* + *shift* + *m* to insert the `%>%` operator.  
+**Sugestão**: podemos usar as teclas *Ctrl* + *shift* + *m* para inserir o operador `%>%`.
+
 
 ```{r pipes} 
-# We previously used this code to calculate the square root of the sum of x
+# Nós usamos anteriormente este código para calcular a raiz quadrada da soma de x
 sqrt(sum(x))
 ```
 
-Using the pipes we can do the same more organized, by writing the order of execution from left to right. 
+Usando os pipes, podemos fazer o mesmo de forma mais organizada, escrevendo a ordem de execução da esquerda para a direita.
 
 ```{r pipes II}
-x %>% # First we call the data
-  sum() %>% # Sum all the values
-  sqrt() # Compute the square root
+x %>% # Primeiro chamamos os dados
+  sum() %>% # Somamos todos os valores
+  sqrt() # Calculamos a raiz quadrada
 ```
 
-You will notice that the outputs are exactly the same. Feel free to use whatever syntax you prefer, but for this course we will use mostly the pipes and writing the code from left to right.
+Você perceberá que as saídas são exatamente as mesmas. Sinta-se à vontade para usar a sintaxe que preferir, mas para este curso, usaremos principalmente os pipes e escreveremos o código da esquerda para a direita.
 
-# Data manipulation
+# Manipulação de dados
 
-R can import data in different formats. The most common are excel files (*.csv*, *.xls* y *.xlsx*), text files *.txt* and spatial data *.shp*, which we will talk about more in detail later.  
-To read *.xls*, *.xlsx* and *.shp* files we will need to install some libraries. To install a new library you need to be connected to the internet and use the function `install.packages()` to install the library. Once it has been installed, you can load the library using the function `library()`.  
-  
-Download the excel file from this [link](https://ucdavis.app.box.com/folder/174771408063?s=cltv7bcwblxw5v90z5l56ognt9dprehv). It's not necessary to have a Box account.  
-  
-*Suggestion:* Sometimes when we want to use only one function from a library, we can just write the name of the library followed by the operator `::` and the name of the function, for example: `package::function()`. This way we won't have to load the whole library.  
+O R pode importar dados em diferentes formatos. Os mais comuns são arquivos do Excel (*.csv*, *.xls* e *.xlsx*), arquivos de texto (*.txt*) e dados espaciais (*.shp*), sobre os quais falaremos com mais detalhes posteriormente.
+Para ler arquivos *.xls*, *.xlsx* e *.shp*, precisaremos instalar algumas bibliotecas. Para instalar uma nova biblioteca, você precisa estar conectado à internet e usar a função `install.packages()` para instalar a biblioteca. Depois de instalada, você pode carregar a biblioteca usando a função `library()`.
+
+Faça o download do arquivo do Excel a partir deste [link](https://ucdavis.app.box.com/folder/174771408063?s=cltv7bcwblxw5v90z5l56ognt9dprehv). Não é necessário ter uma conta no Box.
+
+*Sugestão:* Às vezes, quando queremos usar apenas uma função de uma biblioteca, podemos simplesmente escrever o nome da biblioteca seguido do operador `::` e o nome da função, por exemplo: `pacote::funcao()`. Dessa forma, não precisamos carregar a biblioteca inteira.
 
 ```{r}
-# If we don't have the library installed, we use:
+# Se a biblioteca não estiver instalada, use:
 # install.packages("readxl")
 
-# Import the excel file
+# Importe o arquivo do Excel
 PRRS <- readxl::read_xlsx("Data/PRRS.xlsx")
 ```
 
-The most popular format for tables in R are called `data.frame`, when we import the data from a *.csv* o *.xlsx*. We can examine what kind of object it is using the function `class()`:  
+O formato mais popular para tabelas em R é chamado de `data.frame`, quando importamos os dados de um arquivo *.csv* ou *.xlsx*. Podemos verificar qual tipo de objeto é usando a função `class()`:
 
 ```{r}
-# Ask the class of a given object
+# Verificar a classe de um determinado objeto
 class(PRRS)
 ```
 
-It is possible that objects can have more than 1 class. In the previous example, you can notice that the `PRRS` object has 3 different types of class.  
+É possível que objetos possam ter mais de uma classe. No exemplo anterior, você pode perceber que o objeto `PRRS` possui 3 tipos diferentes de classe.
 
-In the following section we will cover some basics of data manipulation, this includes create, modify and summarise variables in our data. 
+Na seguinte seção, abordaremos alguns conceitos básicos de manipulação de dados, isso inclui criar, modificar e resumir variáveis em nossos dados.
 
-## Reducing our data
+## Reduzindo nossos dados
 
-Sometimes we want to select specific columns and rows on our data to reduce the dimensionality, for this we can use the functions:
-  
-  - `select()` to select specific *columns*
-  - `slice()` to select specific *rows* based on position
-  - `filter()` to select specific *rows* based on a condition
-  
-### Selecting specific columns
+Às vezes, queremos selecionar colunas e linhas específicas em nossos dados para reduzir a dimensionalidade. Para isso, podemos usar as funções:
+
+- `select()` para selecionar *colunas* específicas
+- `slice()` para selecionar *linhas* específicas com base na posição
+- `filter()` para selecionar *linhas* específicas com base em uma condição
+
+### Selecionando colunas específicas
 
 ```{r select 1}
-PRRS %>%  # the name of our data
-  select(Result, farm_type) # we want to select only the columns Result and farm_type
+PRRS %>%  # o nome de nossos dados
+  select(Result, farm_type) # queremos selecionar apenas as colunas Result e farm_type
 ```
 
-We can also specify which columns we DON'T want to show in our data:
+Também podemos especificar quais colunas NÃO queremos mostrar em nossos dados:
 
 ```{r select 2}
 PRRS %>% 
-  select(-Age, -id) # with a '-' before the name we will exclude the column from the data
+  select(-Age, -id) # com '-' antes do nome, excluiremos a coluna dos dados
 ```
 
-### Filtering specific rows
+### Filtrando linhas específicas
 
-Filtering columns works based on boolean logic, so we can specify a condition and R will show only the rows that satisfy that condition. For example, lets filter only the observations from boar studs: 
+Essa seleção funciona com base na lógica booleana, então podemos especificar uma condição e o R mostrará apenas as linhas que satisfazem essa condição. Por exemplo, vamos filtrar apenas as observações de granjas de suínos:
 
 ```{r filtering observations}
 PRRS %>% 
-  filter(farm_type == 'boar stud') # we will use the equals to operator for this
+  filter(farm_type == 'boar stud') # usaremos o operador de igualdade para isso
 ```
 
-## Creating or modifying variables
+## Criando ou modificando variáveis
 
-To create a new variable we can use the function `mutate()`. For example, lets create a new variable that will tell us if the farm type is a sow farm or not. For this we use the variable `farm_type` which already contains information for different farm types 
+Para criar uma nova variável, podemos usar a função `mutate()`. Por exemplo, vamos criar uma nova variável que nos informará se o tipo de granja é uma granja de matrizes ou não. Para isso, usaremos a variável `farm_type`, que já contém informações sobre diferentes tipos de granjas.
 
 ```{r creating new variables}
-# Creating a new variable
-PRRS %>% # name of the data set
-  mutate( # mutate is the function we sue to create new variables
-    SowFarm = ifelse(farm_type == 'sow farm', 1, 0) # we will create a binary variable where 1 = sow farm, 0 = Any other farm type
+# Criando uma nova variável
+PRRS %>% # nome do conjunto de dados
+  mutate( # mutate é a função que usamos para criar novas variáveis
+    SowFarm = ifelse(farm_type == 'sow farm', 1, 0) # criaremos uma variável binária em que 1 = granja de matrizes, 0 = qualquer outro tipo de granja
   ) 
 ```
 
-Notice that in the previous code chunk, we did not assigned it to an object, which means that R is just going to print it and dont save it. To save it, remember that we use the assign operator `<-` or `=`.  
-To modify an existing variable we can use the same function `mutate()`, and specify what we want to replace the existing variable with. For example, in the next chunk of code, we will modify the variable *Sex*. The original variable has H for Female and M for Male, so let's change it to something that makes more sense: 
+Observe que no trecho de código anterior, não atribuímos o resultado a um objeto, o que significa que o R apenas irá mostrá-lo e não salvá-lo. Para salvá-lo, lembre-se de que usamos o operador de atribuição `<-` ou `=`.
+
+Para modificar uma variável existente, podemos usar a mesma função `mutate()` e especificar pelo que queremos substituir a variável existente. Por exemplo, no próximo trecho de código, vamos modificar a variável *Sexo*. A variável original tem H para Fêmea e M para Macho, então vamos alterá-la para algo que faça mais sentido:
 
 ```{r modifying an existing variable}
-# Now we will assign the new object to itself overwriting it.
-PRRS <- PRRS %>%  # this is the data set we will use
-  mutate( # we use the mutate function to create new variables
-    Sex = recode( # The function recode, can be used similar to replace in excel
-      Sex, # we will overwrite the variable Sex using the same name
-      H = 'Female',
-      M = 'Male'
+# Agora vamos atribuir o novo objeto a si mesmo, sobrescrevendo-o.
+PRRS <- PRRS %>%  # este é o conjunto de dados que usaremos
+  mutate( # usamos a função mutate para criar novas variáveis
+    Sex = recode( # A função recode pode ser usada semelhante ao substituir no Excel
+      Sex, # vamos substituir a variável Sexo usando o mesmo nome
+      H = 'Fêmea',
+      M = 'Macho'
     )
   )
 ```
 
-Be careful when overwriting objects in R there is no undo for this. It is important that your code is ordered and replicable in case you make any mistake, so you can easily reach to your progress before the mistake.  
+Tenha cuidado ao sobrescrever objetos no R, pois não dá para desfazer isso. É importante que seu código esteja organizado e replicável. Assim caso você cometa algum erro você pode facilmente voltar ao seu progresso antes do erro.
 
-## Grouping and summarizing tables
+## Agrupando e resumindo tabelas
 
-Often times we want to calculate summary statistics from our data, we can group by a specific variable (or even multiple variables) to examine if there are differences between groups.  
+Muitas vezes queremos calcular estatísticas resumidas de nossos dados. Podemos agrupar por uma variável específica (ou até várias variáveis) para examinar se existem diferenças entre grupos.
 
-The most basic way of doing this is with the function `count()` which will only tell us the number of rows for each group:
+A forma mais básica de fazer isso é com a função `count()`, que nos dirá apenas o número de linhas para cada grupo:
 
 ```{r count}
-# We can count how many observations for each of a variable name
+# Podemos contar quantas observações para cada nome de variável
 PRRS %>% 
   count(Result)
 ```
 
-The previous table show us that were 986 observations with test result negative and 367 with test result positive. We can add multiple variables to count. Now we will count by *Result* and *Sex*:
+A tabela anterior mostra que houve 986 observações com resultado de teste negativo e 367 com resultado de teste positivo. Podemos adicionar várias variáveis para contagem. Agora, iremos contar por *Result* e *Sex*:
 
 ```{r count2}
-# We can count based on multiple variables
+# Podemos contar com base em várias variáveis
 PRRS %>% 
   count(Result, Sex)
 ```
 
-We can also calculate other statistics by group. For example lets calculate the mean and standard deviation of the age by Result and Sex:
+Também podemos calcular outras estatísticas por grupo. Por exemplo, vamos calcular a média e o desvio padrão da idade por Resultado e Sexo:
 
-```{r}
+```{r summ1}
 PRRS %>%
-  group_by(Result, Sex) %>% # The groups used for the data
-  summarise( # the function summarise calculates statistics by the defined groups
-    meanAge = mean(Age), # Calculate the mean age
-    sdAge = sd(Age) # Calculate the standard deviation
+  group_by(Result, Sex) %>% # Os grupos usados para os dados
+  summarise( # A função summarise calcula estatísticas pelos grupos definidos
+    meanAge = mean(Age), # Calcula a média da idade
+    sdAge = sd(Age) # Calcula o desvio padrão
   )
 ```
 
+
 ```{r weighted count}
-# PRRS %>% 
-  # count(Sex, wt = Result)
+# PRRS %>%
+#   count(Sex, wt = Result)
 ```
 
-## Joining data sets
+## Unindo conjuntos de dados
 
-Sometimes we have different data sets that have variables in common and we want to integrate them into a single data set for further analysis. In this example we have the data sets *node_attrib.csv* and *network.csv*
+Às vezes, temos diferentes conjuntos de dados que possuem variáveis em comum e queremos integrá-los em um único conjunto de dados para análise posterior. Neste exemplo, temos os conjuntos de dados *node_attrib.csv* e *network.csv*.
 
 ```{r}
-# First we import the data -----------
-# Importing the farm dataset 
+# Primeiro, importamos os dados -----------
+# Importando o conjunto de dados do atributo do nó
 nodes <- read.csv("Data/node_attrib.csv")
-# Importing the movement dataset
+# Importando o conjunto de dados de movimento
 mov <- read.csv("Data/network.csv")
 ```
 
-The data `mov` has information of place of origin (*id_orig*) and destination (*id_dest*) of animal shipments. First we will calculate the total number of pigs moved for each of the incoming and outgoing movements. To do this we will use the function `count()`
+O conjunto de dados `mov` contém informações sobre o local de origem (*id_orig*) e destino (*id_dest*) dos envios de animais. Primeiro, vamos calcular o número total de suínos movidos para cada um dos movimentos de saída e entrada. Para fazer isso, usaremos a função `count()`.
 
 ```{r}
-# Get the number of outgoing and incoming shipments 
-Out <- mov %>% # First we call the data
-  count(id_orig, wt = pigs.moved) %>% # then we count the number of movements
-  rename(id = id_orig, outgoing = n) # Rename the variables
+# Obter o número de envios de saída e entrada
+Out <- mov %>% # Primeiro, chamamos os dados
+  count(id_orig, wt = pigs.moved) %>% # Em seguida, contamos o número de movimentos
+  rename(id = id_orig, outgoing = n) # Renomeamos as variáveis
 ```
 
-You will notice that we added the argument `wt = pigs.moved`, *pigs.moved* is a variable that tell us the number of pigs shipped. The argument `wt` in the function `count()` allow us to add a weight to the counts. We also used the function `rename()` which pretty much does what it sounds like, it renames variables in the data.
+Você perceberá que adicionamos o argumento `wt = pigs.moved`, em que *pigs.moved* é uma variável que indica o número de suínos enviados. O argumento `wt` na função `count()` nos permite adicionar um peso às contagens. Também usamos a função `rename()`, que basicamente faz o que o nome sugere, renomeia variáveis nos dados.
 
-Now we will join the data with the farm information contained in the *nodes* object, to do this we use the `left_join()` function:
+Agora, vamos unir os dados com as informações das fazendas contidas no objeto *nodes*. Para fazer isso, usamos a função `left_join()`:
 
 ```{r}
-# Joining the two tables
-# First we join with the outgoing
-farms <- nodes %>% # This is the main object we will join with
-  left_join(Out, by ="id") # we need to specify the variable name we are joining by
+# Unindo as duas tabelas
+# Primeiro, unimos com os envios de saída
+farms <- nodes %>% # Este é o objeto principal com o qual faremos a união
+  left_join(Out, by ="id") # Precisamos especificar o nome da variável pela qual estamos unindo
 ```
 
-**Exercise: ** Now create a object that is the same as the `Out` we just created, but instead of counting the outgoing animals, counts the incoming animals. For this you can use the column *id_dest*. Then join the new object you created with the farms data. Name the variable that has the number of pigs moved *incoming*
+**Exercício: ** Agora crie um objeto que seja igual ao `Out` que acabamos de criar, mas em vez de contar os animais de saída, conte os animais de entrada. Para isso, você pode usar a coluna *id_dest*. Em seguida, una o novo objeto que você criou com os dados das fazendas. Nomeie a variável que contém o número de suínos movidos como *incoming*.
 
 ```{r}
-# Get the number of outgoing and incoming shipments 
-In <- mov %>% # First we call the data
-  count(id_dest, wt = pigs.moved) %>% # then we count the number of movements
-  rename(id = id_dest, incoming = n) # Rename the variable
+# Obter o número de envios de saída e entrada
+In <- mov %>% # Primeiro chamamos os dados
+  count(id_dest, wt = pigs.moved) %>% # em seguida, contamos o número de movimentos
+  rename(id = id_dest, incoming = n) # Renomeamos a variável
 
-## Then we join with the incoming
+## Em seguida, fazemos a união com os envios de entrada
 farms <- farms %>%
   left_join(In, by = "id")
 ```
 
-The first rows of your data should look like these:
+As primeiras linhas dos seus dados devem ser assim:
 
 ```{r}
 head(farms)
 ```
 
-Notice that we have some outgoing and incoming rows with NA values. Sometimes NAs can interfer with some functions such as sum, in the next example we will summarise the data and egt the ones with the highest number of incoming movements:
+Observe que temos algumas linhas de envios de saída e entrada com valores NA. Às vezes, os NAs podem interferir em algumas funções, como a soma. No próximo exemplo, vamos resumir os dados e obter os que têm o maior número de movimentos de entrada:
 
 ```{r}
-farms %>% # This is our joined data
-  group_by(id) %>% # We will group it by id
-  summarise( # we will perform some summary statistics
-    incoming = sum(incoming, na.rm = T) # notice that we add the argument na.rm = T
+farms %>% # Estes são nossos dados unidos
+  group_by(id) %>% # Vamos agrupá-los por id
+  summarise( # Vamos realizar algumas estatísticas de resumo
+    incoming = sum(incoming, na.rm = T) # observe que adicionamos o argumento na.rm = T
   ) %>%
-  arrange(desc(incoming)) %>% # now we will order by incoming
-  head(5) # we use the head() function to get the first 5 observations
+  arrange(desc(incoming)) %>% # agora vamos ordenar por movimentos de entrada
+  head(5) # usamos a função head() para obter as 5 primeiras observações
 ```
 
 <!-- ## Wide and Long formats -->
 
 <!-- # Loops in R -->
 
-# Exporting the data
+# Exportando os dados
 
-Once that you have processed the data, often times you want to export it so the next time dont have to run all the code. YOu can export to multiple formats, but the most common is to a comma delimited file (CSV), which can be read in excel.
+Depois de processar os dados, muitas vezes você deseja exportá-los para que na próxima vez não seja necessário executar todo o código novamente. Você pode exportar para vários formatos, mas o mais comum é um arquivo delimitado por vírgulas (CSV), que pode ser lido no Excel.
 
 ```{r}
 write.csv(farms, 'Data/farms.csv', row.names = F)
 ```
 
-
 ------------------------------------------------------------------------
 
-*This lab has been developed with contributions from: [Jose Pablo
-Gomez-Vazquez](https://www.spablo-temporal.network).\
-Feel free to use these training materials for your own research and
-teaching. When using the materials we would appreciate using the proper
-credits. If you would be interested in a training session, please
-contact: [jpgo\@ucdavis.edu](mailto:jpgo@ucdavis.edu){.email}*
+*Este laboratório foi desenvolvido com contribuições de: [Jose Pablo Gomez-Vazquez](https://www.spablo-temporal.network). \
+Sinta-se à vontade para usar estes materiais de treinamento em sua própria pesquisa e ensino. Ao utilizar os materiais, agradecemos que sejam atribuídos os devidos créditos. Se você estiver interessado em uma sessão de treinamento, entre em contato: [jpgo@ucdavis.edu](mailto:jpgo@ucdavis.edu).* 
 
 ------------------------------------------------------------------------

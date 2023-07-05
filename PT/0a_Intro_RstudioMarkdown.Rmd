@@ -31,8 +31,8 @@ Quando nós abrimos o Rstudio, podemos ver 4 seções:
 
 1.  **Source** (acima, à esquerda), aqui podemos ver nosso editor de código e outros arquivos. Nós vamos utilizar essa seção para editar e visualizar nossos scripts e outros documentos que vamos utilizar para interagir com o R.
 2.  **Console e Terminal** (abaixo, à esquerda), aqui é onde o código é executado (*Console* vai executar o código R e *Terminal* outros códigos do seu sistema operacional). Nós podemos escrever códigos diretamente aqui, mas normalmente nós vamos usar outros arquivos fonte (source) como por exemplo arquivos .R ou .Rmd para escrever nosso código que então será executado aqui.\
-3.  **Environment, History and others** (acima, à direita), Environment (ambiente) lista todos os objetos que você cria. History (histórico) mostra todo o código que foi executado no Console. Existem outras abas nessa seção mas não utilizaremos elas por enquanto.
-4.  **Files, Packages and Help** (abaixo, à direita). Esta seção inclui um navegador de arquivos (Files), uma aba para gerenciamento de pacotes (Packages), a ajuda do R (Help), e outras.
+3.  **Environment, History and others** (acima, à direita), *Environment* (ambiente) lista todos os objetos que você cria. *History* (histórico) mostra todo o código que foi executado no Console. Existem outras abas nessa seção mas não utilizaremos elas por enquanto.
+4.  **Files, Packages and Help** (abaixo, à direita). Esta seção inclui um navegador de arquivos (*Files*), uma aba para gerenciamento de pacotes (*Packages*), a ajuda do R (*Help*), e outras.
 
 <img src="img/I_a.png" style="width:100%" align="center"/>
 
@@ -169,7 +169,7 @@ Não vamos abordar em detalhes como ir além da formatação das apresentações
 
 ------------------------------------------------------------------------
 
-*This lab has been developed with contributions from: [Jose Pablo Gomez-Vazquez](https://www.spablo-temporal.network).\
-Sinta-se à vontade para usar esses materiais de treinamento para sua própria pesquisa e ensino. Ao usar os materiais, agradecemos o devido crédito. Se você estiver interessado em uma sessão de treinamento, entre em contato: [jpgo\@ucdavis.edu](mailto:jpgo@ucdavis.edu){.email}*
+*Este laboratório foi desenvolvido com contribuições de: [Jose Pablo Gomez-Vazquez](https://www.spablo-temporal.network). \
+Sinta-se à vontade para usar estes materiais de treinamento em sua própria pesquisa e ensino. Ao utilizar os materiais, agradecemos que sejam atribuídos os devidos créditos. Se você estiver interessado em uma sessão de treinamento, entre em contato: [jpgo@ucdavis.edu](mailto:jpgo@ucdavis.edu).* 
 
 ------------------------------------------------------------------------

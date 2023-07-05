@@ -16,46 +16,46 @@ library(dplyr); library(ggplot2); library(ggpubr)
 library(kableExtra)
 ```
 
-En este curso aprenderas los basicos sobre visualizacion de datos. Usaremos R y la libreria `ggplot2` para explorar differentes aproximaciones para comunicar resultados mediante apoyos visuales. El objetivo de este curso es que al finalizar, los participantes puedan hacer sus propias figuras como este ejemplo:
+Neste workshop, você aprenderá os conceitos básicos de visualização de dados. Usaremos R e a biblioteca `ggplot2` para explorar diferentes abordagens de comunicação de resultados por meio de recursos visuais. O objetivo deste workshop é que, ao final, você se sinta confortável em criar arranjos como este:
 
 <center>
 ![](img/0_figArrangement.png){width="60%"}
 </center>
 
-
 # Requisitos
 
-Este workshop asume que los participantes tienen un entendimiento basico sobre la syntaxis del lenguaje de programacion R. Materiales pre-workshop *opcionales* se encuentran disponibles para familiarizar a los participantes con los conceptos basicos que asumiremos los participantes estan familiarizados al empezar el workshop.
-  
-  - [Intro ao R](0a_Intro_RstudioMarkdown.html)
-  - [Basic R syntax](https://www.spablo-temporal.network/DataViz-workshop/0b_RandTidyverse.html)
+Este workshop pressupõe que os participantes tenham familiaridade básica com a linguagem de programação R. *Opcional* Materiais pré-workshop estão disponíveis para um curso intensivo sobre R e cobrem alguns conceitos básicos que assumiremos que você conhece antes do workshop:
 
-Para participar en el curso es necesario contar con las siquientes herramientas:
-  
-  - Computadora
-  - Cuenta de posit.cloud o tener instalado R y R Studio
-  
-# Registro
+-   [Introdução ao R](0a_Intro_RstudioMarkdown.html)
+-   [Sintaxe básica do R](0b_RandTidyverse.html)
 
-Para registrarse al curso, use este enlace: https://docs.google.com/forms/u/1/d/e/1FAIpQLSfXtdQ6ZMFr6sgZVfTRVY8M32UxJy288-P5cUSNYa6IVILMtQ/viewform
- 
---------
+Para participar do workshop, é necessário ter as seguintes ferramentas:
 
-# Horario tentativo
+-   Computador
+-   Uma conta no posit.cloud ou ter R e R Studio instalados
+
+# Link de registro
+
+Para se inscrever no workshop, utilize este link: https://docs.google.com/forms/u/1/d/e/1FAIpQLSfXtdQ6ZMFr6sgZVfTRVY8M32UxJy288-P5cUSNYa6IVILMtQ/viewform
+
+------------
+
+# Cronograma provisório
 
 ```{r echo=FALSE}
 data.frame(
-  Time = c('', '9:00-9:30', '9:30-10:30', '10:30-10:45', '10:45-12:00', '12:00-13:00', '13:00-14:00', '14:00-14:15', '14:15-15:00'),
+  Horário = c('', '9:00-9:30', '9:30-10:20', '10:20-10:30', '10:30-11:30', '11:30-12:15', '12:15-13:00', '13:00-14:00'),
   D01 = cell_spec(
-    c('Topic', 'Introduccion al curso', 'Visualizacion de datos con ggplot', 'Break', 'Mas opciones de customizacion', 'Lunch', 'Arreglos de figuras', 'Break', 'Mas allá de visualizaciones estáticas'), 'html',
-    link = c('', '', '', 'coffeeBreak.html', '', 'Lunch.html', '', 'coffeeBreak.html', '')
+    c('Tópico', 'Introdução ao workshop', 'Visualização de dados com ggplot', 'Intervalo', 'Customização adicional', 'Almoço', 'Arranjos de figuras', 'Além da visualização estática'), 'html',
+    link = c('', '', '', 'coffeeBreak.html', '', 'Lunch.html', '', '')
   )
 ) %>%
-  kbl("html", escape = FALSE, col.names = c('', 'June 10, 2023')) %>%
+  kbl("html", escape = FALSE, col.names = c('', '6 de Julho de 2023')) %>%
   kable_paper(full_width = T, lightable_options = c('hover')) %>%
   column_spec(1, bold = T, border_right = T) %>%
   row_spec(1, bold = T, extra_css = "border-bottom: 1px solid") %>%
-  row_spec(c(4,6, 8), background = "#F6F5FA", italic = T)
+  row_spec(c(4,6), background = "#F6F5FA", italic = T)
+
 ```
 
 ----
