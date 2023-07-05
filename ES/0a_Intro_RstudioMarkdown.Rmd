@@ -64,7 +64,7 @@ Una vez que hayas creado tu proyecto, veras que automáticamente se crearon arch
 
 Ahora vamos a abrir nuestro primer script de R. En el [folder compartido](https://ucdavis.box.com/s/y1p2brjqxkkwr01krz3lrgb3q3yxa7a0) encontraras un script de R en el directorio `Code/pkgs.R`, descarga el archivo e impártalo a tu proyecto de R. Para esto, ve al panel de archivos y selecciona la opción de *upload*. 
 
-![](img/0_upload1.png){width="100%"}
+![](img/0_upload.png){width="100%"}
 
 Una ventana aparecerá con algunas opciones, selecciona la opción *Choose file* y localiza el archivo descargado en tu computadora.  
 
