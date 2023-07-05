@@ -47,7 +47,8 @@ data.frame(
   Horário = c('', '9:00-9:30', '9:30-10:20', '10:20-10:30', '10:30-11:30', '11:30-12:15', '12:15-13:00', '13:00-14:00'),
   D01 = cell_spec(
     c('Tópico', 'Introdução ao workshop', 'Visualização de dados com ggplot', 'Intervalo', 'Customização adicional', 'Almoço', 'Arranjos de figuras', 'Além da visualização estática'), 'html',
-    link = c('', '', '', 'coffeeBreak.html', '', 'Lunch.html', '', '')
+    #link = c('', '', '', 'coffeeBreak.html', '', 'Lunch.html', '', '')
+    link = c('', '', 'Data_VizI.html', 'coffeeBreak.html', 'Data_VizII.html', 'Lunch.html', 'Data_VizIII.html', 'Data_VizIV.html')
   )
 ) %>%
   kbl("html", escape = FALSE, col.names = c('', '6 de Julho de 2023')) %>%

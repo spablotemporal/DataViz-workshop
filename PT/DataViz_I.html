@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Pablo Gomez" />
+
+<meta name="date" content="2023-07-05" />
+
+<title>Introdução à visualização de dados com ggplot2</title>
+
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Inicio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Language
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://www.spablo-temporal.network/DataViz-workshop/index.html">English</a>
+    </li>
+    <li>
+      <a href="https://www.spablo-temporal.network/DataViz-workshop/ES/index.html">Español</a>
+    </li>
+    <li>
+      <a href="https://www.spablo-temporal.network/DataViz-workshop/PT/index.html">Portuguese</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Contacto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="mailto:jpgo@ucdavis.edu">
+        <span class="fa fa-envelope"></span>
+         
+        Email
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Introdução à visualização de dados com
+ggplot2</h1>
+<h4 class="author">Pablo Gomez</h4>
+<h4 class="date">2023-07-05</h4>
+
+</div>
+
+
+<pre class="r"><code># Carregar os pacotes
+library(ggplot2) # para gráficos
+library(dplyr) # Para manipulação de dados
+library(STNet) # biblioteca com conjuntos de dados
+
+# carregando dados do pacote
+data(&#39;captures&#39;) # carregamos os dados
+head(captures) # vamos dar uma olhada nos dados</code></pre>
+<pre><code>##    municipality          location             Loc     date year captures
+## 1 Temascaltepec San Pedro Tenayac   Cueva  el Uno 11/06/14 2014        6
+## 2      Tlatlaya  Nuevo Copaltepec La alcantarilla 12/05/05 2005        3
+## 3      Tlatlaya  Nuevo Copaltepec La alcantarilla 12/05/07 2007       30
+## 4      Tlatlaya  Nuevo Copaltepec La alcantarilla 12/03/09 2009        0
+## 5      Tlatlaya  Nuevo Copaltepec La alcantarilla 10/08/10 2010        4
+## 6      Tlatlaya  Nuevo Copaltepec La alcantarilla 16/05/11 2011        4
+##   treated      lat       lon trap_type
+## 1       6 18.03546 -100.2095         1
+## 2       2 18.40417 -100.2688         1
+## 3      29 18.40417 -100.2688         4
+## 4       0 18.40417 -100.2688         3
+## 5       3 18.40417 -100.2688         1
+## 6       3 18.40417 -100.2688         2</code></pre>
+<div id="gráficos-no-r" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Gráficos no R</h1>
+<p>Por padrão, o R já possui um conjunto de funções para criar uma
+variedade de gráficos, mas o código pode se tornar bastante complexo e
+difícil de ler à medida que produzimos gráficos mais detalhados. O
+<code>ggplot2</code> é uma biblioteca que fornece um conjunto de funções
+para produzir uma variedade de gráficos.</p>
+<p>A função <code>ggplot()</code> deve ser chamada no início da
+definição do gráfico, essa função cria um espaço em branco para o nosso
+gráfico. Se chamarmos a função sem argumentos, veremos apenas o espaço
+em branco, por exemplo:</p>
+<pre class="r"><code>ggplot()</code></pre>
+<p><img src="DataViz_I_files/figure-html/blank%20canvas-1.png" width="672" /></p>
+<p>Em seguida, podemos adicionar camadas ao nosso espaço em branco com
+base nos dados que queremos visualizar, de forma semelhante aos pipes,
+conectaremos as diferentes camadas do nosso gráfico com o operador
+<code>+</code>.</p>
+<p>Os componentes básicos que precisamos definir para um gráfico são os
+seguintes:</p>
+<ul>
+<li><em>data</em>, o conjunto de dados que usaremos para gerar o
+gráfico</li>
+<li><em>geometry</em>, ou tipo de gráfico que geraremos (por exemplo:
+histograma, barra, dispersão, etc.)</li>
+<li><em>aesthetic</em>, variáveis ou argumentos que serão usados para o
+gráfico, por exemplo: localização, cor, tamanho, etc.</li>
+</ul>
+<p>Um exemplo:</p>
+<pre class="r"><code>ggplot(data = captures) + # Este é o conjunto de dados que usaremos
+  geom_histogram( # Este é o tipo de gráfico (geometry)
+    aes(x = treated) # (geometry) Neste caso inclui apenas uma variável representando o eixo x
+  )</code></pre>
+<p><img src="DataViz_I_files/figure-html/hist%20example-1.png" width="672" /></p>
+<p>Outros componentes dos gráficos podem ser definidos para personalizar
+ainda mais nossas figuras, e abordaremos esses detalhes mais
+adiante.<br />
+Como você observou no exemplo anterior, podemos visualizar os gráficos
+diretamente no console do R, mas uma maneira que gosto de organizar os
+gráficos é colocá-los todos dentro de um único objeto no R. Esse objeto
+pode ser uma <code>list</code>, que é apenas um contêiner para outros
+objetos.</p>
+<pre class="r"><code># Para criar uma lista vazia, podemos usar a função list()
+figures &lt;- list()</code></pre>
+</div>
+<div id="visualizando-distribuições" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Visualizando
+distribuições</h1>
+<div id="variáveis-contínuas" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Variáveis
+contínuas</h2>
+<div id="histogramas" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Histogramas</h3>
+<p>A forma mais simples de visualizar a distribuição de uma variável
+contínua é usando um histograma. Histogramas são um tipo especial de
+gráfico de barras onde nossa variável é agrupada em canais (bins) e
+mostrando as contagens para cada canal. Agora que temos nosso contêiner
+de listas para os gráficos, podemos simplesmente salvá-lo lá e atribuir
+um nome que desejamos.</p>
+<p>Observe que vamos combinar os pipes com a sintaxe do ggplot. Você
+pode definir o nome dos dados na função ggplot ou antes da função e
+conectá-lo com um pipe.</p>
+<pre class="r"><code>figures$histogram &lt;- captures %&gt;% # Estes são os dados que usamos.
+  ggplot() + # Definimos o espaço em branco
+  geom_histogram(aes(x = treated)) # adicionamos uma camada para visualizar um histograma
+
+# Podemos ver nosso gráfico chamando o nome em nosso contêiner de listas
+figures$histogram</code></pre>
+<p><img src="DataViz_I_files/figure-html/hist-1.png" width="672" /></p>
+</div>
+<div id="boxplots" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Boxplots</h3>
+<p>Boxplots são ótimos para mostrar a distribuição de uma variável
+contínua. Podemos usá-lo para mostrar apenas uma variável ou várias
+variáveis. É importante produzir gráficos com boa descrição, a ideia de
+um gráfico é que ele possa se explicar sozinho. Vamos começar a
+introduzir lentamente funções para fazer isso e personalizar nossos
+gráficos.</p>
+<pre class="r"><code># Only one variable
+figures$box &lt;- captures %&gt;% 
+  ggplot() +
+  geom_boxplot(aes(y = treated))
+
+figures$box</code></pre>
+<p><img src="DataViz_I_files/figure-html/boxplot-1.png" width="672" />
+## Variáveis categóricas</p>
+</div>
+<div id="gráficos-de-pizza" class="section level3" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Gráficos de Pizza…
+?</h3>
+<p>Gráficos de pizza não são tão diretos no ggplot, não existe uma
+função geom_pie. Para fazer isso, você pode essencialmente fazer um
+gráfico de barras com algumas especificações e depois usar a função
+<code>coord_polar()</code>, que converterá as coordenadas da figura.</p>
+<pre class="r"><code>captures %&gt;% count(municipality) %&gt;% 
+  ggplot() +
+  geom_bar(aes(x = &#39;municipality&#39;, y = n, fill = municipality), stat = &#39;identity&#39;) +
+  coord_polar(&#39;y&#39;) +
+  theme_void()</code></pre>
+<p><img src="DataViz_I_files/figure-html/pie%20chart%20with%20ggplot-1.png" width="672" /></p>
+<p>Você pode estar se perguntando por que não há geom_pie no ggplot…
+Apesar de os gráficos de pizza serem um dos gráficos mais comuns na
+mídia para dados categóricos, eles têm sido criticados por serem
+difíceis de interpretar ao analisar distribuições, especialmente quando
+a distribuição da variável é uniforme. Você pode avaliar isso por si
+mesmo na figura a seguir:</p>
+<div class="float">
+<img src="img/I_PieCharts.png" style="width:70.0%"
+alt="Comparação dos mesmos dados usando duas abordagens de visualização diferentes. De https://en.wikipedia.org/wiki/File:Piecharts.svg" />
+<div class="figcaption">Comparação dos mesmos dados usando duas
+abordagens de visualização diferentes. De <a
+href="https://en.wikipedia.org/wiki/File:Piecharts.svg"
+class="uri">https://en.wikipedia.org/wiki/File:Piecharts.svg</a></div>
+</div>
+<p>Algumas alternativas aos gráficos de pizza incluem gráficos de
+mosaico e de barras.</p>
+</div>
+</div>
+<div id="mosaico" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Mosaico</h2>
+<p>A principal desvantagem dos gráficos de mosaico é que não há uma
+função específica na biblioteca <code>ggplot2</code> para criar esse
+tipo de gráfico, o que significa que ele não se integra tão bem com
+algumas das funções que usaremos neste workshop. Podemos usar outra
+biblioteca (<code>treemap</code>) para gerar esse gráfico. Usaremos a
+função <code>treemap()</code> da mesma biblioteca:</p>
+<pre class="r"><code>library(treemap) # carregar a biblioteca
+
+captures %&gt;% # Esses são nossos dados
+  count(municipality, captures) %&gt;% # contamos o número de capturas
+  treemap(
+    ., #Declara nossos dados como o resultado da linha anterior
+    index = &#39;municipality&#39;, # A variável índice
+    vSize = &#39;n&#39; # Variável que indica a frequência por categoria
+  )</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>captures %&gt;% # this is our data
+  count(municipality, captures) %&gt;% # we count the number of captures
+  treemap(
+    ., # This is our data
+    index = &#39;municipality&#39;, # The index variable
+    vSize = &#39;n&#39; # Variable that indicates the frequency per category
+  )</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<p>Treemaps (ou mosaicos) podem incluir várias hierarquias</p>
+<pre class="r"><code>captures %&gt;% 
+  count(municipality, location, captures) %&gt;% 
+  treemap(., index = c(&#39;municipality&#39;, &#39;location&#39;), vSize = &#39;n&#39;)</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="gráficos-de-barras" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Gráficos de
+barras</h2>
+<p>Gráficos de barras são ótimos para representar frequências de
+categorias. No exemplo a seguir, contaremos o número de tratamentos por
+ano e, em seguida, visualizaremos em um gráfico de barras.</p>
+<pre class="r"><code>figures$bars &lt;- captures %&gt;% 
+  count(municipality) %&gt;% 
+  ggplot() +
+  geom_bar(aes(
+    x = n, # Eixo X
+    y = municipality # Eixo Y
+  ), stat = &#39;identity&#39;) # Tipo de gráfico de barras
+
+figures$bars</code></pre>
+<p><img src="DataViz_I_files/figure-html/barplots-1.png" width="672" /></p>
+<p>Podemos adicionar variáveis extras para indicar a composição (usando
+outra variável) de cada uma das categorias em nossos gráficos. Por
+exemplo, adicionaremos a variável <em>trap_type</em> para colorir as
+barras nesse gráfico. Para fazer isso, adicionamos o argumento
+<code>fill = factor(trap_type)</code> à nossa função
+<code>aes()</code>.</p>
+<pre class="r"><code>figures$bars &lt;- captures %&gt;% 
+  count(municipality, trap_type) %&gt;% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # Eixo Y
+    x = n, # Eixo X
+    fill = factor(trap_type) # Variável usada para preenchimento
+  ), stat = &#39;identity&#39;) # tipo de gráfico de barras
+
+figures$bars</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Existem diferentes estratégias para visualizar isso, outro exemplo
+seria dividir a composição em barras individuais, como no seguinte
+gráfico. Isso pode ser útil para comparar a composição dentro do
+grupo:</p>
+<pre class="r"><code>captures %&gt;% 
+  count(municipality, trap_type) %&gt;% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality,
+    x = n,
+    fill = factor(trap_type)
+  ), stat = &#39;identity&#39;, position = &#39;dodge&#39;) # tipo de gráfico de barras</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Outra opção é visualizar a composição como uma proporção, adicionando
+o argumento <code>position = 'fill'</code> à função
+<code>geom_bar()</code>. Observe que isso remove o sentido do número de
+observações para a categoria principal (<em>year</em>):</p>
+<pre class="r"><code>captures %&gt;% 
+  count(municipality, trap_type) %&gt;% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, 
+    x = n, 
+    fill = factor(trap_type)
+  ), stat = &#39;identity&#39;,
+  position = &#39;fill&#39;) # tipo de gráfico de barras</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+</div>
+<div id="visualizando-relações-entre-variáveis" class="section level1"
+number="3">
+<h1><span class="header-section-number">3</span> Visualizando relações
+entre variáveis</h1>
+<div id="gráficos-de-dispersão" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Gráficos de
+dispersão</h2>
+<p>Este é um dos tipos mais populares de gráficos, útil para representar
+a relação entre duas variáveis contínuas.</p>
+<pre class="r"><code>figures$scatter &lt;- captures %&gt;% # primeiro começamos com o nome do nosso data.frame
+  ggplot() + # em seguida, configuramos a tela (ou canvas)
+  geom_point(aes(x = treated, y = captures)) # e adicionamos uma camada de pontos
+
+figures$scatter</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="mapas-de-calor" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Mapas de Calor</h2>
+<p>Mapas de calor (ou <em>heatmaps</em>) representam a frequência (ou
+outros valores) para uma combinação de variáveis em uma matriz. Por
+exemplo, podemos visualizar a frequência de capturas por tipo de
+armadilha para cada um dos municípios em nossos dados:</p>
+<pre class="r"><code>figures$heatmap &lt;- captures %&gt;% # Dados que estamos utilizando
+  count(municipality, trap_type) %&gt;% # Contagem por municipio e tipo de armadilha
+  ggplot() +
+  geom_tile(aes(
+    y = municipality, # eixo y 
+    x = factor(trap_type), # eixo x
+    fill = n # Preenchimento para cada célula
+  ))
+
+figures$heatmap</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="boxplots-novamente" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Boxplots
+(novamente…)</h2>
+<pre class="r"><code># Apenas uma variável
+figures$box &lt;- captures %&gt;% 
+  ggplot() +
+  geom_boxplot(aes(x = treated, y = municipality))
+
+figures$box</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+</div>
+<div id="séries-temporais" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Séries temporais</h1>
+<p>Para criar uma série temporal, precisamos reformatar um pouco os
+dados para que o R possa fazer o que queremos. Vamos introduzir um novo
+tipo de variável: <code>date</code>. A variável de data é basicamente o
+que parece, é uma variável que tem um formato com ano, mês e dia;
+existem outras formas de formatar datas no R, mas esta é a mais comum e
+direta.</p>
+<pre class="r"><code>tCaptures &lt;- captures %&gt;% 
+  mutate(date = as.Date(date, &quot;%d/%m/%y&quot;), # Primeiro, formataremos a data
+         month = lubridate::floor_date(date, &#39;month&#39;)) %&gt;%  #  Em seguida, criaremos uma variável formatando a data como mês do ano
+  count(month) # Contar o número de observações por mês</code></pre>
+<p>Agora que temos nossas variáveis no formato correto, podemos usá-las
+como qualquer outra variável.</p>
+<pre class="r"><code>figures$timeseries &lt;- tCaptures %&gt;% 
+  ggplot() +
+  geom_line(aes(x = month, y = n))
+
+figures$timeseries</code></pre>
+<p><img src="DataViz_I_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

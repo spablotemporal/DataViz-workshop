@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Pablo Gomez" />
+
+<meta name="date" content="2023-07-05" />
+
+<title>Customização adicional</title>
+
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Inicio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Language
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://www.spablo-temporal.network/DataViz-workshop/index.html">English</a>
+    </li>
+    <li>
+      <a href="https://www.spablo-temporal.network/DataViz-workshop/ES/index.html">Español</a>
+    </li>
+    <li>
+      <a href="https://www.spablo-temporal.network/DataViz-workshop/PT/index.html">Portuguese</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Contacto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="mailto:jpgo@ucdavis.edu">
+        <span class="fa fa-envelope"></span>
+         
+        Email
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Customização adicional</h1>
+<h4 class="author">Pablo Gomez</h4>
+<h4 class="date">2023-07-05</h4>
+
+</div>
+
+
+<p>Este laboratório continua o trabalho anteriormente feito para a <a
+href="DataViz_I.html">Seção I</a>, certifique-se de ter os objetos
+gerados na seção anterior.</p>
+<div id="temas" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Temas</h1>
+<p>O <code>ggplot</code> inclui a função <code>theme()</code> para
+definir a maioria dos aspectos da figura, como a cor de fundo, a grade,
+os eixos, a legenda, entre outros. Também existem vários temas
+predefinidos (todos começam com <code>theme_</code> seguido pelo nome do
+tema) que você pode usar, se não quiser mexer em todos os argumentos da
+função <code>theme()</code>. Por exemplo:</p>
+<pre class="r"><code># todos os temas predefinidos começam com theme_
+figures$heatmap &lt;- figures$heatmap +
+  theme_classic2() + # Vamos usar o tema minimalista
+  coord_equal() # vamos definir as coordenadas como iguais para melhorar a proporção
+
+figures$heatmap</code></pre>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+</div>
+<div id="outras-estéticas-aesthetics" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Outras estéticas
+(<em>aesthetics</em>)</h1>
+<div id="forma" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Forma</h2>
+<p>Existem outras estéticas que podemos definir, como cor, tipo de
+ponto, tamanho, entre outras. Vamos tentar mudar a forma do ponto para
+um dos gráficos que fizemos anteriormente:</p>
+<pre class="r"><code>figures$scatter &lt;- captures %&gt;% # os dados que estamos usando
+  ggplot() + # definimos o canvas
+  geom_point(aes(
+    x = captures, # eixo X
+    y = treated, # eixo Y
+    shape = factor(trap_type) # forma do ponto
+  )) +
+  theme_classic() # agora vamos usar o tema &#39;classic&#39;
+
+figures$scatter</code></pre>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="cor" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Cor</h2>
+<pre class="r"><code>tCaptures &lt;- captures %&gt;% 
+  mutate(date = as.Date(date, &quot;%d/%m/%y&quot;), # Primeiro formatamos a data
+         year = lubridate::floor_date(date, &#39;year&#39;)) %&gt;%  # Em seguida, criamos uma variável formatando a data como mês do ano
+  count(year, trap_type) # Contamos o número de observações por mês
+
+
+figures$timeseries &lt;- tCaptures %&gt;% 
+  ggplot() +
+  geom_line(aes(x = year, y = n, col = factor(trap_type))) +
+  theme_minimal()
+
+figures$timeseries</code></pre>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+</div>
+<div id="personalização-sem-a-função-aesthetics" class="section level1"
+number="3">
+<h1><span class="header-section-number">3</span> Personalização sem a
+função <em>aesthetics</em></h1>
+<p>Até agora, adicionamos variáveis dentro de nossa função
+<code>aes()</code>, mas podemos adicionar alguns argumentos fora da
+função <code>aes()</code> que queremos que sejam aplicados para TODAS as
+observações. Por exemplo, podemos alterar o tamanho e a transparência
+dos pontos em nosso gráfico de dispersão, o que pode ser útil para ver
+onde há mais sobreposição de observações:</p>
+<pre class="r"><code>figures$scatter &lt;- captures %&gt;% # os dados que estamos usando
+  ggplot() + # definimos o canvas
+  geom_point(
+    aes(x = captures, y = treated, shape = factor(trap_type)), # aesthetics
+    size = 2.5,
+    alpha = 0.2 # alpha definirá a transparência dos pontos
+  )
+
+figures$scatter</code></pre>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Você pode alterar outros componentes da figura, como cor, forma,
+tamanho, etc. Lembre-se de que tudo o que vai dentro da função
+<code>aes()</code> dependerá das variáveis dos dados e o que fica fora
+da função será aplicado para todas as observações.</p>
+</div>
+<div id="escalas" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Escalas</h1>
+<p>Como você percebeu, por padrão o R escolhe cores e formas específicas
+para as variáveis que usamos para mapear nossa figura. As escalas no
+<code>ggplot2</code> são uma maneira de especificar as formas, cores ou
+tamanhos usados nas figuras. Existem uma série de funções
+(<code>scales_*</code>) onde <code>*</code> representa a estética que
+queremos definir. Dependendo do tipo de variável para o qual você deseja
+definir a escala, você selecionará a função correspondente.</p>
+<div id="valores-contínuos" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Valores
+contínuos</h2>
+<p>Por exemplo, se quisermos alterar as cores para o preenchimento a
+partir de uma variável contínua, podemos definir as cores para um
+gradiente usando a função <code>scale_fill_gradient()</code>.</p>
+<pre class="r"><code>figures$heatmap &lt;- figures$heatmap + # Vamos usar nosso mapa de calor previamente definido
+  scale_fill_gradient(low = &#39;black&#39;, high = &#39;red&#39;) # usamos a função para definir as cores
+
+figures$heatmap</code></pre>
+<p><img src="DataViz_II_files/figure-html/gradient%20scales-1.png" width="672" /></p>
+</div>
+<div id="valores-categóricos" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Valores
+categóricos</h2>
+<p>Ao usar variáveis categóricas, definimos uma paleta de cores
+específica. Para isso, precisamos saber quantas categorias nossa
+variável tem. Por exemplo:</p>
+<pre class="r"><code># Definimos uma paleta de cores
+colpal &lt;- c(&#39;gold2&#39;, &#39;seagreen3&#39;, &#39;red2&#39;, &#39;orchid&#39;)
+
+# Criamos a figura
+figures$bars &lt;- figures$bars +
+  scale_fill_manual(values = colpal) # Sabemos que nossa variável tem 4 categorias, então definimos 4 cores
+
+figures$bars</code></pre>
+<p><img src="DataViz_II_files/figure-html/categorical%20scales-1.png" width="672" /></p>
+</div>
+<div id="como-encontrar-cores" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Como encontrar
+cores?</h2>
+<p>O R gerencia cores de três maneiras diferentes: por nome (ou seja,
+‘red’), por valor RGB usando a função <code>rgb()</code> (ou seja,
+<code>rgb(1, 0, 0)</code>), ou usando <a
+href="https://marketing.istockphoto.com/blog/hex-colors-guide/">código
+hexadecimal</a> (ou seja, “#F00000”). Você pode obter uma lista completa
+das cores nomeadas no R usando a função <code>colors()</code>, mas você
+só poderá ver os nomes. Felizmente, alguém criou uma ferramenta que pode
+nos ajudar a encontrar exatamente as cores que queremos: o addin
+<em>Colour Picker</em> (Seletor de Cores). Addins são ferramentas
+disponíveis no RStudio para facilitar tarefas, vamos experimentar o
+<em>colour picker</em> (deve estar na sua barra de addins).</p>
+<p><img src="img/I_colPicker.gif" /> Outros recursos para encontrar
+cores incluem:</p>
+<ul>
+<li><a
+href="https://coolors.co/334139-1e2d24-c52184-e574bc-f9b4ed">Gerador de
+paletas Coolors</a>: Este site gera paletas de cores aleatórias e inclui
+outras paletas geradas pelos usuários.</li>
+<li><a href="https://colourcontrast.cc">Verificador de contraste de
+cores</a>: Este site possui uma ferramenta para verificar o contraste
+entre duas cores, o que pode ser útil ao definir rótulos e outras
+anotações em nossas figuras.</li>
+</ul>
+</div>
+</div>
+<div id="rótulos" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Rótulos</h1>
+<p>Normalmente, tentamos evitar espaços ao usar nomes para os nomes das
+colunas, mas para os rótulos das nossas figuras, essa pode não ser a
+maneira mais direta de comunicar nossa análise. Podemos definir rótulos
+específicos para tornar nossos gráficos mais legíveis e
+autoexplicativos. Vamos melhorar um pouco mais a figura do gráfico de
+barras para torná-la mais clara, podemos usar a figura que criamos
+anteriormente contida em nossa lista de figuras
+<code>figures$bars</code>.</p>
+<pre class="r"><code>figures$bars &lt;- figures$bars + # chamamos a figura criada anteriormente
+  labs(# usamos a função labs para gerar nossos rótulos
+    title = &#39;Número de observações por Município&#39;, # O título que daremos à nossa figura
+    x = &#39;Número de observações&#39;, # O rótulo para o eixo x
+    y = &#39;Município&#39;, # lrótulo para o eixo y
+    fill = &#39;Tipo de armadilha&#39;
+  )
+
+figures$bars</code></pre>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div id="rótulos-dentro-das-figuras" class="section level2"
+number="5.1">
+<h2><span class="header-section-number">5.1</span> Rótulos dentro das
+figuras</h2>
+<pre class="r"><code>library(ggrepel)
+
+lab &lt;- tCaptures %&gt;% 
+  group_by(trap_type) %&gt;% 
+  filter(year == min(year))
+
+figures$timeseries &lt;- figures$timeseries +
+  geom_label_repel(data = lab, aes(x = year, y = n, label = paste(&#39;Tipo de armadilha: &#39;, trap_type), fill = factor(trap_type)), alpha = 0.6, size = 3) +
+  scale_color_manual(values = colpal) +
+  theme(legend.position = &#39;none&#39;)
+
+figures$timeseries</code></pre>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+</div>
+<div id="além-dos-temas-básicos" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Além dos temas
+básicos</h1>
+<p>Vamos supor que queremos inverter o eixo do nosso gráfico de barras
+porque achamos que se encaixará melhor em nosso relatório. Podemos fazer
+isso a partir da função <code>aes()</code> redefinindo os eixos, mas
+neste caso usarei apenas a função <code>coord_flip()</code> para fazer o
+mesmo.</p>
+<pre class="r"><code>figures$bars &lt;- figures$bars + # chamamos a figura criada anteriormente
+  coord_flip() # Usamos essa função para inverter o eixo x e y.
+
+figures$bars</code></pre>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Como você perceberá, há sobreposição entre o texto dos municípios e
+mal conseguimos lê-los. Podemos modificar a posição dos rótulos do eixo
+X para corrigir isso. Para fazer isso, precisamos modificar o tema.</p>
+<div id="rótulos-1" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Rótulos</h2>
+<p>A função <code>theme()</code> tem vários argumentos que você pode ver
+em detalhes na documentação (ou usando a funcionalidade de preenchimento
+automático no RStudio/posit.cloud). O argumento que precisaremos definir
+é <code>axis.text.x</code>, o argumento aceita um tipo específico de
+objeto usado para formatar o texto. Para criar esse objeto, usamos a
+função <code>element_text()</code>. Isso fará mais sentido quando
+tentarmos.</p>
+<pre class="r"><code>figures$bars &lt;- figures$bars + # chamamos a figura criada anteriormente
+  coord_flip() + # Usamos essa função para inverter o eixo x e y.
+  theme(axis.text.x = element_text(angle = 40, size = 7))
+
+figures$bars</code></pre>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="grade" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Grade</h2>
+<p>Outras coisas que podemos alterar na função <code>theme()</code>
+incluem o fundo da figura. Vamos fazer algumas alterações na grade e na
+cor de fundo.</p>
+<pre class="r"><code>figures$bars &lt;- figures$bars +
+  theme(
+    panel.grid = element_line(color = &#39;grey80&#39;), # Alteramos a cor da grade
+    panel.grid.major.x = element_blank(),# Removemos a grade do eixo x
+    panel.background = element_rect(fill = &#39;mintcream&#39;) # Alteramos o fundo da figura
+  )
+
+figures$bars</code></pre>
+<p><img src="DataViz_II_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Se você percebeu, ao definir os argumentos, utilizei diferentes
+funções para os elementos usados (ou seja, <code>element_blank()</code>,
+<code>element_rect()</code>, <code>element_line()</code>). Dependendo do
+elemento do tema, você precisará definir o elemento apropriado para
+usar, em resumo:</p>
+<ul>
+<li><code>element_blank()</code> é para elementos vazios (ou seja,
+quando você deseja removê-los)</li>
+<li><code>element_rect()</code> é para geometrias preenchidas (ou seja,
+o fundo do painel ou da legenda)</li>
+<li><code>element_line()</code> para linhas, como a grade</li>
+<li><code>element_text()</code> para elementos de texto, como os
+rótulos</li>
+</ul>
+</div>
+</div>
+<div id="exercício" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Exercício:</h1>
+<p>Agora, reserve um tempo para usar os recursos que discutimos para
+modificar a figura e seja criativo com as cores e o tema, talvez use a
+escala de cores do seu time de esportes favorito, personagem de um filme
+ou algo que você goste. Sinta-se à vontade para modificar qualquer uma
+das figuras que criamos anteriormente!</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

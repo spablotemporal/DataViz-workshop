@@ -1,5 +1,5 @@
 ---
-title: "Title"
+title: "Beyond basic visualization"
 author: "Pablo Gomez"
 date: "`r Sys.Date()`"
 output:
@@ -11,6 +11,90 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = F, message = F)
-library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
+library(dplyr); library(ggplot2); library(ggpubr)
+# library(Pabloverse)
+```
+
+```{r import prev objects, include = F}
+load('misc/III/captures.RData')
+load('misc/III/figures.RData')
+load('misc/III/tCaptures.RData')
+```
+
+# Objetivos:
+
+  - Cobrir alguns conceitos básicos de visualização interativa
+  - Talvez algo sobre gifs e animações?
+
+# Figuras interativas
+
+Ter figuras estáticas é a aplicação mais comum de gráficos no R, mas o R também é capaz de criar figuras interativas que podem ser usadas em painéis e outras plataformas (como *shiny* ou *quarto*). Existem várias bibliotecas que permitem criar figuras interativas, uma das mais populares é chamada `plotly`. A melhor parte do plotly é que se você aprender a usar o ggplot, poderá transferir suas figuras para figuras interativas do plotly com facilidade. Vamos tentar isso.
+
+Usamos a função `ggplotly()` da biblioteca `plotly` para fazer isso:
+
+
+```{r}
+library(plotly) # carregar a biblioteca plotly
+# Use a função ggplotly em uma das figuras que criamos anteriormente:
+ggplotly(figures$bars)
+```
+
+
+```{r}
+tCaptures <- captures %>% 
+  mutate(date = as.Date(date, "%d/%m/%y"), # Primeiro formatamos a data
+         year = lubridate::floor_date(date, 'year')) %>%  # Em seguida, criamos uma variável formatando a data como o mês do ano
+  count(year, trap_type) # Contar o número de observações por mês
+```
+
+Agora que temos nossas variáveis no formato correto, podemos usá-las como qualquer outra variável.
+
+
+```{r}
+library(ggrepel)
+
+lab <- tCaptures %>% 
+  group_by(trap_type) %>% 
+  filter(year == min(year))
+
+figures$timeseries <- tCaptures %>% 
+  ggplot() +
+  geom_line(aes(x = year, y = n, col = factor(trap_type)), lwd = 1) +
+  geom_label_repel(data = lab, aes(x = year, y = n, label = paste('Trap \n type: ', trap_type), fill = factor(trap_type)), alpha = 0.6, size = 3) +
+  theme(
+    axis.line.y = element_blank(),
+    panel.background = element_rect(fill = 'ghostwhite'),
+    axis.line.x = element_line(),
+    panel.grid = element_blank(),
+    panel.grid.major.y = element_line(colour = 'grey80'),
+    legend.position = 'none'
+  ) +
+  scale_fill_manual(values = c('gold2', 'seagreen3', 'red2', 'orchid')) +
+  scale_color_manual(values = c('gold2', 'seagreen3', 'red2', 'orchid'))
+
+figures$timeseries
+```
+
+```{r, include=FALSE, eval=FALSE}
+ captures %>% 
+  count(municipality, trap_type) %>% 
+  plot_ly(., x = ~municipality, y = ~n, type = 'bar') %>% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # EIXO Y 
+    x = n, # EIXO X 
+    fill = factor(trap_type) # Variável usada para preenchimento
+  ), stat = 'identity') # Tipo de gráfico de barras
+
+Animals <- c("giraffes", "orangutans", "monkeys")
+SF_Zoo <- c(20, 14, 23)
+LA_Zoo <- c(12, 18, 29)
+data <- data.frame(Animals, SF_Zoo, LA_Zoo)
+
+fig <- plot_ly(captures, x = ~municipality, y = ~SF_Zoo, type = 'bar', name = 'SF Zoo')
+fig <- fig %>% add_trace(y = ~LA_Zoo, name = 'LA Zoo')
+fig <- fig %>% layout(yaxis = list(title = 'Count'), barmode = 'stack')
+
+fig
 ```
 
