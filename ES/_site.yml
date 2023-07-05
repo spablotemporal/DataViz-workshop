@@ -15,7 +15,7 @@ navbar:
     - text: Español
       href: 'index.html'
     - text: Portuguese
-      href: 'index.html'
+      href: 'https://www.spablo-temporal.network/DataViz-workshop/PT/index.html'
   # - text: Pre Workshop 
   #   menu:
   #   - text: Requisitos

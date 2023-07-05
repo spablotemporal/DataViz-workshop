@@ -16,7 +16,7 @@ navbar:
     - text: Español
       href: 'ES/index.html'
     - text: Portuguese
-      href: 'index.html'
+      href: 'PT/index.html'
   # - text: Pre Workshop 
   #   menu:
   #   - text: Requisitos

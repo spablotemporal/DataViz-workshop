@@ -13,7 +13,7 @@ library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
 ```
 
 <em>
-[Switch to English ![](img/flag_us.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/) | [Mudar para Portugues  ![](img/flag_br.gif){width="25"}](PT/index.html)
+[Switch to English ![](img/flag_us.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/0a_Intro_RstudioMarkdown.html) | [Mudar para Portugues  ![](img/flag_br.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/PT/0a_Intro_RstudioMarkdown.html)
 </em>
 
 En esta primera seccion no vamos a usar nada de codigo o la sintaxis usada en R, nos enfocaremos en familiarizarnos con la interfaz de R studio y los tipos de archivos que podemos crear.  
@@ -27,12 +27,13 @@ El objetivo de este ejercicio es que, es que al terminar, estemos familiarizados
 
 Al empezar R studio, vamos a poder ver 4 secciones:
 
-1.  **Source** (arriba izquierda), Aqui tendermos nuestro edutore de codigo y otros archivos que trabajemos. Usaremos esta seccion para editar y ver nuestros scripts, y algunos otros documentos que usaremos para interctuar con R.
+1.  **Source** (arriba izquierda), Aqui tendermos nuestro editor de codigo y otros archivos que trabajemos. Usaremos esta seccion para editar y ver nuestros scripts, y algunos otros documentos que usaremos para interctuar con R.
 2.  **Consola y Terminal** (abajo izquierda), Aqui es donde el codigo sera ejecutado. La *Consola* ejecutara el codigo de R, la *Terminal* otro codigo para interactuar directamente con tu sistema operativo. Podemos escribir el codigo directamente en esta seccion, pero normalmente usaremos otros archivos como .R o .Rmd para escribir el codigo y posteriormente enviarlo a la consola. 
 3.  **Environment, History y otros** (arriba derecha), El *environment* nos muestra una lista de todos los objectos que hemos creado durante la sesion, mientras que el historial (*history*) nos muestra el codigo que hemos enviado a la consola. Existen otras pestañas en esta seccion, pero no las usaremos por ahora.
 4.  **Files, Packages and Help** (abajo derecha). Esta seccion incluye un explorador de archivos *Files*, y otras pestañas para administrar los paquetes.
 
 <img src="img/I_a.png" style="width:100%" align="center"/>
+
 
 # Organizacion del proyecto. 
 

@@ -12,6 +12,10 @@ knitr::opts_chunk$set(warning = F, message = F)
 library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
 ```
 
+<em>
+[Cambiar a español  ![](img/flag_mx.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/ES/0a_Intro_RstudioMarkdown.html) | [Mudar para Portugues  ![](img/flag_br.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/PT/0a_Intro_RstudioMarkdown.html)
+</em>
+
 In this first section we are not going to worry at all about coding or the syntax used in R, we will focus on familiarizing with the Rstudio interface and what kind of files we can create with it.
 
 The goal of this lab is that, by the end, you feel more comfortable with the following concepts:
