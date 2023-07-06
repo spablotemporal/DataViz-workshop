@@ -1,7 +1,5 @@
 ---
-title: "Introduction to data visualization with ggplot2"
-author: "Pablo Gomez"
-date: "`r Sys.Date()`"
+title: "Introduccion a visualizacion de datos con R"
 output:
   html_document:
     toc: true
@@ -9,8 +7,269 @@ output:
     number_sections: true
 ---
 
+<em>
+[Switch to English ![](img/flag_us.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/DataViz_I.html) | [Mudar para Português  ![](img/flag_br.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/PT/DataViz_I.html)
+</em>
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = F, message = F)
-library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
 ```
 
+```{r load libraries and data}
+# Cargamos las librerias
+library(ggplot2) # para los graficos
+library(dplyr) # para manipulacion de datos
+library(STNet) # para los datos
+
+# Cargamos los datos de la libreria STNet
+data('captures') # Cargamos los datos
+head(captures) # imprimimos las primeras observaciones
+```
+
+# Graficos en R
+
+Por default, R incluye múltiples funciones para crear una variedad de figuras, pero el código puede volverse complejo y difícil de leer mientras mas detalle agregamos a las figuras. `ggplot2` es una librería que proporciona funciones para producir diferentes tipos de gráficos.  
+La función `ggplot()` se usa al principio de del código para definir la figura, esta funcion establece un lienzo blanco para nuestra figura. Si llamamos la funcion sin ningun argumento, veremos un lienzo vacio, por ejemplo:
+
+```{r blank canvas}
+ggplot()
+```
+
+Podemos agregar poco a poco las capas a nuestro lienzo basado en nuestros datos que queremos visualizar. De manera similar a los *pipes*, podemos conectar las diferentes capas de nuestra figura con el operador `+`.  
+
+Los componentes basicos que debemos definir para nuestra figura son los siguientes:  
+  
+  - *data*, el conjunto de datos que usaremos para generar la figura.
+  - *geometry* el tipo de grafico que generaremos (p.ej. histograma, barras, puntos, etc..)
+  - *aesthetic* (estetica), variables o argumentos que usaremos para mappear los datos con los elementos de la figura (p. ej. ubicacion x/y, color, tamaño, etc...)
+  
+  
+Por ejemplo:
+
+```{r hist example}
+ggplot(data = captures) + # Estos son los datos que usaremos
+  geom_histogram( # Esta es la geometria
+    aes(x = treated) # La estetuca incluye una sola variable representando el eje x
+  )
+```
+
+Otros componentes de los graficos se pueden definir para personalizar nuestras figuras con mas detalle, y cubriremos eso mas adelante.  
+Como te podras dar cuenta en el ejemplo previo, podemos imprimir nuestras figuras directamente desde la consola de R, pero una manera de mantener nuestro trabajo organizado es poner nuestras figuras en objetos. A continuacion voy a crear una lista (`list`), el cual es un tipo de objeto especial. Las listas en R son contenedores para otros objetos:  
+
+```{r create fig list}
+# Para crear una lista vacia, usamos la function list()
+figures <- list()
+```
+
+# Visualizando distribuciones
+
+## Variables continuas
+
+### Histogramas
+
+The most simple way to visualize the distribution of a continuous variable is using a histogram. Histograms are a special kind of bar plots where our variable is grouped in bins and showing the counts for each bin. Now that we have our container list for the plots, we can simply save it there and assign a name we want.
+
+Notice that we will combine the pipes with the ggplot syntax. you can either define the name of the data in the ggplot function or before the function and connect it with a pipe.
+
+```{r hist}
+figures$histogram <- captures %>% # This is the data we use.
+  ggplot() + # we set the empty canvas
+  geom_histogram(aes(x = treated)) # add a layer to visualize a histogram
+
+# we can see our plot by calling the name in our container list
+figures$histogram
+```
+
+### Boxplots
+
+Box plots are great to show the distribution of a continuous variable. We can use it to show only one variable, or multiple variables. It is important to be very descriptive when making plots, the idea of a figure is that can explain itself. we will start to slowly introduce functions to do this and customize our figures.
+
+```{r boxplot}
+# Only one variable
+figures$box <- captures %>% 
+  ggplot() +
+  geom_boxplot(aes(y = treated))
+
+figures$box
+```
+
+## Categorical variables
+
+## Pie charts... ?
+
+Pie charts are not very straight forward in ggplot, there is NO geom_pie functions. To do this, you can essentially do a bar chart with some specifications and then use the function `coord_polar()` which will convert the coordinates from the figure.
+
+```{r pie chart with ggplot}
+captures %>% count(municipality) %>% 
+  ggplot() +
+  geom_bar(aes(x = 'municipality', y = n, fill = municipality), stat = 'identity') +
+  coord_polar('y') +
+  theme_void()
+```
+
+You might be wondering why there is no geom_pie in ggplot ... Despite pie charts being one of the most common figures in media for categorical data, pie charts have been criticized as difficult to interpret when looking a distributions, particularly when the distribution of the variable is closely homogeneous. You can evaluate that yourself in the following figure:
+
+![Comparing the same data using two different visualization approaches. From <https://en.wikipedia.org/wiki/File:Piecharts.svg>](img/I_PieCharts.png){width="70%"}
+
+Some alternatives to pie charts include: mosaic and bars charts.
+
+## Mosaic 
+
+The main drawback of mosaic plots is that there is not a specific function from the `ggplot2` library to make this plot, which means that does not integrates as well with some of the functions we will be using in this workshop. We can use another library (`treemap`) to generate this figure. We use the function `treemap()` from the same library:
+
+```{r}
+library(treemap) # load the library
+
+captures %>% # this is our data
+  count(municipality, captures) %>% # we count the number of captures
+  treemap(
+    ., # This is our data
+    index = 'municipality', # The index variable
+    vSize = 'n' # Variable that indicates the frequency per category
+  )
+```
+
+Treemaps (or mosaic) can include multiple hierarchies 
+
+```{r}
+captures %>% 
+  count(municipality, location, captures) %>% 
+  treemap(., index = c('municipality', 'location'), vSize = 'n')
+```
+
+## Barplots
+
+Bar plots are great to represent frequencies of categories. In the following example we will first count the number of treated by year, and then see it in a bar plot.
+
+```{r barplots}
+figures$bars <- captures %>% 
+  count(municipality) %>% 
+  ggplot() +
+  geom_bar(aes(
+    x = n, # X axis
+    y = municipality # Y axis
+  ), stat = 'identity') # type of barplot
+
+figures$bars
+```
+
+We can add extra variables to indicate the composition (using another variable) of each of the levels in our figures. For example, we will add the variable *trap_type* to color the bars in this figure. To do this we add the argument `fill=factor(trap_type)` to our `aes()` function
+
+```{r}
+figures$bars <- captures %>% 
+  count(municipality, trap_type) %>% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # X axis
+    x = n, # Y axis
+    fill = factor(trap_type) # Variable used for fill
+  ), stat = 'identity') # type of bar plot
+
+figures$bars
+```
+
+There are different strategies to visualize this, another example would be to breakdown the composition in individual bars like in the following figure, this can be useful to compare the within group composition:
+
+```{r}
+captures %>% 
+  count(municipality, trap_type) %>% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # X axis
+    x = n, # Y axis
+    fill = factor(trap_type)
+  ), stat = 'identity', position = 'dodge') # type of bar plot
+```
+
+
+Another option is looking the composition as a proportion by adding the argument `position = 'fill` to the `geom_bar()` function, notice that this removes the sense of number of observations for the main category (*year*):
+
+```{r}
+captures %>% 
+  count(municipality, trap_type) %>% 
+  ggplot() +
+  geom_bar(aes(
+    y = municipality, # X axis
+    x = n, # Y axis
+    fill = factor(trap_type)
+  ), stat = 'identity',
+  position = 'fill') # type of bar plot
+```
+
+# Visualizing relationships
+
+## Scatterplots
+
+This is one of the most popular kind of plots, it is useful to represent relationship between two continuous variables.
+
+```{r}
+figures$scatter <- captures %>% # first we start with the name of our data.frame
+  ggplot() + # then we set the canvas
+  geom_point(aes(x = treated, y = captures)) # and we add layer for points
+
+figures$scatter
+```
+
+## Heatmaps
+
+Heatmaps represent the frequency (or other values) for a combination of variables in a matrix. For example, we can visualize the frequency of captures by trap type for each of the municipalities in our data:
+
+```{r}
+figures$heatmap <- captures %>% # The data we are using
+  count(municipality, trap_type) %>% # We count the data by municipality and trap type
+  ggplot() +
+  geom_tile(aes(
+    y = municipality, # y axis
+    x = factor(trap_type), # x axis
+    fill = n # The fill for each cell
+  ))
+
+figures$heatmap
+```
+
+## Boxplots (again..)
+
+```{r}
+# Only one variable
+figures$box <- captures %>% 
+  ggplot() +
+  geom_boxplot(aes(x = treated, y = municipality))
+
+figures$box
+```
+
+# Time series
+
+To create a time series we will need to reformat the data a little bit so R can do what we want. We will introduce a new kind of variable: `date`. The date variables are pretty much what it sounds like, is a variable that has a format with year, month and day; there are other ways to format dates in R, but this is the most common and straight forward.
+
+```{r}
+tCaptures <- captures %>% 
+  mutate(date = as.Date(date, "%d/%m/%y"), # First we will format the date
+         month = lubridate::floor_date(date, 'month')) %>%  # The we create a variable formatting the date as month of the year
+  count(month) # Count the number of observations by month
+```
+
+Now that we have our variables in the correct format, we can use it as any other variable.
+
+```{r}
+figures$timeseries <- tCaptures %>% 
+  ggplot() +
+  geom_line(aes(x = month, y = n))
+
+figures$timeseries
+```
+
+```{r export objects for next session, include=F, eval=F}
+# This one works, but all the objects are called 'o'
+# See if possible call the objects as they should
+# ls() %>% 
+#   lapply(., function(x){
+#     o <- eval(parse(text = x))
+#     save(o, file = paste0('misc/I/', x, '.RData'))
+#   })
+
+# For now do it manualy
+save(captures, file = 'misc/I/captures.RData')
+save(figures, file = 'misc/I/figures.RData')
+save(tCaptures, file = 'misc/I/tCaptures.RData')
+```
