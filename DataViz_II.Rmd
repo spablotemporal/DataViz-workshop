@@ -1,7 +1,5 @@
 ---
 title: "Further customization"
-author: "Pablo Gomez"
-date: "`r Sys.Date()`"
 output:
   html_document:
     toc: true
@@ -234,3 +232,9 @@ save(figures, file = 'misc/II/figures.RData')
 save(tCaptures, file = 'misc/II/tCaptures.RData')
 ```
 
+------------------------------------------------------------------------
+
+*This lab has been developed with contributions from: [Jose Pablo Gomez-Vazquez](https://www.spablo-temporal.network).\
+Feel free to use these training materials for your own research and teaching. When using the materials we would appreciate using the proper credits. If you would be interested in a training session, please contact: [jpgo\@ucdavis.edu](mailto:jpgo@ucdavis.edu){.email}*
+
+------------------------------------------------------------------------
