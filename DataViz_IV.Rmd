@@ -41,40 +41,6 @@ ggplotly(figures$bars)
 
 
 ```{r}
-tCaptures <- captures %>% 
-  mutate(date = as.Date(date, "%d/%m/%y"), # First we will format the date
-         year = lubridate::floor_date(date, 'year')) %>%  # The we create a variable formatting the date as month of the year
-  count(year, trap_type) # Count the number of observations by month
-```
-
-Now that we have our variables in the correct format, we can use it as any other variable.
-
-```{r}
-library(ggrepel)
-
-lab <- tCaptures %>% 
-  group_by(trap_type) %>% 
-  filter(year == min(year))
-
-figures$timeseries <- tCaptures %>% 
-  ggplot() +
-  geom_line(aes(x = year, y = n, col = factor(trap_type)), lwd = 1) +
-  geom_label_repel(data = lab, aes(x = year, y = n, label = paste('Trap \n type: ', trap_type), fill = factor(trap_type)), alpha = 0.6, size = 3) +
-  theme(
-    axis.line.y = element_blank(),
-    panel.background = element_rect(fill = 'ghostwhite'),
-    axis.line.x = element_line(),
-    panel.grid = element_blank(),
-    panel.grid.major.y = element_line(colour = 'grey80'),
-    legend.position = 'none'
-  ) +
-  scale_fill_manual(values = c('gold2', 'seagreen3', 'red2', 'orchid')) +
-  scale_color_manual(values = c('gold2', 'seagreen3', 'red2', 'orchid'))
-
-figures$timeseries
-```
-
-```{r}
 #  captures %>% 
 #   count(municipality, trap_type) %>% 
 #   plot_ly(., x = ~municipality, y = ~n, type = 'bar') %>% 

@@ -33,52 +33,36 @@ Pable <- function(x, head = 5){
 
 :::: {.column width="50%" style="margin-top:50px"}
 ::: {.r-stack}
-![](img/portafolio/Ecosystems.MP4){.fragment .fade-in-then-semi-out fragment-index=1 style="width:70%;transform:rotate(-5deg);" fig-alt="A picture of me and my PhD supervisor, Lisa Alexander, at my graduation."}
+![](img/bg1.png){.fragment .fade-in-then-semi-out fragment-index=1 style="width:70%;transform:rotate(-5deg);" fig-alt="A picture of me and my PhD supervisor, Lisa Alexander, at my graduation."}
 
-![](img/portafolio/AR01.jpg){.fragment .fade-in-then-semi-out fragment-index=2 style="transform:rotate(5deg);" fig-alt="A picture of me and MCCCRH staff members on Zoom."}
+![](img/bg2.png){.fragment .fade-in-then-semi-out fragment-index=2 style="transform:rotate(5deg);" fig-alt="A picture of me and MCCCRH staff members on Zoom."}
 
 ![](img/portafolio/NeuralTDA.png){.fragment .fade-in-then-semi-out fragment-index=3 style="transform:rotate(-1deg);" fig-alt="A picture of me and MCCCRH staff members on a work trip."}
 
-![](img/portafolio/sonification.jpeg){.fragment .fade-in-then-semi-out fragment-index=4 style="transform:rotate(1.5deg);" fig-alt="A picture of Graham Creed from the ABC presenting climate projections."}
+![](img/bg3.jpg){.fragment .fade-in-then-semi-out fragment-index=4 style="transform:rotate(1.5deg);" fig-alt="A picture of Pablo teaching"}
 
 :::
 ::::
 
 :::: {.column width="50%"  style="margin-top:25px"}
 ::: {.fragment fragment-index=1}
-I used to be a climate + health researcher 
+I started Vet school in 2010 with the intention of becoming a wildlife vet
 :::
 
 ::: {.fragment fragment-index=2}
 •
 
-Worked with **[CLEX](https://climateextremes.org.au)** and **[MCCCRH](https://monash.edu/mcccrh)** on climate change communication
+Got a bit derailed and seduced by the idea of becoming an epidemiologist
 :::
 ::: {.fragment fragment-index=6}
 •
 
-<!-- Now a data journalist with **[360info.org](https://360info.org)!** -->
+Ended up in academia and since 2016 I have been working with programming and modeling of infectious diseases
 
-Now I'm a data journalist with
-
-[![](images/360logo.svg){style="width:50%;"}](https://360info.org)
 :::
 ::::
 
 :::::
-
-## New slide
-
-::: {layout-nrow=2}
-![Individual based models](img/portafolio/Ecosystems.MP4){width="724"}
-
-![Augmented reality](img/portafolio/AR01.jpg)
-
-![Network analysis](img/portafolio/NeuralTDA.png)
-
-![Data sonification](img/portafolio/sonification.jpeg)
-:::
-
 
 
 ## [Workshop participants]{style="color:black;"} {background-image="img/bg_2.png"}
