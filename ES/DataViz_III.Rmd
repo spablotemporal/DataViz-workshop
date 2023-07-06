@@ -8,7 +8,7 @@ output:
 ---
 
 <em>
-[Cambiar a español ![](img/flag_mx.gif){width="25"}](ES/DataViz_III.html) | [Mudar para Português  ![](img/flag_br.gif){width="25"}](PT/DataViz_III.html)
+[Switch to english ![](img/flag_us.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/DataViz_III.html) | [Mudar para Português  ![](img/flag_br.gif){width="25"}](PT/DataViz_III.html)
 </em>
 
 ```{r setup, include=FALSE}
@@ -17,9 +17,9 @@ library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
 ```
 
 ```{r import prev objects, include = F}
-load('misc/II/captures.RData')
-load('misc/II/figures.RData')
-load('misc/II/tCaptures.RData')
+load('../misc/II/captures.RData')
+load('../misc/II/figures.RData')
+load('../misc/II/tCaptures.RData')
 ```
 
 <!-- # Objectives: -->
@@ -27,22 +27,22 @@ load('misc/II/tCaptures.RData')
 <!--   - Talk about figure arrangements  -->
 <!--   - Make the data visualization exercise. -->
 
-# Arranging the plots in a layout
+# Arreglando las figuras en un layout
 
-Now that we have all the figures in a list, we can make arrangements with our figures. For this we use the function `ggarrange()` from the `ggpubr` library. The `ggarrange()` takes multiple arguments, but the main one is the figures we want to arrange. We can specify the figures in two ways, defining a list with all our figures, or if we want specific figures we can define the figures one by one. For example:  
+Ahora que tenemos todas las figuras en una lista, podemos hacer arreglos con nuestras figuras. Para esto usamos la función `ggarrange()` de la biblioteca `ggpubr`. El `ggarrange()` toma múltiples argumentos, pero el principal son las figuras que queremos arreglar. Podemos especificar las figuras de dos formas, definiendo una lista con todas nuestras figuras, o si queremos figuras concretas podemos definir las figuras una a una. Por ejemplo:
 
 ```{r ggpubr init setup}
 library(ggpubr) # load the library
 ggarrange(plotlist = figures)
 ```
 
-This might not be the best arrangement for the figures, since its too much information, so we can arrange it in several 'pages'. The way `ggarrange()` organizes the figure is in a n x n grid. If not specified, it will try to arrange the all the figures in a single grid, but we can use the arguments `ncol` and `nrow` to limit the number of elements per cell in our grid. For example:
+Puede que esta no sea la mejor disposición para las figuras, ya que es demasiada información, por lo que podemos organizarla en varias 'páginas'. La forma en que `ggarrange()` organiza la figura es en una cuadrícula n x n. Si no se especifica, intentará organizar todas las figuras en una sola cuadrícula, pero podemos usar los argumentos `ncol` y `nrow` para limitar el número de elementos por celda en nuestra cuadrícula. Por ejemplo:
 
 ```{r limit elements}
 ggarrange(plotlist = figures, ncol = 2, nrow = 1)
 ```
 
-If we want to select specific figures, we will need to either delete them from the list, or just add them one by one. We can also add labels to later reference in our figure caption, for example:
+Si queremos seleccionar figuras específicas, tendremos que eliminarlas de la lista o simplemente agregarlas una por una. También podemos agregar etiquetas para referencia posterior en el pie de figura, por ejemplo:
 
 ```{r select specific figs}
 toppanel <- ggarrange(
@@ -53,7 +53,7 @@ toppanel <- ggarrange(
 toppanel
 ```
 
-We can also make arrangements with arrangements, for example:
+También podemos hacer arreglos con arreglos, por ejemplo:
 
 ```{r arrangements within arrangements}
 p1 <- ggarrange(toppanel, figures$timeseries, ncol = 1, heights = c(2, 1), labels = c('','c')) # Add another figure at the bottom
@@ -61,18 +61,18 @@ p1 <- ggarrange(toppanel, figures$timeseries, ncol = 1, heights = c(2, 1), label
 p1
 ```
 
-Finally we can add a general title for the arrangement:
+Finalmente podemos añadir un título general para el arreglo:
 
 ```{r titles}
 p1 %>% 
   annotate_figure(top = text_grob('Summary of the findings', face = 'bold', size = 20))
 ```
 
-Notice that the specification of the text uses the function `text_grob()` which is a similar to the way we specify text for the themes in ggplot.
+Tenga en cuenta que la especificación del texto usa la función `text_grob()`, que es similar a la forma en que especificamos el texto para los temas en ggplot.
 
-# Facets
+# Facetas
 
-Facets are a way of stratifying the data based on variables in the data set, you can think about it in a similar way we have been using groups. To create a stratified plot we can use the function `facet_grid()` which will ask for a variable to go in the rows and another for columns:
+Las facetas son una forma de estratificar los datos en función de las variables en el conjunto de datos, puede pensarlo de manera similar a como hemos estado usando grupos. Para crear un gráfico estratificado podemos usar la función `facet_grid()` que pedirá una variable para las filas y otra para las columnas:
 
 ```{r facets}
 figures$timeseries +
@@ -92,24 +92,26 @@ figures$histogram <- captures %>% # The data we will use
 figures$histogram
 ```
 
-# Exercise
+# Ejercicio
 
-Now that you know some tools to look for information, you will have to make your figures on your own. If you want to make figures with the datasets we have been using you can do those, or you can use any of the code online to replicate them.  
+Ahora que conoces algunas herramientas para buscar información, tendrás que hacer tus figuras por tu cuenta. Si desea hacer figuras con los conjuntos de datos que hemos estado usando, puede hacerlo o puede usar cualquiera de los códigos en línea para replicarlos.  
 
-1. Go to the [Data to Viz website](https://www.data-to-viz.com)
-2. Identify a few figures that you would like to do (you can also do figures that we have previously done in the exercises)
-3. Make sure you label your figures!
-4. Experiment changing the colors, variables, themes etc...
-5. Replicate a few figures and put them in an arrangement.
+1. Ve al sitio web  [Data to Viz](https://www.data-to-viz.com)
+2. Identifica algunas figuras que te gustaría hacer (también puedes hacer figuras que ya hemos hecho en los ejercicios)
+3. ¡Asegúrate de etiquetar tus figuras!
+4. Experimenta cambiando los colores, variables, temas, etc...
+5. Reproduzca algunas figuras y colóquelas en un arreglo.
 
-At the end we will have a discussion where you can share your figures and troubleshoot any problems you might have had.  
+Al final, tendremos una discusión en la que podrá compartir sus cifras y solucionar cualquier problema que haya tenido. Si creaste algo que te gustaria compartir, subelo a la carpeta compartida:
+
+<iframe src="https://ucdavis.app.box.com/f/1018d221f1ad42e18e17de4ee5b1d821" height="550" width="800"></iframe>
 
 
 ```{r Export objects, include=F}
 # For now do it manually
-save(captures, file = 'misc/III/captures.RData')
-save(figures, file = 'misc/III/figures.RData')
-save(tCaptures, file = 'misc/III/tCaptures.RData')
+# save(captures, file = 'misc/III/captures.RData')
+# save(figures, file = 'misc/III/figures.RData')
+# save(tCaptures, file = 'misc/III/tCaptures.RData')
 ```
 
 ------------------------------------------------------------------------

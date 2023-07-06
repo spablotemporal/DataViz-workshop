@@ -136,7 +136,7 @@ Agora que temos um documento, vamos renderizá-lo em diferentes formatos. Para r
 
 Adicione uma nova seção ao seu documento com uma breve biografia sobre você (formação acadêmica e interesses de pesquisa) e inclua sua música e/ou comida favorita. Experimente os diferentes modos de renderização (pdf e word), salve-o como *exercicio1_seuNome* e envie o documento na caixa abaixo OU [neste link](https://ucdavis.app.box.com/f/821be3f5e59b4924ac20ea639246cc31).
 
-<iframe src="https://ucdavis.app.box.com/f/821be3f5e59b4924ac20ea639246cc31" height="200" width="800"></iframe>
+<iframe src="https://ucdavis.app.box.com/f/1018d221f1ad42e18e17de4ee5b1d821" height="550" width="800"></iframe>
 
 ## Apresentações com quarto
 

@@ -316,42 +316,35 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Home</a>
+      <a class="navbar-brand" href="index.html">Inicio</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Idioma
+    Language
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="https://www.spablo-temporal.network/DataViz-workshop/">English</a>
+      <a href="https://www.spablo-temporal.network/DataViz-workshop/index.html">English</a>
     </li>
     <li>
-      <a href="ES/index.html">Español</a>
+      <a href="index.html">Español</a>
     </li>
     <li>
-      <a href="PT/index.html">Portuguese</a>
+      <a href="https://www.spablo-temporal.network/DataViz-workshop/PT/index.html">Portuguese</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Contact
+    Contacto
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Instructors.html">
-        <span class="fa fa-users"></span>
-         
-        Instructores
-      </a>
-    </li>
     <li>
       <a href="mailto:jpgo@ucdavis.edu">
         <span class="fa fa-envelope"></span>
@@ -378,33 +371,36 @@ div.tocify {
 </div>
 
 
-<p><em> <a href="ES/DataViz_III.html">Cambiar a español <img
-src="img/flag_mx.gif" width="25" /></a> | <a
+<p><em> <a
+href="https://www.spablo-temporal.network/DataViz-workshop/DataViz_III.html">Switch
+to english <img src="img/flag_us.gif" width="25" /></a> | <a
 href="PT/DataViz_III.html">Mudar para Português <img
 src="img/flag_br.gif" width="25" /></a> </em></p>
 <!-- # Objectives: -->
 <!--   - Talk about figure arrangements  -->
 <!--   - Make the data visualization exercise. -->
-<div id="arranging-the-plots-in-a-layout" class="section level1"
+<div id="arreglando-las-figuras-en-un-layout" class="section level1"
 number="1">
-<h1><span class="header-section-number">1</span> Arranging the plots in
-a layout</h1>
-<p>Now that we have all the figures in a list, we can make arrangements
-with our figures. For this we use the function <code>ggarrange()</code>
-from the <code>ggpubr</code> library. The <code>ggarrange()</code> takes
-multiple arguments, but the main one is the figures we want to arrange.
-We can specify the figures in two ways, defining a list with all our
-figures, or if we want specific figures we can define the figures one by
-one. For example:</p>
+<h1><span class="header-section-number">1</span> Arreglando las figuras
+en un layout</h1>
+<p>Ahora que tenemos todas las figuras en una lista, podemos hacer
+arreglos con nuestras figuras. Para esto usamos la función
+<code>ggarrange()</code> de la biblioteca <code>ggpubr</code>. El
+<code>ggarrange()</code> toma múltiples argumentos, pero el principal
+son las figuras que queremos arreglar. Podemos especificar las figuras
+de dos formas, definiendo una lista con todas nuestras figuras, o si
+queremos figuras concretas podemos definir las figuras una a una. Por
+ejemplo:</p>
 <pre class="r"><code>library(ggpubr) # load the library
 ggarrange(plotlist = figures)</code></pre>
 <p><img src="DataViz_III_files/figure-html/ggpubr%20init%20setup-1.png" width="672" /></p>
-<p>This might not be the best arrangement for the figures, since its too
-much information, so we can arrange it in several ‘pages’. The way
-<code>ggarrange()</code> organizes the figure is in a n x n grid. If not
-specified, it will try to arrange the all the figures in a single grid,
-but we can use the arguments <code>ncol</code> and <code>nrow</code> to
-limit the number of elements per cell in our grid. For example:</p>
+<p>Puede que esta no sea la mejor disposición para las figuras, ya que
+es demasiada información, por lo que podemos organizarla en varias
+‘páginas’. La forma en que <code>ggarrange()</code> organiza la figura
+es en una cuadrícula n x n. Si no se especifica, intentará organizar
+todas las figuras en una sola cuadrícula, pero podemos usar los
+argumentos <code>ncol</code> y <code>nrow</code> para limitar el número
+de elementos por celda en nuestra cuadrícula. Por ejemplo:</p>
 <pre class="r"><code>ggarrange(plotlist = figures, ncol = 2, nrow = 1)</code></pre>
 <pre><code>## $`1`</code></pre>
 <p><img src="DataViz_III_files/figure-html/limit%20elements-1.png" width="672" /></p>
@@ -417,9 +413,10 @@ limit the number of elements per cell in our grid. For example:</p>
 <pre><code>## 
 ## attr(,&quot;class&quot;)
 ## [1] &quot;list&quot;      &quot;ggarrange&quot;</code></pre>
-<p>If we want to select specific figures, we will need to either delete
-them from the list, or just add them one by one. We can also add labels
-to later reference in our figure caption, for example:</p>
+<p>Si queremos seleccionar figuras específicas, tendremos que
+eliminarlas de la lista o simplemente agregarlas una por una. También
+podemos agregar etiquetas para referencia posterior en el pie de figura,
+por ejemplo:</p>
 <pre class="r"><code>toppanel &lt;- ggarrange(
   figures$bars, figures$box, # These are our figures
   labels = c(&#39;a.&#39;, &#39;b.&#39;) # The labels
@@ -427,26 +424,26 @@ to later reference in our figure caption, for example:</p>
 
 toppanel</code></pre>
 <p><img src="DataViz_III_files/figure-html/select%20specific%20figs-1.png" width="672" /></p>
-<p>We can also make arrangements with arrangements, for example:</p>
+<p>También podemos hacer arreglos con arreglos, por ejemplo:</p>
 <pre class="r"><code>p1 &lt;- ggarrange(toppanel, figures$timeseries, ncol = 1, heights = c(2, 1), labels = c(&#39;&#39;,&#39;c&#39;)) # Add another figure at the bottom
 
 p1</code></pre>
 <p><img src="DataViz_III_files/figure-html/arrangements%20within%20arrangements-1.png" width="672" /></p>
-<p>Finally we can add a general title for the arrangement:</p>
+<p>Finalmente podemos añadir un título general para el arreglo:</p>
 <pre class="r"><code>p1 %&gt;% 
   annotate_figure(top = text_grob(&#39;Summary of the findings&#39;, face = &#39;bold&#39;, size = 20))</code></pre>
 <p><img src="DataViz_III_files/figure-html/titles-1.png" width="672" /></p>
-<p>Notice that the specification of the text uses the function
-<code>text_grob()</code> which is a similar to the way we specify text
-for the themes in ggplot.</p>
+<p>Tenga en cuenta que la especificación del texto usa la función
+<code>text_grob()</code>, que es similar a la forma en que especificamos
+el texto para los temas en ggplot.</p>
 </div>
-<div id="facets" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Facets</h1>
-<p>Facets are a way of stratifying the data based on variables in the
-data set, you can think about it in a similar way we have been using
-groups. To create a stratified plot we can use the function
-<code>facet_grid()</code> which will ask for a variable to go in the
-rows and another for columns:</p>
+<div id="facetas" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Facetas</h1>
+<p>Las facetas son una forma de estratificar los datos en función de las
+variables en el conjunto de datos, puede pensarlo de manera similar a
+como hemos estado usando grupos. Para crear un gráfico estratificado
+podemos usar la función <code>facet_grid()</code> que pedirá una
+variable para las filas y otra para las columnas:</p>
 <pre class="r"><code>figures$timeseries +
   facet_grid(rows = vars(trap_type))</code></pre>
 <p><img src="DataViz_III_files/figure-html/facets-1.png" width="672" /></p>
@@ -461,24 +458,24 @@ rows and another for columns:</p>
 figures$histogram</code></pre>
 <p><img src="DataViz_III_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 </div>
-<div id="exercise" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Exercise</h1>
-<p>Now that you know some tools to look for information, you will have
-to make your figures on your own. If you want to make figures with the
-datasets we have been using you can do those, or you can use any of the
-code online to replicate them.</p>
+<div id="ejercicio" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Ejercicio</h1>
+<p>Ahora que conoces algunas herramientas para buscar información,
+tendrás que hacer tus figuras por tu cuenta. Si desea hacer figuras con
+los conjuntos de datos que hemos estado usando, puede hacerlo o puede
+usar cualquiera de los códigos en línea para replicarlos.</p>
 <ol style="list-style-type: decimal">
-<li>Go to the <a href="https://www.data-to-viz.com">Data to Viz
-website</a></li>
-<li>Identify a few figures that you would like to do (you can also do
-figures that we have previously done in the exercises)</li>
-<li>Make sure you label your figures!</li>
-<li>Experiment changing the colors, variables, themes etc…</li>
-<li>Replicate a few figures and put them in an arrangement.</li>
+<li>Ve al sitio web <a href="https://www.data-to-viz.com">Data to
+Viz</a></li>
+<li>Identifica algunas figuras que te gustaría hacer (también puedes
+hacer figuras que ya hemos hecho en los ejercicios)</li>
+<li>¡Asegúrate de etiquetar tus figuras!</li>
+<li>Experimenta cambiando los colores, variables, temas, etc…</li>
+<li>Reproduzca algunas figuras y colóquelas en un arreglo.</li>
 </ol>
-<p>At the end we will have a discussion where you can share your figures
-and troubleshoot any problems you might have had. If you have something
-you want to share, feel free to add it to the shared folder below:</p>
+<p>Al final, tendremos una discusión en la que podrá compartir sus
+cifras y solucionar cualquier problema que haya tenido. Si creaste algo
+que te gustaria compartir, subelo a la carpeta compartida:</p>
 <iframe src="https://ucdavis.app.box.com/f/1018d221f1ad42e18e17de4ee5b1d821" height="550" width="800">
 </iframe>
 <hr />

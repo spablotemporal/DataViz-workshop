@@ -104,7 +104,9 @@ Agora que você conhece algumas ferramentas para buscar informações, você ter
 4. Experimente alterar as cores, variáveis, temas etc.
 5. Reproduza alguns gráficos e organize-os em um arranjo.
 
-Ao final, teremos uma discussão em que você poderá compartilhar seus gráficos e solucionar quaisquer problemas que possa ter tido.
+Ao final, teremos uma discussão em que você poderá compartilhar seus gráficos e solucionar quaisquer problemas que possa ter tido. Se você criou algo que gostaria de compartilhar, faça o upload para a pasta compartilhada:
+
+<iframe src="https://ucdavis.app.box.com/f/1018d221f1ad42e18e17de4ee5b1d821" height="550" width="800"></iframe>
 
 
 ```{r Export objects, include=F}
