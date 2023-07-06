@@ -48,7 +48,7 @@ data.frame(
   Time = c('', '9:00-9:30', '9:30-10:30', '10:30-10:45', '10:45-12:00', '12:00-13:00', '13:00-14:00', '14:00-14:15', '14:15-15:00'),
   D01 = cell_spec(
     c('Topic', 'Introduccion al curso', 'Visualizacion de datos con ggplot', 'Break', 'Mas opciones de customizacion', 'Lunch', 'Arreglos de figuras', 'Break', 'Mas allá de visualizaciones estáticas'), 'html',
-    link = c('../slides/Slides.html', 'slides/Slides.html', 'DataViz_I.html', 'coffeeBreak.html', 'DataViz_II.html', 'Lunch.html', 'DataViz_III.html', 'DataViz_IV.html')
+    link = c('https://www.spablo-temporal.network/DataViz-workshop/slides.html#/title-slide', 'https://www.spablo-temporal.network/DataViz-workshop/slides.html#/title-slide', 'DataViz_I.html', 'coffeeBreak.html', 'DataViz_II.html', 'Lunch.html', 'DataViz_III.html', 'DataViz_IV.html')
   )
 ) %>%
   kbl("html", escape = FALSE, col.names = c('', 'June 10, 2023')) %>%
