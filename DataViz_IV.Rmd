@@ -9,6 +9,10 @@ output:
     number_sections: true
 ---
 
+<em>
+[Cambiar a español ![](img/flag_mx.gif){width="25"}](ES/DataViz_IV.html) | [Mudar para Português  ![](img/flag_br.gif){width="25"}](PT/DataViz_IV.html)
+</em>
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = F, message = F)
 library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
@@ -73,25 +77,25 @@ figures$timeseries
 ```
 
 ```{r}
- captures %>% 
-  count(municipality, trap_type) %>% 
-  plot_ly(., x = ~municipality, y = ~n, type = 'bar') %>% 
-  ggplot() +
-  geom_bar(aes(
-    y = municipality, # X axis
-    x = n, # Y axis
-    fill = factor(trap_type) # Variable used for fill
-  ), stat = 'identity') # type of bar plot
-
-Animals <- c("giraffes", "orangutans", "monkeys")
-SF_Zoo <- c(20, 14, 23)
-LA_Zoo <- c(12, 18, 29)
-data <- data.frame(Animals, SF_Zoo, LA_Zoo)
-
-fig <- plot_ly(captures, x = ~municipality, y = ~SF_Zoo, type = 'bar', name = 'SF Zoo')
-fig <- fig %>% add_trace(y = ~LA_Zoo, name = 'LA Zoo')
-fig <- fig %>% layout(yaxis = list(title = 'Count'), barmode = 'stack')
-
-fig
+#  captures %>% 
+#   count(municipality, trap_type) %>% 
+#   plot_ly(., x = ~municipality, y = ~n, type = 'bar') %>% 
+#   ggplot() +
+#   geom_bar(aes(
+#     y = municipality, # X axis
+#     x = n, # Y axis
+#     fill = factor(trap_type) # Variable used for fill
+#   ), stat = 'identity') # type of bar plot
+# 
+# Animals <- c("giraffes", "orangutans", "monkeys")
+# SF_Zoo <- c(20, 14, 23)
+# LA_Zoo <- c(12, 18, 29)
+# data <- data.frame(Animals, SF_Zoo, LA_Zoo)
+# 
+# fig <- plot_ly(captures, x = ~municipality, y = ~SF_Zoo, type = 'bar', name = 'SF Zoo')
+# fig <- fig %>% add_trace(y = ~LA_Zoo, name = 'LA Zoo')
+# fig <- fig %>% layout(yaxis = list(title = 'Count'), barmode = 'stack')
+# 
+# fig
 ```
 

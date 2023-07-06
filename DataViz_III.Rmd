@@ -9,6 +9,10 @@ output:
     number_sections: true
 ---
 
+<em>
+[Cambiar a español ![](img/flag_mx.gif){width="25"}](ES/DataViz_III.html) | [Mudar para Português  ![](img/flag_br.gif){width="25"}](PT/DataViz_III.html)
+</em>
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = F, message = F)
 library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)

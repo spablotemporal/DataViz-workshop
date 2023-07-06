@@ -348,6 +348,13 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="Instructors.html">
+        <span class="fa fa-users"></span>
+         
+        Instructores
+      </a>
+    </li>
+    <li>
       <a href="mailto:jpgo@ucdavis.edu">
         <span class="fa fa-envelope"></span>
          
@@ -375,6 +382,10 @@ div.tocify {
 </div>
 
 
+<p><em> <a href="ES/DataViz_III.html">Cambiar a español <img
+src="img/flag_mx.gif" width="25" /></a> | <a
+href="PT/DataViz_III.html">Mudar para Português <img
+src="img/flag_br.gif" width="25" /></a> </em></p>
 <!-- # Objectives: -->
 <!--   - Talk about figure arrangements  -->
 <!--   - Make the data visualization exercise. -->
@@ -391,7 +402,7 @@ figures, or if we want specific figures we can define the figures one by
 one. For example:</p>
 <pre class="r"><code>library(ggpubr) # load the library
 ggarrange(plotlist = figures)</code></pre>
-<p><img src="DataViz_III_files/figure-html/ggpubr-1.png" width="672" /></p>
+<p><img src="DataViz_III_files/figure-html/ggpubr%20init%20setup-1.png" width="672" /></p>
 <p>This might not be the best arrangement for the figures, since its too
 much information, so we can arrange it in several ‘pages’. The way
 <code>ggarrange()</code> organizes the figure is in a n x n grid. If not
@@ -419,16 +430,16 @@ to later reference in our figure caption, for example:</p>
 ) 
 
 toppanel</code></pre>
-<p><img src="DataViz_III_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><img src="DataViz_III_files/figure-html/select%20specific%20figs-1.png" width="672" /></p>
 <p>We can also make arrangements with arrangements, for example:</p>
 <pre class="r"><code>p1 &lt;- ggarrange(toppanel, figures$timeseries, ncol = 1, heights = c(2, 1), labels = c(&#39;&#39;,&#39;c&#39;)) # Add another figure at the bottom
 
 p1</code></pre>
-<p><img src="DataViz_III_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="DataViz_III_files/figure-html/arrangements%20within%20arrangements-1.png" width="672" /></p>
 <p>Finally we can add a general title for the arrangement:</p>
 <pre class="r"><code>p1 %&gt;% 
   annotate_figure(top = text_grob(&#39;Summary of the findings&#39;, face = &#39;bold&#39;, size = 20))</code></pre>
-<p><img src="DataViz_III_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="DataViz_III_files/figure-html/titles-1.png" width="672" /></p>
 <p>Notice that the specification of the text uses the function
 <code>text_grob()</code> which is a similar to the way we specify text
 for the themes in ggplot.</p>
@@ -442,7 +453,7 @@ groups. To create a stratified plot we can use the function
 rows and another for columns:</p>
 <pre class="r"><code>figures$timeseries +
   facet_grid(rows = vars(trap_type))</code></pre>
-<p><img src="DataViz_III_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="DataViz_III_files/figure-html/facets-1.png" width="672" /></p>
 <pre class="r"><code>figures$histogram &lt;- captures %&gt;% # The data we will use 
   ggplot() + # set the canvas
   geom_histogram(aes(treated), fill = &#39;red4&#39;) + # We will create a histogram of the Age
@@ -452,7 +463,7 @@ rows and another for columns:</p>
   )
 
 figures$histogram</code></pre>
-<p><img src="DataViz_III_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="DataViz_III_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 </div>
 <div id="exercise" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Exercise</h1>
