@@ -161,11 +161,12 @@ fig$oc <- x %>%
   labs(x = '', y = '')
 ## Word cloud plot --------
 fig$wc <- x %>% 
+  mutate(country = gsub('México', 'Mexico', country)) %>%
   mutate(country = toupper(country)) %>% 
-  count(country) %>% 
+  count(country, sort = T) %>% 
   filter(!is.na(country)) %>% 
   # mutate(country = paste0(country, ' \n (n = ', n, ')')) %>% 
-  ggwordcloud2(size = 0.8) +
+  ggwordcloud2(size = 0.7) +
   theme(
     panel.background = element_blank(), 
     plot.background = element_blank()
