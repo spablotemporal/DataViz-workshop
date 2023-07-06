@@ -1,0 +1,18 @@
+---
+title: "Hora de Comer!"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = F, message = F)
+library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
+```
+
+
+<img src="img/Lunch.png" style="width:100%" align="center">
+
+Hora de ir a la comida ... 
+
+------------------
+
+[Inicio](index.html)

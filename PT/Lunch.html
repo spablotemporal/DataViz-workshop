@@ -9,10 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="" />
 
 
-<title>Visualização de dados com R</title>
+<title>Its Lunch Time!</title>
 
 <script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -33,8 +32,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
 
@@ -293,132 +290,15 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Visualização de dados com R</h1>
-<h4 class="author"></h4>
+<h1 class="title toc-ignore">Its Lunch Time!</h1>
 
 </div>
 
 
-<p><em> <a
-href="https://www.spablo-temporal.network/DataViz-workshop/">Switch to
-English <img src="img/flag_us.gif" width="25" /></a> | <a
-href="https://www.spablo-temporal.network/DataViz-workshop/ES/index.html">Cambiar
-a español <img src="img/flag_mx.gif" width="25" /></a> </em></p>
-<p>Neste workshop, você aprenderá os conceitos básicos de visualização
-de dados. Usaremos R e a biblioteca <code>ggplot2</code> para explorar
-diferentes abordagens de comunicação de resultados por meio de recursos
-visuais. O objetivo deste workshop é que, ao final, você se sinta
-confortável em criar arranjos como este:</p>
-<center>
-<img src="img/0_figArrangement.png" style="width:60.0%" />
-</center>
-<div id="requisitos" class="section level1">
-<h1>Requisitos</h1>
-<p>Este workshop pressupõe que os participantes tenham familiaridade
-básica com a linguagem de programação R. <em>Opcional</em> Materiais
-pré-workshop estão disponíveis para um curso intensivo sobre R e cobrem
-alguns conceitos básicos que assumiremos que você conhece antes do
-workshop:</p>
-<ul>
-<li><a href="0a_Intro_RstudioMarkdown.html">Introdução ao R</a></li>
-<li><a href="0b_RandTidyverse.html">Sintaxe básica do R</a></li>
-</ul>
-<p>Para participar do workshop, é necessário ter as seguintes
-ferramentas:</p>
-<ul>
-<li>Computador</li>
-<li>Uma conta no posit.cloud ou ter R e R Studio instalados</li>
-</ul>
-</div>
-<div id="link-de-registro" class="section level1">
-<h1>Link de registro</h1>
-<p>Para se inscrever no workshop, utilize este link: <a
-href="https://docs.google.com/forms/u/1/d/e/1FAIpQLSfXtdQ6ZMFr6sgZVfTRVY8M32UxJy288-P5cUSNYa6IVILMtQ/viewform"
-class="uri">https://docs.google.com/forms/u/1/d/e/1FAIpQLSfXtdQ6ZMFr6sgZVfTRVY8M32UxJy288-P5cUSNYa6IVILMtQ/viewform</a></p>
+<p><img src="img/Lunch.png" style="width:100%" align="center"></p>
+<p>Go eat some food …</p>
 <hr />
-</div>
-<div id="cronograma-provisório" class="section level1">
-<h1>Cronograma provisório</h1>
-<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-6 de Julho de 2023
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;font-weight: bold;border-right:1px solid;font-weight: bold;border-bottom: 1px solid">
-</td>
-<td style="text-align:left;font-weight: bold;border-bottom: 1px solid">
-<a href="../slides/Slides.html" style="     ">Tópico</a>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;border-right:1px solid;">
-9:00-9:30
-</td>
-<td style="text-align:left;">
-<a href="slides/Slides.html" style="     ">Introdução ao workshop</a>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;border-right:1px solid;">
-9:30-10:20
-</td>
-<td style="text-align:left;">
-<a href="DataViz_I.html" style="     ">Visualização de dados com
-ggplot</a>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;border-right:1px solid;font-style: italic;background-color: #F6F5FA !important;">
-10:20-10:30
-</td>
-<td style="text-align:left;font-style: italic;background-color: #F6F5FA !important;">
-<a href="coffeeBreak.html" style="     ">Intervalo</a>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;border-right:1px solid;">
-10:30-11:30
-</td>
-<td style="text-align:left;">
-<a href="DataViz_II.html" style="     ">Customização adicional</a>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;border-right:1px solid;font-style: italic;background-color: #F6F5FA !important;">
-11:30-12:15
-</td>
-<td style="text-align:left;font-style: italic;background-color: #F6F5FA !important;">
-<a href="Lunch.html" style="     ">Almoço</a>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;border-right:1px solid;">
-12:15-13:00
-</td>
-<td style="text-align:left;">
-<a href="DataViz_III.html" style="     ">Arranjos de figuras</a>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;border-right:1px solid;">
-13:00-14:00
-</td>
-<td style="text-align:left;">
-<a href="DataViz_IV.html" style="     ">Além da visualização
-estática</a>
-</td>
-</tr>
-</tbody>
-</table>
-<hr />
-</div>
+<p><a href="index.html">Go Back</a></p>
 
 
 

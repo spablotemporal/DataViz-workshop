@@ -48,7 +48,7 @@ data.frame(
   D01 = cell_spec(
     c('Tópico', 'Introdução ao workshop', 'Visualização de dados com ggplot', 'Intervalo', 'Customização adicional', 'Almoço', 'Arranjos de figuras', 'Além da visualização estática'), 'html',
     #link = c('', '', '', 'coffeeBreak.html', '', 'Lunch.html', '', '')
-    link = c('', '', 'Data_VizI.html', 'coffeeBreak.html', 'Data_VizII.html', 'Lunch.html', 'Data_VizIII.html', 'Data_VizIV.html')
+    link = c('../slides/Slides.html', 'slides/Slides.html', 'DataViz_I.html', 'coffeeBreak.html', 'DataViz_II.html', 'Lunch.html', 'DataViz_III.html', 'DataViz_IV.html')
   )
 ) %>%
   kbl("html", escape = FALSE, col.names = c('', '6 de Julho de 2023')) %>%

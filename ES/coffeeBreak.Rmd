@@ -1,0 +1,16 @@
+---
+title: "Tomate un descanso!"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = F, message = F)
+library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
+```
+
+
+<img src="img/0_cofeeBreak.png" style="width:100%" align="center">
+
+------------------
+
+[Inicio](index.html)
