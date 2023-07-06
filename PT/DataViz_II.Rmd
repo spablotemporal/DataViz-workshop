@@ -1,7 +1,5 @@
 ---
 title: "Customização adicional"
-author: "Pablo Gomez"
-date: "`r Sys.Date()`"
 output:
   html_document:
     toc: true
@@ -235,3 +233,9 @@ captures %>%
 # save(tCaptures, file = 'misc/II/tCaptures.RData')
 ```
 
+------------------------------------------------------------------------
+
+*Este laboratório foi desenvolvido com contribuições de: [Jose Pablo Gomez-Vazquez](https://www.spablo-temporal.network) and José Grisi-Filho. \
+Sinta-se à vontade para usar estes materiais de treinamento em sua própria pesquisa e ensino. Ao utilizar os materiais, agradecemos que sejam atribuídos os devidos créditos. Se você estiver interessado em uma sessão de treinamento, entre em contato: [jpgo@ucdavis.edu](mailto:jpgo@ucdavis.edu).* 
+
+------------------------------------------------------------------------

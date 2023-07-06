@@ -1,12 +1,15 @@
 ---
 title: "Sintaxe básica do R"
-author: "Pablo Gomez"
 output:
   html_document:
     toc: true
     toc_float: true
     number_sections: true
 ---
+
+<em>
+[Switch to English ![](img/flag_us.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/0b_RandTidyverse.html) | [Cambiar a español  ![](img/flag_mx.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/ES/0b_RandTidyverse.html)
+</em>
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = F, message = F)
@@ -355,7 +358,7 @@ write.csv(farms, 'Data/farms.csv', row.names = F)
 
 ------------------------------------------------------------------------
 
-*Este laboratório foi desenvolvido com contribuições de: [Jose Pablo Gomez-Vazquez](https://www.spablo-temporal.network). \
+*Este laboratório foi desenvolvido com contribuições de: [Jose Pablo Gomez-Vazquez](https://www.spablo-temporal.network) and José Grisi-Filho. \
 Sinta-se à vontade para usar estes materiais de treinamento em sua própria pesquisa e ensino. Ao utilizar os materiais, agradecemos que sejam atribuídos os devidos créditos. Se você estiver interessado em uma sessão de treinamento, entre em contato: [jpgo@ucdavis.edu](mailto:jpgo@ucdavis.edu).* 
 
 ------------------------------------------------------------------------

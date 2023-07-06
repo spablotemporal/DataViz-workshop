@@ -1,7 +1,5 @@
 ---
 title: "Introdução à visualização de dados com ggplot2"
-author: "Pablo Gomez"
-date: "`r Sys.Date()`"
 output:
   html_document:
     toc: true
@@ -10,7 +8,7 @@ output:
 ---
 
 <em>
-[Cambiar a español ![](img/flag_mx.gif){width="25"}](ES/DataViz_I.html) | [Mudar para Português  ![](img/flag_br.gif){width="25"}](PT/DataViz_I.html)
+[Switch to English ![](img/flag_us.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/DataViz_I.html) | [Cambiar a español  ![](img/flag_mx.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/ES/DataViz_I.html)
 </em>
 
 ```{r setup, include=FALSE}
@@ -282,3 +280,10 @@ figures$timeseries
 # save(figures, file = 'misc/I/figures.RData')
 # save(tCaptures, file = 'misc/I/tCaptures.RData')
 ```
+
+------------------------------------------------------------------------
+
+*Este laboratório foi desenvolvido com contribuições de: [Jose Pablo Gomez-Vazquez](https://www.spablo-temporal.network) and José Grisi-Filho. \
+Sinta-se à vontade para usar estes materiais de treinamento em sua própria pesquisa e ensino. Ao utilizar os materiais, agradecemos que sejam atribuídos os devidos créditos. Se você estiver interessado em uma sessão de treinamento, entre em contato: [jpgo@ucdavis.edu](mailto:jpgo@ucdavis.edu).* 
+
+------------------------------------------------------------------------

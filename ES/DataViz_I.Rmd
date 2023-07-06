@@ -54,7 +54,7 @@ ggplot(data = captures) + # Estos son los datos que usaremos
 ```
 
 Otros componentes de los graficos se pueden definir para personalizar nuestras figuras con mas detalle, y cubriremos eso mas adelante.  
-Como te podras dar cuenta en el ejemplo previo, podemos imprimir nuestras figuras directamente desde la consola de R, pero una manera de mantener nuestro trabajo organizado es poner nuestras figuras en objetos. A continuacion voy a crear una lista (`list`), el cual es un tipo de objeto especial. Las listas en R son contenedores para otros objetos:  
+Como te podras dar cuenta en el ejemplo previo, podemos imprimir nuestras figuras directamente desde la consola de R, pero una manera de mantener nuestro trabajo organizado es poner nuestras figuras en objetos. A continuación voy a crear una lista (`list`), el cual es un tipo de objeto especial. Las listas en R son contenedores para otros objetos:  
 
 ```{r create fig list}
 # Para crear una lista vacia, usamos la function list()
@@ -67,7 +67,9 @@ figures <- list()
 
 ### Histogramas
 
-The most simple way to visualize the distribution of a continuous variable is using a histogram. Histograms are a special kind of bar plots where our variable is grouped in bins and showing the counts for each bin. Now that we have our container list for the plots, we can simply save it there and assign a name we want.
+La manera mas simple de visualizar la distribución de una variable continua es mediante los histogramas. Los histogramas son un tipo especial de un gráfico de barras en donde la variable es agrupada en categorías, el eje-x muestra el valor de la categoría en orden ascendete y el eje-y la frecuencia de observaciones en cada categoría.  
+Ahora que tenemos nuestra lista vacía para las figuras, podemos guardar el histograma que crearemos y asignarle un nombre.  
+Observa que en el siguiente codigo combinaremos 
 
 Notice that we will combine the pipes with the ggplot syntax. you can either define the name of the data in the ggplot function or before the function and connect it with a pipe.
 
