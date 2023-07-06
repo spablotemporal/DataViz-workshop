@@ -11,11 +11,11 @@
 
 <meta name="author" content="Pablo Gomez" />
 
-<meta name="date" content="2023-06-09" />
+<meta name="date" content="2023-07-05" />
 
 <title>Further customization</title>
 
-<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -31,7 +31,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -335,6 +335,9 @@ div.tocify {
     <li>
       <a href="ES/index.html">Español</a>
     </li>
+    <li>
+      <a href="PT/index.html">Portuguese</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -344,6 +347,13 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Instructors.html">
+        <span class="fa fa-users"></span>
+         
+        Instructores
+      </a>
+    </li>
     <li>
       <a href="mailto:jpgo@ucdavis.edu">
         <span class="fa fa-envelope"></span>
@@ -367,11 +377,15 @@ div.tocify {
 
 <h1 class="title toc-ignore">Further customization</h1>
 <h4 class="author">Pablo Gomez</h4>
-<h4 class="date">2023-06-09</h4>
+<h4 class="date">2023-07-05</h4>
 
 </div>
 
 
+<p><em> <a href="ES/DataViz_II.html">Cambiar a español <img
+src="img/flag_mx.gif" width="25" /></a> | <a
+href="PT/DataViz_II.html">Mudar para Português <img
+src="img/flag_br.gif" width="25" /></a> </em></p>
 <p>This lab continues on the work previously done for the <a
 href="DataViz_I.html">Section I</a>, make sure you have the objects
 generated in the previous section.</p>
@@ -542,9 +556,12 @@ lab &lt;- tCaptures %&gt;%
   group_by(trap_type) %&gt;% 
   filter(year == min(year))
 
-figures$timeseries +
-  geom_label_repel(data = lab, aes(x = year, y = n, label = paste(&#39;Trap \n type: &#39;, trap_type), fill = factor(trap_type)), alpha = 0.6, size = 3) +
-  scale_color_manual(values = colpal)</code></pre>
+figures$timeseries &lt;- figures$timeseries +
+  geom_label_repel(data = lab, aes(x = year, y = n, label = paste(&#39;Trap type: &#39;, trap_type), fill = factor(trap_type)), alpha = 0.6, size = 3) +
+  scale_color_manual(values = colpal) +
+  theme(legend.position = &#39;none&#39;)
+
+figures$timeseries</code></pre>
 <p><img src="DataViz_II_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 </div>

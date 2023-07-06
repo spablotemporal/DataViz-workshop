@@ -9,6 +9,10 @@ output:
     number_sections: true
 ---
 
+<em>
+[Cambiar a español ![](img/flag_mx.gif){width="25"}](ES/DataViz_I.html) | [Mudar para Português  ![](img/flag_br.gif){width="25"}](PT/DataViz_I.html)
+</em>
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = F, message = F)
 ```
@@ -274,7 +278,7 @@ figures$timeseries
 #   })
 
 # Por enquanto, faça manualmente
-save(captures, file = 'misc/I/captures.RData')
-save(figures, file = 'misc/I/figures.RData')
-save(tCaptures, file = 'misc/I/tCaptures.RData')
+# save(captures, file = 'misc/I/captures.RData')
+# save(figures, file = 'misc/I/figures.RData')
+# save(tCaptures, file = 'misc/I/tCaptures.RData')
 ```

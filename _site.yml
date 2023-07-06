@@ -28,9 +28,9 @@ navbar:
   
   - text: Contact
     menu:
-    # - icon: fa-users
-    #   text: Instructores
-    #   href: Instructores.html
+    - icon: fa-users
+      text: Instructores
+      href: Instructors.html
     - icon: fa-envelope
       text: Email
       href: mailto:jpgo@ucdavis.edu

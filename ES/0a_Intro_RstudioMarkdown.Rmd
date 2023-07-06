@@ -16,7 +16,7 @@ library(dplyr); library(ggplot2); library(ggpubr);library(Pabloverse)
 [Switch to English ![](img/flag_us.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/0a_Intro_RstudioMarkdown.html) | [Mudar para Portugues  ![](img/flag_br.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/PT/0a_Intro_RstudioMarkdown.html)
 </em>
 
-En esta primera seccion no vamos a usar nada de código o la sintaxis usada en R, nos enfocaremos en familiarizarnos con la interfaz de R studio y los tipos de archivos que podemos crear.  
+En esta primera sección no vamos a usar nada de código o la sintaxis usada en R, nos enfocaremos en familiarizarnos con la interfaz de R studio y los tipos de archivos que podemos crear.  
 El objetivo de este ejercicio es que, es que al terminar, estemos familiarizados con los siguientes conceptos:  
   
   - Organización de proyecto.

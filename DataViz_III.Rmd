@@ -29,7 +29,7 @@ load('misc/II/tCaptures.RData')
 
 Now that we have all the figures in a list, we can make arrangements with our figures. For this we use the function `ggarrange()` from the `ggpubr` library. The `ggarrange()` takes multiple arguments, but the main one is the figures we want to arrange. We can specify the figures in two ways, defining a list with all our figures, or if we want specific figures we can define the figures one by one. For example:  
 
-```{r ggpubr}
+```{r ggpubr init setup}
 library(ggpubr) # load the library
 ggarrange(plotlist = figures)
 ```
@@ -42,7 +42,7 @@ ggarrange(plotlist = figures, ncol = 2, nrow = 1)
 
 If we want to select specific figures, we will need to either delete them from the list, or just add them one by one. We can also add labels to later reference in our figure caption, for example:
 
-```{r}
+```{r select specific figs}
 toppanel <- ggarrange(
   figures$bars, figures$box, # These are our figures
   labels = c('a.', 'b.') # The labels
@@ -53,7 +53,7 @@ toppanel
 
 We can also make arrangements with arrangements, for example:
 
-```{r}
+```{r arrangements within arrangements}
 p1 <- ggarrange(toppanel, figures$timeseries, ncol = 1, heights = c(2, 1), labels = c('','c')) # Add another figure at the bottom
 
 p1
@@ -61,19 +61,18 @@ p1
 
 Finally we can add a general title for the arrangement:
 
-```{r}
+```{r titles}
 p1 %>% 
   annotate_figure(top = text_grob('Summary of the findings', face = 'bold', size = 20))
 ```
 
 Notice that the specification of the text uses the function `text_grob()` which is a similar to the way we specify text for the themes in ggplot.
 
-
 # Facets
 
 Facets are a way of stratifying the data based on variables in the data set, you can think about it in a similar way we have been using groups. To create a stratified plot we can use the function `facet_grid()` which will ask for a variable to go in the rows and another for columns:
 
-```{r}
+```{r facets}
 figures$timeseries +
   facet_grid(rows = vars(trap_type))
 ```

@@ -9,6 +9,10 @@ output:
     number_sections: true
 ---
 
+<em>
+[Switch to English ![](img/flag_us.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/DataViz_II.html) | [Cambiar a español  ![](img/flag_mx.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/ES/DataViz_II.html)
+</em>
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = F, message = F)
 library(dplyr); library(ggplot2); library(ggpubr)
@@ -16,9 +20,9 @@ library(dplyr); library(ggplot2); library(ggpubr)
 ```
 
 ```{r import prev objects, include = F}
-load('misc/II/captures.RData')
-load('misc/II/figures.RData')
-load('misc/II/tCaptures.RData')
+load('../misc/II/captures.RData')
+load('../misc/II/figures.RData')
+load('../misc/II/tCaptures.RData')
 ```
 
 <!-- # Objectives: -->
@@ -107,8 +111,8 @@ Ao final, teremos uma discussão em que você poderá compartilhar seus gráfico
 
 ```{r Export objects, include=F}
 # For now do it manually
-save(captures, file = 'misc/III/captures.RData')
-save(figures, file = 'misc/III/figures.RData')
-save(tCaptures, file = 'misc/III/tCaptures.RData')
+# save(captures, file = 'misc/III/captures.RData')
+# save(figures, file = 'misc/III/figures.RData')
+# save(tCaptures, file = 'misc/III/tCaptures.RData')
 ```
 
