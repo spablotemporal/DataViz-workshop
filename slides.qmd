@@ -27,15 +27,67 @@ Pable <- function(x, head = 5){
 
 # Introduction to the workshop {background-image="img/bg_title.png"}
 
+## Who is Pablo? {background-image="img/bg_2.png"}
+
+::::: {.columns style="text-align:center;margin-top:50px;"}
+
+:::: {.column width="50%" style="margin-top:50px"}
+::: {.r-stack}
+![](img/portafolio/Ecosystems.MP4){.fragment .fade-in-then-semi-out fragment-index=1 style="width:70%;transform:rotate(-5deg);" fig-alt="A picture of me and my PhD supervisor, Lisa Alexander, at my graduation."}
+
+![](img/portafolio/AR01.jpg){.fragment .fade-in-then-semi-out fragment-index=2 style="transform:rotate(5deg);" fig-alt="A picture of me and MCCCRH staff members on Zoom."}
+
+![](img/portafolio/NeuralTDA.png){.fragment .fade-in-then-semi-out fragment-index=3 style="transform:rotate(-1deg);" fig-alt="A picture of me and MCCCRH staff members on a work trip."}
+
+![](img/portafolio/sonification.jpeg){.fragment .fade-in-then-semi-out fragment-index=4 style="transform:rotate(1.5deg);" fig-alt="A picture of Graham Creed from the ABC presenting climate projections."}
+
+:::
+::::
+
+:::: {.column width="50%"  style="margin-top:25px"}
+::: {.fragment fragment-index=1}
+I used to be a climate + health researcher 
+:::
+
+::: {.fragment fragment-index=2}
+•
+
+Worked with **[CLEX](https://climateextremes.org.au)** and **[MCCCRH](https://monash.edu/mcccrh)** on climate change communication
+:::
+::: {.fragment fragment-index=6}
+•
+
+<!-- Now a data journalist with **[360info.org](https://360info.org)!** -->
+
+Now I'm a data journalist with
+
+[![](images/360logo.svg){style="width:50%;"}](https://360info.org)
+:::
+::::
+
+:::::
+
+## New slide
+
+::: {layout-nrow=2}
+![Individual based models](img/portafolio/Ecosystems.MP4){width="724"}
+
+![Augmented reality](img/portafolio/AR01.jpg)
+
+![Network analysis](img/portafolio/NeuralTDA.png)
+
+![Data sonification](img/portafolio/sonification.jpeg)
+:::
+
+
+
 ## [Workshop participants]{style="color:black;"} {background-image="img/bg_2.png"}
 
 ::: {style="font-size: 70%;"}
 About you: <https://forms.gle/b6P8XhiEstn3sJne9>
 :::
 
-[![](img/qrForm.png){fig-align="center" width="1024"}](https://forms.gle/b6P8XhiEstn3sJne9)
-
-
+[![](img/qrForm.png){fig-align="center" width="724"}](https://forms.gle/b6P8XhiEstn3sJne9)
 
 ## What is this workshop? {background-image="img/bg.png"}
 
@@ -93,7 +145,6 @@ Homepage: <https://www.spablo-temporal.network/DataViz-workshop/>
 ![Independent work](img/1a_formatLabs.png)
 :::
 :::
-
 
 ## Workshop format {background-image="img/bg.png"}
 
@@ -363,7 +414,6 @@ Arguments:\
 :::
 :::
 
-
 ## How can we find help with R? {background-image="img/bg.png"}
 
 <br/>
@@ -610,8 +660,7 @@ Out <- mov %>% # This is the movement data set
 
 <br/> And we can break down the code easier!
 
-
-# Data visualization{background-image="img/bg_title.png"}
+# Data visualization {background-image="img/bg_title.png"}
 
 ## ggplot2 {background-image="img/bg.png" body-color="black"}
 
@@ -622,16 +671,14 @@ Out <- mov %>% # This is the movement data set
 -   [We build our figures based on layers]{.black}
 -   [Similar syntax as dplyr]{.black}
 -   [We can combine data wrangling and visualization into a single code chunk]{.black}
-
 :::
 
 ::: {.column width="50%"}
 ![Lectures](img/shrek-ogres-have-layers.gif)
 :::
-
 :::
 
-::: {.fragment}
+::: fragment
 [Instead of the `%>%`, in ggplot we connect pieces of code with `+`]{.black}
 :::
 
@@ -651,7 +698,7 @@ Out <- mov %>% # This is the movement data set
 #| code-line-numbers: "1"
 #| eval: false
 captures # Data
-``` 
+```
 
 . . .
 
@@ -733,4 +780,5 @@ captures %>% # Data used
 [Other cheatsheets](https://posit.co/resources/cheatsheets/?type=posit-cheatsheets/)
 
 # [It's Lab time!](https://www.spablo-temporal.network/DataViz-workshop/DataViz_I.html)
+
 Introduction to ggplot2

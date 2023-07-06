@@ -8,7 +8,7 @@ output:
 ---
 
 <em>
-[Cambiar a español ![](img/flag_mx.gif){width="25"}](ES/DataViz_I.html) | [Mudar para Português  ![](img/flag_br.gif){width="25"}](PT/DataViz_I.html)
+[Switch to english ![](img/flag_us.gif){width="25"}](https://www.spablo-temporal.network/DataViz-workshop/DataViz_I.html) | [Mudar para Português  ![](img/flag_br.gif){width="25"}](PT/DataViz_I.html)
 </em>
 
 ```{r setup, include=FALSE}

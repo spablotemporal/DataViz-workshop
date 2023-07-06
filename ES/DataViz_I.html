@@ -438,7 +438,7 @@ nuestras figuras con mas detalle, y cubriremos eso mas adelante.<br />
 Como te podras dar cuenta en el ejemplo previo, podemos imprimir
 nuestras figuras directamente desde la consola de R, pero una manera de
 mantener nuestro trabajo organizado es poner nuestras figuras en
-objetos. A continuacion voy a crear una lista (<code>list</code>), el
+objetos. A continuación voy a crear una lista (<code>list</code>), el
 cual es un tipo de objeto especial. Las listas en R son contenedores
 para otros objetos:</p>
 <pre class="r"><code># Para crear una lista vacia, usamos la function list()
@@ -452,11 +452,14 @@ distribuciones</h1>
 continuas</h2>
 <div id="histogramas" class="section level3" number="2.1.1">
 <h3><span class="header-section-number">2.1.1</span> Histogramas</h3>
-<p>The most simple way to visualize the distribution of a continuous
-variable is using a histogram. Histograms are a special kind of bar
-plots where our variable is grouped in bins and showing the counts for
-each bin. Now that we have our container list for the plots, we can
-simply save it there and assign a name we want.</p>
+<p>La manera mas simple de visualizar la distribución de una variable
+continua es mediante los histogramas. Los histogramas son un tipo
+especial de un gráfico de barras en donde la variable es agrupada en
+categorías, el eje-x muestra el valor de la categoría en orden ascendete
+y el eje-y la frecuencia de observaciones en cada categoría.<br />
+Ahora que tenemos nuestra lista vacía para las figuras, podemos guardar
+el histograma que crearemos y asignarle un nombre.<br />
+Observa que en el siguiente codigo combinaremos</p>
 <p>Notice that we will combine the pipes with the ggplot syntax. you can
 either define the name of the data in the ggplot function or before the
 function and connect it with a pipe.</p>
@@ -470,12 +473,13 @@ figures$histogram</code></pre>
 </div>
 <div id="boxplots" class="section level3" number="2.1.2">
 <h3><span class="header-section-number">2.1.2</span> Boxplots</h3>
-<p>Box plots are great to show the distribution of a continuous
-variable. We can use it to show only one variable, or multiple
-variables. It is important to be very descriptive when making plots, the
-idea of a figure is that can explain itself. we will start to slowly
-introduce functions to do this and customize our figures.</p>
-<pre class="r"><code># Only one variable
+<p>Los graficos de caja (<em>boxplot</em>) son excelentes para mostrar
+la distribución de una variable continua. Podemos usarlo para mostrar
+solo una variable o múltiples variables. Es importante ser muy
+descriptivo al hacer las figuras, la idea de una figura es que pueda
+explicarse por sí misma. Poco a poco iremos introduciendo funciones para
+hacer esto y personalizar nuestras figuras.</p>
+<pre class="r"><code># crear nuestro boxplot
 figures$box &lt;- captures %&gt;% 
   ggplot() +
   geom_boxplot(aes(y = treated))
@@ -484,67 +488,75 @@ figures$box</code></pre>
 <p><img src="DataViz_I_files/figure-html/boxplot-1.png" width="672" /></p>
 </div>
 </div>
-<div id="categorical-variables" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Categorical
-variables</h2>
+<div id="variables-categoricas" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Variables
+categoricas</h2>
 </div>
-<div id="pie-charts" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> Pie charts… ?</h2>
-<p>Pie charts are not very straight forward in ggplot, there is NO
-geom_pie functions. To do this, you can essentially do a bar chart with
-some specifications and then use the function <code>coord_polar()</code>
-which will convert the coordinates from the figure.</p>
+<div id="graficos-de-pay" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Graficos de pay…
+?</h2>
+<p>Los gráficos de pay (<em>pie charts</em>) no son muy sencillos de
+hacer en ggplot, NO existe ninguna funcione geom_pie. Para hacer esto,
+básicamente puedes hacer un gráfico de barras con algunas
+especificaciones y luego usar la función <code>coord_polar()</code> que
+convertirá las coordenadas de la figura.</p>
 <pre class="r"><code>captures %&gt;% count(municipality) %&gt;% 
   ggplot() +
   geom_bar(aes(x = &#39;municipality&#39;, y = n, fill = municipality), stat = &#39;identity&#39;) +
   coord_polar(&#39;y&#39;) +
   theme_void()</code></pre>
 <p><img src="DataViz_I_files/figure-html/pie%20chart%20with%20ggplot-1.png" width="672" /></p>
-<p>You might be wondering why there is no geom_pie in ggplot … Despite
-pie charts being one of the most common figures in media for categorical
-data, pie charts have been criticized as difficult to interpret when
-looking a distributions, particularly when the distribution of the
-variable is closely homogeneous. You can evaluate that yourself in the
-following figure:</p>
+<p>Quizás te preguntes por qué no hay geom_pie en ggplot… A pesar de que
+los gráficos de pie son una de las figuras más comunes en los medios
+para datos categóricos, los gráficos circulares han sido criticados por
+ser difíciles de interpretar cuando se buscan distribuciones,
+particularmente cuando la distribución de los variable es muy homogénea.
+Puedes evaluarlo tu mismo en la siguiente figura:</p>
 <div class="float">
 <img src="img/I_PieCharts.png" style="width:70.0%"
-alt="Comparing the same data using two different visualization approaches. From https://en.wikipedia.org/wiki/File:Piecharts.svg" />
-<div class="figcaption">Comparing the same data using two different
-visualization approaches. From <a
+alt="Comparacion de la misma informacion mediante dos approximaciones diferentes. Tomado de: https://en.wikipedia.org/wiki/File:Piecharts.svg" />
+<div class="figcaption">Comparacion de la misma informacion mediante dos
+approximaciones diferentes. Tomado de: <a
 href="https://en.wikipedia.org/wiki/File:Piecharts.svg"
 class="uri">https://en.wikipedia.org/wiki/File:Piecharts.svg</a></div>
 </div>
-<p>Some alternatives to pie charts include: mosaic and bars charts.</p>
+<p>Algunas alternativas a los gráficos de pay incluyen: gráficos de
+mosaico y de barras.</p>
 </div>
-<div id="mosaic" class="section level2" number="2.4">
-<h2><span class="header-section-number">2.4</span> Mosaic</h2>
-<p>The main drawback of mosaic plots is that there is not a specific
-function from the <code>ggplot2</code> library to make this plot, which
-means that does not integrates as well with some of the functions we
-will be using in this workshop. We can use another library
-(<code>treemap</code>) to generate this figure. We use the function
-<code>treemap()</code> from the same library:</p>
-<pre class="r"><code>library(treemap) # load the library
+<div id="graficos-de-mosaico-treemap" class="section level2"
+number="2.4">
+<h2><span class="header-section-number">2.4</span> Graficos de mosaico
+(Treemap)</h2>
+<p>El principal inconveniente de los gráficos de mosaico es que no hay
+una función específica de la biblioteca <code>ggplot2</code> para hacer
+este gráfico, lo que significa que no se integra tan bien con algunas de
+las funciones que usaremos en este taller. Podemos usar otra biblioteca
+(<code>treemap</code>) para generar esta figura. Usamos la función
+<code>treemap()</code> de la misma biblioteca:</p>
+<pre class="r"><code>library(treemap) # Cargamos la libreria
 
-captures %&gt;% # this is our data
-  count(municipality, captures) %&gt;% # we count the number of captures
+captures %&gt;% # Estos son nuestros datos
+  count(municipality, captures) %&gt;% # Contamos cuantos municipios y capturas 
   treemap(
-    ., # This is our data
-    index = &#39;municipality&#39;, # The index variable
-    vSize = &#39;n&#39; # Variable that indicates the frequency per category
+    ., # Esta es nuestra data
+    index = &#39;municipality&#39;, # Definimos la variable indice
+    vSize = &#39;n&#39; # Variable que indica la frequencia (tamano de los mozaicos)
   )</code></pre>
 <p><img src="DataViz_I_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<p>Treemaps (or mosaic) can include multiple hierarchies</p>
+<p>Los <em>treemaps</em> (o mosaicos) pueden incluir multiples
+jerarquías.</p>
 <pre class="r"><code>captures %&gt;% 
   count(municipality, location, captures) %&gt;% 
   treemap(., index = c(&#39;municipality&#39;, &#39;location&#39;), vSize = &#39;n&#39;)</code></pre>
 <p><img src="DataViz_I_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
-<div id="barplots" class="section level2" number="2.5">
-<h2><span class="header-section-number">2.5</span> Barplots</h2>
-<p>Bar plots are great to represent frequencies of categories. In the
-following example we will first count the number of treated by year, and
-then see it in a bar plot.</p>
+<div id="graficos-de-barra-barplot" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Graficos de barra
+(Barplot)</h2>
+<p>Las graficas de barras son excelentes para representar frecuencias de
+categorías. En el siguiente ejemplo, primero contaremos el número de
+pacientes tratados por año y luego lo veremos en un gráfico de
+barras.</p>
 <pre class="r"><code>figures$bars &lt;- captures %&gt;% 
   count(municipality) %&gt;% 
   ggplot() +
@@ -555,11 +567,12 @@ then see it in a bar plot.</p>
 
 figures$bars</code></pre>
 <p><img src="DataViz_I_files/figure-html/barplots-1.png" width="672" /></p>
-<p>We can add extra variables to indicate the composition (using another
-variable) of each of the levels in our figures. For example, we will add
-the variable <em>trap_type</em> to color the bars in this figure. To do
-this we add the argument <code>fill=factor(trap_type)</code> to our
-<code>aes()</code> function</p>
+<p>Podemos agregar variables adicionales para indicar la composición
+(usando otra variable) de cada uno de los niveles en nuestras figuras.
+Por ejemplo, agregaremos la variable <em>trap_type</em> para colorear
+las barras en esta figura. Para hacer esto agregamos el argumento
+<code>fill=factor(trap_type)</code> a nuestra función
+<code>aes()</code></p>
 <pre class="r"><code>figures$bars &lt;- captures %&gt;% 
   count(municipality, trap_type) %&gt;% 
   ggplot() +
@@ -571,10 +584,10 @@ this we add the argument <code>fill=factor(trap_type)</code> to our
 
 figures$bars</code></pre>
 <p><img src="DataViz_I_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>There are different strategies to visualize this, another example
-would be to breakdown the composition in individual bars like in the
-following figure, this can be useful to compare the within group
-composition:</p>
+<p>Hay diferentes estrategias para visualizar esto, otro ejemplo sería
+desglosar la composición en barras individuales como en la siguiente
+figura, esto puede ser útil para comparar la composición dentro del
+grupo:</p>
 <pre class="r"><code>captures %&gt;% 
   count(municipality, trap_type) %&gt;% 
   ggplot() +
@@ -584,10 +597,10 @@ composition:</p>
     fill = factor(trap_type)
   ), stat = &#39;identity&#39;, position = &#39;dodge&#39;) # type of bar plot</code></pre>
 <p><img src="DataViz_I_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>Another option is looking the composition as a proportion by adding
-the argument <code>position = 'fill</code> to the
-<code>geom_bar()</code> function, notice that this removes the sense of
-number of observations for the main category (<em>year</em>):</p>
+<p>Otra opción es ver la composición como una proporción agregando el
+argumento <code>position = 'fill</code> a la función
+<code>geom_bar()</code>, observe que esto elimina el sentido del número
+de observaciones para la categoría principal (<em>year</em>):</p>
 <pre class="r"><code>captures %&gt;% 
   count(municipality, trap_type) %&gt;% 
   ggplot() +
@@ -600,25 +613,29 @@ number of observations for the main category (<em>year</em>):</p>
 <p><img src="DataViz_I_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 </div>
-<div id="visualizing-relationships" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Visualizing
-relationships</h1>
-<div id="scatterplots" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Scatterplots</h2>
-<p>This is one of the most popular kind of plots, it is useful to
-represent relationship between two continuous variables.</p>
-<pre class="r"><code>figures$scatter &lt;- captures %&gt;% # first we start with the name of our data.frame
-  ggplot() + # then we set the canvas
-  geom_point(aes(x = treated, y = captures)) # and we add layer for points
+<div id="visualizando-relaciones" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Visualizando
+relaciones</h1>
+<div id="graficos-de-puntos-scatterplots" class="section level2"
+number="3.1">
+<h2><span class="header-section-number">3.1</span> Graficos de puntos
+(Scatterplots)</h2>
+<p>Este es uno de los tipos de gráficos más populares, es útil para
+representar la relación entre dos variables continuas.</p>
+<pre class="r"><code>figures$scatter &lt;- captures %&gt;% # Primero empezamos con el nombre de nuestros datos
+  ggplot() + # Despues ponemos nuestro lienzo
+  geom_point(aes(x = treated, y = captures)) # Y agregamos una capa de los puntos
 
 figures$scatter</code></pre>
 <p><img src="DataViz_I_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
-<div id="heatmaps" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Heatmaps</h2>
-<p>Heatmaps represent the frequency (or other values) for a combination
-of variables in a matrix. For example, we can visualize the frequency of
-captures by trap type for each of the municipalities in our data:</p>
+<div id="mapas-de-calor-heatmaps" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Mapas de calor
+(Heatmaps)</h2>
+<p>Los mapas de calor representan la frecuencia (u otros valores) para
+una combinación de variables en una matriz. Por ejemplo, podemos
+visualizar la frecuencia de capturas por tipo de trampa para cada uno de
+los municipios de nuestros datos:</p>
 <pre class="r"><code>figures$heatmap &lt;- captures %&gt;% # The data we are using
   count(municipality, trap_type) %&gt;% # We count the data by municipality and trap type
   ggplot() +
@@ -634,6 +651,8 @@ figures$heatmap</code></pre>
 <div id="boxplots-again.." class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> Boxplots
 (again..)</h2>
+<p>Los graficos de caja pueden incluir mas de un grupo. Esto es idea
+para comparar la distribucion de un valor en diferentes grupos.</p>
 <pre class="r"><code># Only one variable
 figures$box &lt;- captures %&gt;% 
   ggplot() +
@@ -643,26 +662,36 @@ figures$box</code></pre>
 <p><img src="DataViz_I_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 </div>
-<div id="time-series" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Time series</h1>
-<p>To create a time series we will need to reformat the data a little
-bit so R can do what we want. We will introduce a new kind of variable:
-<code>date</code>. The date variables are pretty much what it sounds
-like, is a variable that has a format with year, month and day; there
-are other ways to format dates in R, but this is the most common and
-straight forward.</p>
+<div id="series-de-tiempo" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Series de tiempo</h1>
+<p>Para crear una serie temporal, necesitaremos reformatear los datos un
+poco para que R pueda hacer lo que queremos. Introduciremos un nuevo
+tipo de variable: <code>date</code>. Las variables de fecha son más o
+menos lo que suena, es una variable que tiene un formato con año, mes y
+día; Hay otras formas de formatear fechas en R, pero esta es la más
+común y sencilla.</p>
 <pre class="r"><code>tCaptures &lt;- captures %&gt;% 
-  mutate(date = as.Date(date, &quot;%d/%m/%y&quot;), # First we will format the date
-         month = lubridate::floor_date(date, &#39;month&#39;)) %&gt;%  # The we create a variable formatting the date as month of the year
-  count(month) # Count the number of observations by month</code></pre>
-<p>Now that we have our variables in the correct format, we can use it
-as any other variable.</p>
+  mutate(date = as.Date(date, &quot;%d/%m/%y&quot;), # Primero formateamos la variable
+         month = lubridate::floor_date(date, &#39;month&#39;)) %&gt;%  # Después redondeamos la fecha al principio del mes
+  count(month) # Contamos el numero de observaciones por mes</code></pre>
+<p>Ahora que tenemos nuestras variables en el formato correcto, podemos
+usarlas como cualquier otra variable.</p>
 <pre class="r"><code>figures$timeseries &lt;- tCaptures %&gt;% 
   ggplot() +
   geom_line(aes(x = month, y = n))
 
 figures$timeseries</code></pre>
 <p><img src="DataViz_I_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<hr />
+<p><em>Este ejercicio ha diso desarrollado con contribuciones de: <a
+href="https://www.spablo-temporal.network">Jose Pablo
+Gomez-Vazquez</a>.<br />
+Sientase libre de usar los materiales para entrenamiento y sus propios
+fines de investigacion. Al usar este material apreciariamos que nos
+referencie con los creditos adecuados. Si esta interesado en agendar una
+sesion de entrenamiento, contactar a: <a href="mailto:jpgo@ucdavis.edu"
+class="email">jpgo@ucdavis.edu</a></em></p>
+<hr />
 </div>
 
 

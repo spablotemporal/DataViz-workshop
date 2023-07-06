@@ -84,10 +84,11 @@ figures$histogram
 
 ### Boxplots
 
-Box plots are great to show the distribution of a continuous variable. We can use it to show only one variable, or multiple variables. It is important to be very descriptive when making plots, the idea of a figure is that can explain itself. we will start to slowly introduce functions to do this and customize our figures.
+Los graficos de caja (*boxplot*) son excelentes para mostrar la distribución de una variable continua. Podemos usarlo para mostrar solo una variable o múltiples variables. Es importante ser muy descriptivo al hacer las figuras, la idea de una figura es que pueda explicarse por sí misma. Poco a poco iremos introduciendo funciones para hacer esto y personalizar nuestras figuras.
+
 
 ```{r boxplot}
-# Only one variable
+# crear nuestro boxplot
 figures$box <- captures %>% 
   ggplot() +
   geom_boxplot(aes(y = treated))
@@ -95,11 +96,11 @@ figures$box <- captures %>%
 figures$box
 ```
 
-## Categorical variables
+## Variables categoricas
 
-## Pie charts... ?
+## Graficos de pay... ?
 
-Pie charts are not very straight forward in ggplot, there is NO geom_pie functions. To do this, you can essentially do a bar chart with some specifications and then use the function `coord_polar()` which will convert the coordinates from the figure.
+Los gráficos de pay (*pie charts*) no son muy sencillos de hacer en ggplot, NO existe ninguna funcione geom_pie. Para hacer esto, básicamente puedes hacer un gráfico de barras con algunas especificaciones y luego usar la función `coord_polar()` que convertirá las coordenadas de la figura.
 
 ```{r pie chart with ggplot}
 captures %>% count(municipality) %>% 
@@ -109,29 +110,29 @@ captures %>% count(municipality) %>%
   theme_void()
 ```
 
-You might be wondering why there is no geom_pie in ggplot ... Despite pie charts being one of the most common figures in media for categorical data, pie charts have been criticized as difficult to interpret when looking a distributions, particularly when the distribution of the variable is closely homogeneous. You can evaluate that yourself in the following figure:
+Quizás te preguntes por qué no hay geom_pie en ggplot... A pesar de que los gráficos de pie son una de las figuras más comunes en los medios para datos categóricos, los gráficos circulares han sido criticados por ser difíciles de interpretar cuando se buscan distribuciones, particularmente cuando la distribución de los variable es muy homogénea. Puedes evaluarlo tu mismo en la siguiente figura:
 
-![Comparing the same data using two different visualization approaches. From <https://en.wikipedia.org/wiki/File:Piecharts.svg>](img/I_PieCharts.png){width="70%"}
+![Comparacion de la misma informacion mediante dos approximaciones diferentes. Tomado de: <https://en.wikipedia.org/wiki/File:Piecharts.svg>](img/I_PieCharts.png){width="70%"}
 
-Some alternatives to pie charts include: mosaic and bars charts.
+Algunas alternativas a los gráficos de pay incluyen: gráficos de mosaico y de barras.
 
-## Mosaic 
+## Graficos de mosaico (Treemap) 
 
-The main drawback of mosaic plots is that there is not a specific function from the `ggplot2` library to make this plot, which means that does not integrates as well with some of the functions we will be using in this workshop. We can use another library (`treemap`) to generate this figure. We use the function `treemap()` from the same library:
+El principal inconveniente de los gráficos de mosaico es que no hay una función específica de la biblioteca `ggplot2` para hacer este gráfico, lo que significa que no se integra tan bien con algunas de las funciones que usaremos en este taller. Podemos usar otra biblioteca (`treemap`) para generar esta figura. Usamos la función `treemap()` de la misma biblioteca:
 
 ```{r}
-library(treemap) # load the library
+library(treemap) # Cargamos la libreria
 
-captures %>% # this is our data
-  count(municipality, captures) %>% # we count the number of captures
+captures %>% # Estos son nuestros datos
+  count(municipality, captures) %>% # Contamos cuantos municipios y capturas 
   treemap(
-    ., # This is our data
-    index = 'municipality', # The index variable
-    vSize = 'n' # Variable that indicates the frequency per category
+    ., # Esta es nuestra data
+    index = 'municipality', # Definimos la variable indice
+    vSize = 'n' # Variable que indica la frequencia (tamano de los mozaicos)
   )
 ```
 
-Treemaps (or mosaic) can include multiple hierarchies 
+Los *treemaps* (o mosaicos) pueden incluir multiples jerarquías. 
 
 ```{r}
 captures %>% 
@@ -139,9 +140,10 @@ captures %>%
   treemap(., index = c('municipality', 'location'), vSize = 'n')
 ```
 
-## Barplots
+## Graficos de barra (Barplot)
 
-Bar plots are great to represent frequencies of categories. In the following example we will first count the number of treated by year, and then see it in a bar plot.
+Las graficas de barras son excelentes para representar frecuencias de categorías. En el siguiente ejemplo, primero contaremos el número de pacientes tratados por año y luego lo veremos en un gráfico de barras.
+
 
 ```{r barplots}
 figures$bars <- captures %>% 
@@ -155,7 +157,8 @@ figures$bars <- captures %>%
 figures$bars
 ```
 
-We can add extra variables to indicate the composition (using another variable) of each of the levels in our figures. For example, we will add the variable *trap_type* to color the bars in this figure. To do this we add the argument `fill=factor(trap_type)` to our `aes()` function
+Podemos agregar variables adicionales para indicar la composición (usando otra variable) de cada uno de los niveles en nuestras figuras. Por ejemplo, agregaremos la variable *trap_type* para colorear las barras en esta figura. Para hacer esto agregamos el argumento `fill=factor(trap_type)` a nuestra función `aes()`
+
 
 ```{r}
 figures$bars <- captures %>% 
@@ -170,7 +173,8 @@ figures$bars <- captures %>%
 figures$bars
 ```
 
-There are different strategies to visualize this, another example would be to breakdown the composition in individual bars like in the following figure, this can be useful to compare the within group composition:
+Hay diferentes estrategias para visualizar esto, otro ejemplo sería desglosar la composición en barras individuales como en la siguiente figura, esto puede ser útil para comparar la composición dentro del grupo:
+
 
 ```{r}
 captures %>% 
@@ -184,7 +188,7 @@ captures %>%
 ```
 
 
-Another option is looking the composition as a proportion by adding the argument `position = 'fill` to the `geom_bar()` function, notice that this removes the sense of number of observations for the main category (*year*):
+Otra opción es ver la composición como una proporción agregando el argumento `position = 'fill` a la función `geom_bar()`, observe que esto elimina el sentido del número de observaciones para la categoría principal (*year*):
 
 ```{r}
 captures %>% 
@@ -198,23 +202,23 @@ captures %>%
   position = 'fill') # type of bar plot
 ```
 
-# Visualizing relationships
+# Visualizando relaciones
 
-## Scatterplots
+## Graficos de puntos (Scatterplots)
 
-This is one of the most popular kind of plots, it is useful to represent relationship between two continuous variables.
+Este es uno de los tipos de gráficos más populares, es útil para representar la relación entre dos variables continuas.
 
 ```{r}
-figures$scatter <- captures %>% # first we start with the name of our data.frame
-  ggplot() + # then we set the canvas
-  geom_point(aes(x = treated, y = captures)) # and we add layer for points
+figures$scatter <- captures %>% # Primero empezamos con el nombre de nuestros datos
+  ggplot() + # Despues ponemos nuestro lienzo
+  geom_point(aes(x = treated, y = captures)) # Y agregamos una capa de los puntos
 
 figures$scatter
 ```
 
-## Heatmaps
+## Mapas de calor (Heatmaps)
 
-Heatmaps represent the frequency (or other values) for a combination of variables in a matrix. For example, we can visualize the frequency of captures by trap type for each of the municipalities in our data:
+Los mapas de calor representan la frecuencia (u otros valores) para una combinación de variables en una matriz. Por ejemplo, podemos visualizar la frecuencia de capturas por tipo de trampa para cada uno de los municipios de nuestros datos:
 
 ```{r}
 figures$heatmap <- captures %>% # The data we are using
@@ -231,6 +235,8 @@ figures$heatmap
 
 ## Boxplots (again..)
 
+Los graficos de caja pueden incluir mas de un grupo. Esto es idea para comparar la distribucion de un valor en diferentes grupos.
+
 ```{r}
 # Only one variable
 figures$box <- captures %>% 
@@ -240,18 +246,18 @@ figures$box <- captures %>%
 figures$box
 ```
 
-# Time series
+# Series de tiempo
 
-To create a time series we will need to reformat the data a little bit so R can do what we want. We will introduce a new kind of variable: `date`. The date variables are pretty much what it sounds like, is a variable that has a format with year, month and day; there are other ways to format dates in R, but this is the most common and straight forward.
+Para crear una serie temporal, necesitaremos reformatear los datos un poco para que R pueda hacer lo que queremos. Introduciremos un nuevo tipo de variable: `date`. Las variables de fecha son más o menos lo que suena, es una variable que tiene un formato con año, mes y día; Hay otras formas de formatear fechas en R, pero esta es la más común y sencilla.
 
 ```{r}
 tCaptures <- captures %>% 
-  mutate(date = as.Date(date, "%d/%m/%y"), # First we will format the date
-         month = lubridate::floor_date(date, 'month')) %>%  # The we create a variable formatting the date as month of the year
-  count(month) # Count the number of observations by month
+  mutate(date = as.Date(date, "%d/%m/%y"), # Primero formateamos la variable
+         month = lubridate::floor_date(date, 'month')) %>%  # Después redondeamos la fecha al principio del mes
+  count(month) # Contamos el numero de observaciones por mes
 ```
 
-Now that we have our variables in the correct format, we can use it as any other variable.
+Ahora que tenemos nuestras variables en el formato correcto, podemos usarlas como cualquier otra variable.
 
 ```{r}
 figures$timeseries <- tCaptures %>% 
@@ -275,3 +281,10 @@ save(captures, file = 'misc/I/captures.RData')
 save(figures, file = 'misc/I/figures.RData')
 save(tCaptures, file = 'misc/I/tCaptures.RData')
 ```
+
+------------------------------------------------------------------------
+
+*Este ejercicio ha diso desarrollado con contribuciones de: [Jose Pablo Gomez-Vazquez](https://www.spablo-temporal.network).\
+Sientase libre de usar los materiales para entrenamiento y sus propios fines de investigacion. Al usar este material apreciariamos que nos referencie con los creditos adecuados. Si esta interesado en agendar una sesion de entrenamiento, contactar a: [jpgo\@ucdavis.edu](mailto:jpgo@ucdavis.edu){.email}*
+
+------------------------------------------------------------------------
