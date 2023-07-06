@@ -1,0 +1,736 @@
+---
+title: "Data visualization with R"
+author: "Pablo Gomez"
+format: 
+  revealjs:
+    theme: [dark, custom.scss]
+    footer: "[Homepage](https://www.spablo-temporal.network/DataViz-workshop/)"
+editor: source
+title-slide-attributes:
+    data-background-image: img/bg_title.png
+---
+
+```{r, echo = F}
+knitr::opts_chunk$set(warning = F, message = F, echo = T)
+library(dplyr); library(kableExtra);library(DT); library(ggplot2)
+library(STNet)
+options(DT.options = list(pageLength = 5))
+
+data('captures')
+
+Pable <- function(x, head = 5){
+  x %>% head(head) %>% 
+  kbl() %>% 
+  kable_material_dark(full_width = F, lightable_options = c('hover'))
+}
+```
+
+# Introduction to the workshop {background-image="img/bg_title.png"}
+
+## [Workshop participants]{style="color:black;"} {background-image="img/bg_2.png"}
+
+::: {style="font-size: 70%;"}
+About you: <https://forms.gle/b6P8XhiEstn3sJne9>
+:::
+
+[![](img/qrForm.png){fig-align="center" width="1024"}](https://forms.gle/b6P8XhiEstn3sJne9)
+
+
+
+## What is this workshop? {background-image="img/bg.png"}
+
+<br/>
+
+::: incremental
+::: {style="color:#002000"}
+| What it is                         | What is NOT                   |
+|------------------------------------|-------------------------------|
+| Introduction to data visualization | Introduction to R programming |
+:::
+
+<br/>
+
+-   [DO NOT EXPECT TO MASTER R AFTER THE WORKSHOP]{.black}
+-   [If you already have experience with R, is always nice to see how other people do things, so feel free to share!]{.black}
+:::
+
+::: notes
+-   This workshop is an introduction to R, we will cover A LOT of material in a brief time, so please be patient.
+-   Do not expect that by the end of the workshop you will master all the topics covered, mastering R takes time and the more you do it the easier it gets. All the materials will remain accessible online for you to review and feel free to reach anytime in the future for questions
+-   If
+:::
+
+## Schedule {background-image="img/bg.png"}
+
+<br/>
+
+![](img/1a_schedule.png){width="624" fig-align="center"}
+
+## Workshop format {background-image="img/bg.png"}
+
+::: {style="font-size: 80%;"}
+Homepage: <https://www.spablo-temporal.network/DataViz-workshop/>
+:::
+
+![](img/1a_website.png){fig-align="center"}
+
+## [Workshop format]{style="color:black;"} {background-image="img/bg_2.png"}
+
+<br/>
+
+<br/>
+
+::: columns
+::: {.column width="33%"}
+![Lectures](img/1a_formatLec.png)
+:::
+
+::: {.column width="33%"}
+![Coding together](img/1a_formatCoding.png)
+:::
+
+::: {.column width="33%"}
+![Independent work](img/1a_formatLabs.png)
+:::
+:::
+
+
+## Workshop format {background-image="img/bg.png"}
+
+<br/>
+
+```{r echo=F, eval = T}
+# Load libraries -------
+library(googlesheets4); library(ggplot2);library(dplyr)
+library(ggwordcloud); library(ggimage)
+# Load images -------
+imgs <- list(cat = 'img/cat.png', dog = 'img/dog.png')
+# Load responses ---------
+x <- googlesheets4::read_sheet('1FYUv-M6cqA0mmkJLOeFdu2ouTB3zwHnEqF1ZGWn_u4w') %>% 
+  rename(country = `Country of origin`, ocupation = `Where do you work?`, pet = `Do you prefer`)
+fig <- list() # make empty list
+
+# Create figures ----------
+## Make occupation bar plot -----------
+fig$oc <- x %>% 
+  count(ocupation) %>% 
+  ggplot() +
+  geom_bar(aes(y = ocupation, x = n - 1, fill = ocupation), stat = 'identity') +
+  scale_fill_manual(values = Pabloverse::pablette(n = 4, pal = 'retro')) +
+  theme(
+    panel.background = element_blank(),
+    plot.background = element_blank(),
+    legend.position = 'none',
+    axis.line.x = element_line()
+  ) +
+  labs(x = '', y = '')
+## Word cloud plot --------
+fig$wc <- x %>% 
+  mutate(country = toupper(country)) %>% 
+  count(country) %>% 
+  filter(!is.na(country)) %>% 
+  # mutate(country = paste0(country, ' \n (n = ', n, ')')) %>% 
+  ggwordcloud2(size = 0.8) +
+  theme(
+    panel.background = element_blank(), 
+    plot.background = element_blank()
+  )
+## Pet plot ---------
+### Get counts of pets ---------
+y <- x %>% 
+  count(pet) %>% 
+  mutate(n = n - 1) %>% 
+  filter(!is.na(pet)) %>% 
+  mutate(img = ifelse(pet == 'Cats', imgs$cat, imgs$dog)) 
+### make the figure -----------
+fig$pet <- y %>% 
+  ggplot(aes(x = pet, y = n)) +
+  geom_bar(aes(fill = pet), stat = 'identity') +
+  geom_image(aes(image = img, y = n*1.1), size = 0.2) +
+  theme(
+    panel.background = element_blank(),
+    plot.background = element_blank(),
+    legend.position = 'none',
+    axis.line.x = element_line()
+  ) +
+  labs(x = '', y = 'N') +
+  ylim(c(0, max(y$n)*1.5)) +
+  scale_fill_manual(values = c('#225222', '#822252'))
+  
+## Make an arrangement ----------
+ggpubr::ggarrange(fig$wc, fig$pet, ncol = 2, widths = c(2.5, 1)) %>% 
+  ggpubr::ggarrange(fig$oc, ncol = 1, heights = c(2.5, 1.5))
+```
+
+# Getting everything ready {background-image="img/bg_title.png"}
+
+## Posit cloud {background-image="img/bg.png"}
+
+<br/>
+
+::: columns
+::: {.column width="50%"}
+![](img/0_R.jpg){width="40%"}
+
+![](img/0_Rstudio.png){width="40%"}
+:::
+
+::: {.column width="50%"}
+<br/><br/> ![](img/0_posit.jpg)
+:::
+:::
+
+## Posit cloud {background-image="img/bg.png"}
+
+<https://posit.cloud>
+
+<br/> ![](img/0d_positDash.png){width="80%"}
+
+# Some programming concepts {background-image="img/bg_title.png"}
+
+## Why R? {background-image="img/bg.png"}
+
+<br/>
+
+::: incremental
+-   [It's FREE!]{.black}
+-   [Open source]{.black}
+-   [Runs in any OS]{.black}
+-   [Programming languages are great for collaboration and reproducible research]{.black}
+:::
+
+::: notes
+-   R is free! the version we will use runs in the cloud with limited resources for free, plans are available if more resources needed.. but also, everything we will learn in this workshop is directly applicable for the R desktop version, which will be able to use all the resources available in your computer.
+-   R is open source, this means anyone can contribute to improve R and create new functions.. and yes there is a looot of people doing this just for the sake of open science (which measn that science should be as accessible and easy to do for everyone)
+-   Runs in any OS, as opposed to other software coff coff ARC GIS and \@Risk, R can be run in Windows, Linux, MAC and other os using the cloud version
+-   As opposed to software that relies completely in UI, programming allows you to document every step of your work, meaning that you can come back to your code years later, and if documented properly, you shouldnt worry to much about remembering off the top of your head exactly what you did and in what order
+:::
+
+## [Comments]{style="color:black;"} {background-color="black" background-image="img/bg_2.png"}
+
+COMMENT AS MUCH AS POSSIBLE!
+
+```{r echo = T, eval = F}
+# This is a comment in R it will be only for the user
+This is not a comment and will cause an error
+```
+
+What is the difference between line 1 and 2?
+
+. . .
+
+YES! the `#` character will make everything after it a comment in that line of code
+
+. . .
+
+```{r echo = T, eval = F}
+10 + 10 # Everything after will be a comment
+7 + 4
+```
+
+::: notes
+Comments are probably the most important feature of programming languages, commenting your code is not only for you (and feature you), it's also to explain other people what you did and make it easier for them to replicate
+:::
+
+## [Operators]{style="color:black;"} {background-color="black" background-image="img/bg_2.png"}
+
+Operators are characters with a specific function in R for example
+
+```{r echo = T}
+3 + 3 # this is a sum operator
+3 - 2 # this is a subtract operator
+4 * 4 # This is a multiplication
+```
+
+. . .
+
+Later we will see other kind of operators, but... DONT STRESS about learning everything.
+
+## [Objects]{style="color:black;"} {background-color="black" background-image="img/bg_2.png"}
+
+Objects in R are containers for information, we can create objects with any names we want that start with a letter
+
+```{r echo = T}
+myNumber <- 4
+myResult <- 4 * 5
+```
+
+::: notes
+Does anyone notice what operators are we using in those lines of code?
+:::
+
+## [Storing multiple elements]{style="color:black;"} {background-color="black" background-image="img/bg_2.png"}
+
+Using the `c()` function
+
+```{r echo = T}
+x <- c(1, 3, 5) # using the c() function
+x
+```
+
+. . .
+
+Using the `list()` function
+
+```{r echo = T}
+y <- list(1, 3, 5) # using the list() function
+y
+```
+
+## [Boolean logic]{style="color:black;"} {background-color="black" background-image="img/bg_2.png"}
+
+```{r echo = T}
+1 == 1 # is it equal?
+1 != 1 # is it NOT equal?
+1 %in% c(1, 2, 3) # is the number contained in the sequence?
+```
+
+. . .
+
+Notice that we are using operators to make the comparisons
+
+## [Functions]{style="color:black;"} {background-color="black" background-image="img/bg_2.png"}
+
+Functions are a special kind of object. Functions are objects that require arguments, the arguments needs to be inside parentheses.
+
+```{r echo = T}
+# create a sequence of numbers
+seq(
+  from = 0, # Starting number
+  to = 80, # Ending number
+  by = 20 # number increment of the sequence
+) 
+```
+
+. . .
+
+Notice that the arguments are named in the function, the arguments in the function `seq()` function are `from`, `to`, `by`.
+
+. . .
+
+We can create our own functions, which we will talk more about in the labs
+
+## Variables in R {background-image="img/bg.png"}
+
+<br/>
+
+::: incremental
+-   [*numeric*]{.green}[, continuous numeric variables WITH any decimal values. For example: KG of product imported, probability of an event happening.]{.black}
+-   [*integer*]{.green} [, Whole numbers WITHOUT decimal values. For example: Number of animals, number of shipments, etc..]{.black}
+-   [*character*]{.green} [, Alphanumeric variables. For example: name of a region, name of a disease, farm ID.]{.black}
+-   [*factor*]{.green} [, Alphanumeric variable with specific categories or levels. For example: type of product imported, type of farm, etc...]{.black}
+:::
+
+## [Test time!]{style="color:black;"} {background-color="black" background-image="img/bg_2.png"}
+
+```{r echo=T}
+x <- seq(from = 5, to = 23, length.out = 10) # create a sequence of numbers
+y <- seq(from = 0.1, to = 0.78, length.out = 10) # Create another sequence
+mean(x*y) # Get the mean of the multiplication
+```
+
+. . .
+
+::: columns
+::: {.column with="30%"}
+Objects:\
+- x\
+- y
+:::
+
+::: {.column with="30%"}
+Operators:\
+- `*`\
+- `<-`\
+- `=`
+:::
+:::
+
+. . .
+
+::: columns
+::: {.column with="30%"}
+Functions:\
+- `seq()`\
+- `mean()`
+:::
+
+::: {.column with="30%"}
+Arguments:\
+- `from`\
+- `to`\
+- `lengt.out`
+:::
+:::
+
+
+## How can we find help with R? {background-image="img/bg.png"}
+
+<br/>
+
+[Using the `?` operator:]{.black}
+
+![](img/4a_help.png){fig-align="center"}
+
+## How can we find help with R? {background-image="img/bg.png"}
+
+<br/>
+
+![](img/4a_helpDoc.png){fig-align="center"}
+
+## How can we find help with R? {background-image="img/bg.png"}
+
+<br/>
+
+![](img/4a_helpDocArg.png){fig-align="center"}
+
+## How can we find help with R? {background-image="img/bg.png"}
+
+<br/>
+
+![](img/4a_helpDocEx.png){fig-align="center"}
+
+## How can we find help with R? {background-image="img/bg.png"}
+
+<br/>
+
+[ChatGPT:](https://chat.openai.com/)
+
+![](img/4a_helpChat.png){fig-align="center"}
+
+## How can we find help with R? {background-image="img/bg.png"}
+
+<br/>
+
+[ChatGPT:](https://chat.openai.com/)
+
+[! WARNING: CHAT GPT CAN GIVE INCORRECT INFORMATION !]{.red}
+
+-   [If chat GPT does not knows something, sometimes will make up information (i.e. made up references, name of packages, libraries etc...)]{.black}
+-   [Make sure to verify the information provided by Chat GPT]{.black}
+
+## How can we find help with R? {background-image="img/bg.png"}
+
+<br/>
+
+![](img/4a_helpGoogle.png){fig-align="center"}
+
+# R syntax {background-image="img/bg_title.png"}
+
+## [R Syntax]{style="color:black;"} {background-image="img/bg_2.png"}
+
+R is like a calculator, we can make mathematical operations, for example:
+
+<br/>
+
+```{r echo = T}
+#| code-line-numbers: "|1|2|3"
+x = 2 # create a new object with the = operator
+y <- 2 # create a new object with the <- operator
+x + y # make a operation with the objects
+```
+
+## [Vectors in R]{style="color:black;"} {background-image="img/bg_2.png"}
+
+You can store more than one value using vectors, to create a vector of numbers we use `c()`.
+
+<br/>
+
+```{r vectors, echo = T}
+#| code-line-numbers: "|1|"
+x <- c(5, 6, 7, 8, 9, 10) # create a sequence form 5 to 10
+y = 5:10 # create the same sequence but with a different approach
+x == y # ask R if the objects have the same information
+```
+
+. . .
+
+<br/>
+
+*Using the keys "alt" + "-" will automatically add the operator `<-`.*
+
+## [Vector operations]{style="color:black;"} {background-image="img/bg_2.png"}
+
+When we have a vector, we can ask R specific values inside an object by using the operator `[ ]` and specifying which ones we want.
+
+<br/>
+
+```{r echo = T}
+x
+```
+
+<br/>
+
+. . .
+
+```{r vector operations, echo = T}
+# Here we ask the 3rd value from our sequence
+x[3]
+```
+
+## [Vector operations]{style="color:black;"} {background-image="img/bg_2.png"}
+
+When we have a vector, we can ask R specific values inside an object by using the operator `[ ]` and specifying which ones we want.
+
+<br/>
+
+```{r echo = T}
+x
+y
+```
+
+<br/>
+
+. . .
+
+```{r vector operations 2, echo = T}
+# Now we multiply the 3rd value of the x sequence times the 5th value of the y sequence
+x[3] * y[5]
+```
+
+## [Functions]{style="color:black;"} {background-image="img/bg_2.png"}
+
+<br/>
+
+```{r functions, echo = T}
+# To get the sum of a vector of numbers inside an object we use sum()
+sum(x)
+```
+
+## [Functions]{style="color:black;"} {background-image="img/bg_2.png"}
+
+We can put functions inside function, for example, to get $\sqrt{\sum_1^n x}$ the square root of a sum of the numbers in x we can use:
+
+<br/>
+
+```{r nested functions, echo = T}
+sqrt(sum(x))
+```
+
+## [Making functions]{style="color:black;"} {background-image="img/bg_2.png"}
+
+The following function has only one argument which is a name (string) and just pastes some text before and after:
+
+```{r creating a function, echo = T}
+F1 <- function(name){
+  paste("Hola", name, "! welcome to the R world (: !") # paste the name with some text
+}
+
+# Testing the function (Put your name)
+F1(name = "Pablo")
+```
+
+## [Remember this?]{style="color:black;"} {background-image="img/bg_2.png"}
+
+$$\sqrt{\sum_1^n x}$$
+
+``` r
+sqrt(sum(x))
+```
+
+## [Introducing the pipes `%>%`]{style="color:black;"} {background-image="img/bg_2.png"}
+
+*Pipes* (`%>%`), can connect several functions to an object.
+
+. . .
+
+For example, if we want to execute a function `F1()` followed by another function `F2()` for the object `x`:
+
+. . .
+
+``` r
+F2(F1(x))
+```
+
+. . .
+
+is equivalent to:
+
+``` r
+x %>% F1() %>% F2()
+```
+
+## [For example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+$$\sqrt{\sum_1^n x}$$
+
+Instead of this:
+
+``` r
+sqrt(sum(x))
+```
+
+. . .
+
+We can write it like this:
+
+``` r
+x %>% sum() %>% sqrt()
+```
+
+## [For example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+Instead of this:
+
+``` r
+# Get the number of outgoing and incoming shipments 
+Out <- rename(summarise(group_by(mov, id_orig), Outgoing = n()), id = id_orig)
+```
+
+. . .
+
+We can write this:
+
+``` r
+# Get the number of outgoing and incoming shipments 
+Out <- mov %>% 
+  group_by(id_orig) %>%
+  summarise(Outgoing = n()) %>%
+  rename(id = id_orig)
+```
+
+## [For example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+Instead of this:
+
+``` r
+# Get the number of outgoing and incoming shipments 
+Out <- rename(summarise(group_by(mov, id_orig), Outgoing = n()), id = id_orig)
+```
+
+We can write this:
+
+``` r
+# Get the number of outgoing and incoming shipments 
+Out <- mov %>% # This is the movement data set
+  group_by(id_orig) %>% # Group by origin
+  summarise(Outgoing = n()) %>% # Count the number of observations
+  rename(id = id_orig) # Rename the variable
+```
+
+<br/> And we can break down the code easier!
+
+
+# Data visualization{background-image="img/bg_title.png"}
+
+## ggplot2 {background-image="img/bg.png" body-color="black"}
+
+<br/>
+
+::: columns
+::: {.column width="50%"}
+-   [We build our figures based on layers]{.black}
+-   [Similar syntax as dplyr]{.black}
+-   [We can combine data wrangling and visualization into a single code chunk]{.black}
+
+:::
+
+::: {.column width="50%"}
+![Lectures](img/shrek-ogres-have-layers.gif)
+:::
+
+:::
+
+::: {.fragment}
+[Instead of the `%>%`, in ggplot we connect pieces of code with `+`]{.black}
+:::
+
+## ggplot2 {background-image="img/bg.png" body-color="black"}
+
+<br/>
+
+[The basic components that we need to define for a plot are the following:]{.black}
+
+-   [*data*, the data set we will use to generate the figure]{.black}
+-   [*geometry*, or type of graphic we will generate (i.e. histogram, bar, scatter, etc..)]{.black}
+-   [*aesthetic*, variables or arguments that will be used for the figure for example: location, color, size, etc..]{.black}
+
+## [Example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r}
+#| code-line-numbers: "1"
+#| eval: false
+captures # Data
+``` 
+
+. . .
+
+```{r echo = F}
+Pable(captures)
+```
+
+## [Example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r eval = F}
+#| code-line-numbers: "2"
+captures %>% # Data used
+  count(year, wt = treated)  # Some data transformation
+```
+
+. . .
+
+```{r echo = F}
+captures %>% # Data used
+  count(year, wt = treated) %>%   # Some data wrangling
+  Pable()
+```
+
+## [Example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r}
+#| code-line-numbers: "4"
+captures %>% # Data used
+  count(year, wt = treated) %>%   # Some data wrangling
+  ggplot() # Add an empty canvas
+```
+
+## [Example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r eval=F}
+#| code-line-numbers: "5"
+captures %>% # Data used
+  count(year, wt = treated) %>%   # Some data wrangling
+  ggplot() + # Add an empty canvas
+  geom_bar() # This is the geometry type
+```
+
+## [Example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r}
+#| code-line-numbers: "5-8"
+captures %>% # Data used
+  count(year, wt = treated) %>%   # Some data wrangling
+  ggplot() + # Add an empty canvas
+  geom_bar( # This is the geometry type
+    aes( # Aesthetics or mapping
+      x = year, # X axis
+      y = n # Y axis
+      ), 
+    stat = 'identity' # extra arguments
+  ) 
+```
+
+## [Example]{style="color:black;"} {background-image="img/bg_2.png"}
+
+```{r}
+#| code-line-numbers: "11-14"
+captures %>% # Data used
+  count(year, wt = treated) %>%   # Some data wrangling
+  ggplot() + # Add an empty canvas
+  geom_bar(aes(x = year, y = n), stat = 'identity') +
+  labs(# extra arguments
+    title = 'Bar plot',
+    x = 'Year', y = 'Frequency'
+  )
+```
+
+## ggplot2 {background-image="img/bg.png" body-color="black"}
+
+![](img/3_cheatsheet.png){width="493"}
+
+[Link to the cheasheet](https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf)
+
+[Other cheatsheets](https://posit.co/resources/cheatsheets/?type=posit-cheatsheets/)
+
+# [It's Lab time!](https://www.spablo-temporal.network/DataViz-workshop/DataViz_I.html)
+Introduction to ggplot2
